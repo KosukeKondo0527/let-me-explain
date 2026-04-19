@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鮨 — SUSHI | 千年の美食</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Yuji+Syuku&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sumi: #1a1613;
+    --sumi-light: #2a2420;
+    --washi: #f5f0e6;
+    --washi-dark: #ebe3d3;
+    --shu: #c13c26;
+    --shu-dark: #8b2818;
+    --kincha: #b08d3a;
+    --kin: #d4a849;
+    --ai: #1e3a52;
+    --paper: #fdfaf3;
+    --ink: #2b2420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Shippori Mincho', serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    line-height: 1.8;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(193, 60, 38, 0.02) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(176, 141, 58, 0.03) 0%, transparent 40%),
+      repeating-linear-gradient(45deg, transparent 0, transparent 2px, rgba(26, 22, 19, 0.008) 2px, rgba(26, 22, 19, 0.008) 4px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ===== 言語切替ボタン ===== */
+  .lang-switcher {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 100;
+    display: flex;
+    background: rgba(253, 250, 243, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(26, 22, 19, 0.15);
+    box-shadow: 0 8px 24px -8px rgba(26, 22, 19, 0.15);
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    padding: 0.6rem 1.1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--sumi-light);
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .lang-btn + .lang-btn {
+    border-left: 1px solid rgba(26, 22, 19, 0.12);
+  }
+
+  .lang-btn:hover {
+    color: var(--shu);
+  }
+
+  .lang-btn.active {
+    background: var(--sumi);
+    color: var(--paper);
+  }
+
+  /* 英語表示時のフォント調整 */
+  html[lang="en"] body {
+    font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
+    line-height: 1.7;
+  }
+
+  html[lang="en"] .timeline-content,
+  html[lang="en"] .type-description,
+  html[lang="en"] .regional-desc,
+  html[lang="en"] .origin-text p,
+  html[lang="en"] .stat-desc,
+  html[lang="en"] .footer-desc,
+  html[lang="en"] .hero-tagline,
+  html[lang="en"] .regional-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+  }
+
+  html[lang="en"] .origin-text .lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.45rem;
+  }
+
+  html[lang="en"] .regional-name,
+  html[lang="en"] .timeline-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+  }
+
+  html[lang="en"] .world-quote {
+    font-size: 1.7rem;
+  }
+
+  /* ===== ヒーロー ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--paper) 0%, var(--washi) 100%);
+  }
+
+  .hero-left {
+    padding: 6vw 4vw 6vw 8vw;
+    position: relative;
+    z-index: 3;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--sumi-light);
+  }
+
+  .brand-mark::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--shu);
+  }
+
+  .hero-kanji {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(8rem, 18vw, 16rem);
+    line-height: 0.85;
+    color: var(--sumi);
+    margin-bottom: 1rem;
+    letter-spacing: -0.05em;
+    position: relative;
+    animation: fadeInUp 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .hero-reading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--sumi-light);
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 1.4s 0.2s cubic-bezier(0.19, 1, 0.22, 1) backwards;
+  }
+
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: var(--sumi-light);
+    max-width: 28rem;
+    margin-bottom: 3rem;
+    animation: fadeInUp 1.4s 0.4s cubic-bezier(0.19, 1, 0.22, 1) backwards;
+  }
+
+  .hero-tagline .emphasis {
+    color: var(--shu);
+    font-weight: 600;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2.5rem;
+    animation: fadeInUp 1.4s 0.6s cubic-bezier(0.19, 1, 0.22, 1) backwards;
+  }
+
+  .meta-item { font-family: 'Cormorant Garamond', serif; }
+
+  .meta-item .num {
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--shu);
+    display: block;
+    line-height: 1;
+  }
+
+  .meta-item .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sumi-light);
+    margin-top: 0.5rem;
+  }
+
+  .hero-right {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero-image-frame {
+    position: absolute;
+    width: 75vmin;
+    height: 75vmin;
+    max-width: 760px;
+    max-height: 760px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px rgba(26, 22, 19, 0.35),
+      inset 0 0 0 1px rgba(212, 168, 73, 0.3);
+    animation: fadeIn 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .hero-image-frame::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--kin), var(--shu), var(--kin), var(--shu-dark), var(--kin));
+    z-index: -1;
+    animation: rotate 25s linear infinite;
+  }
+
+  .hero-image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.1) contrast(1.05);
+  }
+
+  .hanko-stamp {
+    position: absolute;
+    top: 8%;
+    right: 12%;
+    width: 70px;
+    height: 70px;
+    background: var(--shu);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Yuji Syuku', serif;
+    font-size: 2rem;
+    transform: rotate(-8deg);
+    z-index: 5;
+    box-shadow: 0 6px 20px rgba(193, 60, 38, 0.5);
+  }
+
+  .vertical-text {
+    position: absolute;
+    writing-mode: vertical-rl;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Yuji Syuku', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.8rem;
+    color: var(--sumi);
+    z-index: 4;
+    opacity: 0.7;
+  }
+
+  /* ===== セクション共通 ===== */
+  .section {
+    padding: 10rem 8vw;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3rem;
+    align-items: end;
+    margin-bottom: 5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(26, 22, 19, 0.15);
+  }
+
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--shu);
+    writing-mode: vertical-rl;
+  }
+
+  .section-title {
+    font-family: 'Tenor Sans', 'Shippori Mincho', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1.2;
+    color: var(--sumi);
+    letter-spacing: 0.05em;
+    font-weight: 400;
+  }
+
+  .section-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    letter-spacing: 0.25em;
+    color: var(--sumi-light);
+    margin-top: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  /* ===== 定義セクション ===== */
+  .definition {
+    padding: 8rem 8vw;
+    background: var(--paper);
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .definition::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 5rem;
+    background: linear-gradient(180deg, transparent, var(--shu));
+  }
+
+  .definition-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--shu);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .definition-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.3rem, 2.4vw, 2rem);
+    line-height: 2;
+    color: var(--sumi);
+    max-width: 52rem;
+    margin: 0 auto;
+    font-weight: 500;
+  }
+
+  .definition-text .accent {
+    color: var(--shu);
+    font-weight: 600;
+  }
+
+  .definition-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .definition-divider::before,
+  .definition-divider::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--kincha);
+  }
+
+  .definition-divider span {
+    font-family: 'Yuji Syuku', serif;
+    font-size: 1.2rem;
+    color: var(--kincha);
+  }
+
+  html[lang="en"] .definition-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  /* ===== 起源 ===== */
+  .origin { background: var(--paper); }
+
+  .origin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .origin-text p {
+    margin-bottom: 1.8rem;
+    font-size: 1.05rem;
+    color: var(--sumi-light);
+  }
+
+  .origin-text .lead {
+    font-size: 1.4rem;
+    color: var(--sumi);
+    font-weight: 500;
+    line-height: 1.7;
+    border-left: 3px solid var(--shu);
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .origin-visual {
+    position: sticky;
+    top: 3rem;
+  }
+
+  .origin-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 60px -20px rgba(26, 22, 19, 0.4);
+    margin-bottom: 1.5rem;
+  }
+
+  .origin-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .origin-image:hover img { transform: scale(1.05); }
+
+  .origin-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--sumi-light);
+    text-transform: uppercase;
+    padding-left: 1rem;
+    border-left: 2px solid var(--shu);
+  }
+
+  .kanji-showcase {
+    background: var(--sumi);
+    color: var(--washi);
+    padding: 2.5rem;
+    position: relative;
+    margin-top: 2rem;
+  }
+
+  .kanji-showcase::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(212, 168, 73, 0.3);
+    pointer-events: none;
+  }
+
+  .kanji-triple {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    margin: 1rem 0;
+  }
+
+  .kanji-item {
+    transition: transform 0.4s ease, color 0.4s ease;
+    cursor: default;
+  }
+
+  .kanji-item:hover {
+    transform: translateY(-8px);
+    color: var(--kin);
+  }
+
+  .kanji-item:nth-child(2) { color: var(--kin); }
+
+  .kanji-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-align: center;
+    color: var(--kincha);
+    text-transform: uppercase;
+    margin-top: 1rem;
+    border-top: 1px solid rgba(212, 168, 73, 0.3);
+    padding-top: 1rem;
+  }
+
+  /* ===== 歴史 ===== */
+  .history { background: linear-gradient(180deg, var(--paper) 0%, var(--washi) 100%); }
+
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--shu) 0%, var(--kincha) 50%, var(--sumi) 100%);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 5rem;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .timeline-item.no-image { grid-template-columns: 1fr; }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -3.4rem;
+    top: 0.5rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--shu);
+    box-shadow: 0 0 0 4px var(--paper);
+  }
+
+  .timeline-text { max-width: 36rem; }
+
+  .timeline-era {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--shu);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-year {
+    font-family: 'Yuji Syuku', serif;
+    font-size: 2.2rem;
+    color: var(--sumi);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .timeline-content { color: var(--sumi-light); }
+  .timeline-content strong { color: var(--sumi); font-weight: 600; }
+
+  .timeline-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -15px rgba(26, 22, 19, 0.4);
+    position: relative;
+  }
+
+  .timeline-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .timeline-image:hover img { transform: scale(1.08); }
+
+  .timeline-image::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(245, 240, 230, 0.4);
+    pointer-events: none;
+  }
+
+  /* ===== 種類 ===== */
+  .types {
+    background: var(--sumi);
+    color: var(--washi);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .types::before {
+    content: '種';
+    position: absolute;
+    top: 5rem;
+    right: -5rem;
+    font-family: 'Yuji Syuku', serif;
+    font-size: 40rem;
+    line-height: 0.8;
+    color: rgba(212, 168, 73, 0.04);
+    pointer-events: none;
+  }
+
+  .types .section-title { color: var(--washi); }
+  .types .section-num { color: var(--kin); }
+  .types .section-subtitle { color: rgba(245, 240, 230, 0.6); }
+  .types .section-header { border-bottom-color: rgba(212, 168, 73, 0.2); }
+
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .type-card {
+    background: rgba(245, 240, 230, 0.03);
+    border: 1px solid rgba(212, 168, 73, 0.2);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .type-card:hover {
+    background: rgba(193, 60, 38, 0.08);
+    transform: translateY(-6px);
+    border-color: var(--kin);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+
+  .type-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .type-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    filter: brightness(0.92) saturate(1.1);
+  }
+
+  .type-card:hover .type-image img {
+    transform: scale(1.1);
+    filter: brightness(1) saturate(1.2);
+  }
+
+  .type-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(26, 22, 19, 0.6) 100%);
+    pointer-events: none;
+  }
+
+  .type-kanji-overlay {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    font-family: 'Yuji Syuku', serif;
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--washi);
+    z-index: 2;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    transition: color 0.4s ease;
+  }
+
+  .type-card:hover .type-kanji-overlay { color: var(--kin); }
+
+  .type-content {
+    padding: 2rem 2rem 2.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .type-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--kincha);
+    margin-bottom: 0.8rem;
+  }
+
+  .type-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    color: var(--kin);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(212, 168, 73, 0.2);
+  }
+
+  .type-description {
+    color: rgba(245, 240, 230, 0.75);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  /* ===== 世界 ===== */
+  .world {
+    background: var(--paper);
+    position: relative;
+  }
+
+  .world-quote-block {
+    margin-bottom: 5rem;
+    max-width: 50rem;
+  }
+
+  .world-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 2rem;
+    line-height: 1.6;
+    color: var(--sumi);
+    position: relative;
+    padding: 1.5rem 0 1.5rem 2.5rem;
+    border-left: 3px solid var(--shu);
+  }
+
+  .world-quote::before {
+    content: '";
+    position: absolute;
+    left: 0.5rem;
+    top: -1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    color: var(--shu);
+    line-height: 1;
+    opacity: 0.4;
+  }
+
+  .world-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+    height: 60vh;
+    min-height: 500px;
+  }
+
+  .world-img {
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 50px -15px rgba(26, 22, 19, 0.3);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .world-img:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -15px rgba(26, 22, 19, 0.5);
+  }
+
+  .world-img:nth-child(1) { grid-row: span 2; }
+  .world-img:nth-child(2) { grid-column: 2 / 4; }
+
+  .world-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .world-img:hover img { transform: scale(1.08); }
+
+  .world-img-label {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 1.2rem;
+    background: rgba(26, 22, 19, 0.85);
+    color: var(--washi);
+    padding: 0.5rem 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+  }
+
+  .world-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .stat-block {
+    padding: 2rem;
+    background: var(--washi);
+    border-left: 4px solid var(--shu);
+    transition: transform 0.4s ease;
+  }
+
+  .stat-block:hover { transform: translateX(8px); }
+
+  /* 画像付き統計カード */
+  .stat-block.has-image {
+    padding: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: stretch;
+  }
+
+  .stat-image {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .stat-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .stat-block.has-image:hover .stat-image img {
+    transform: scale(1.08);
+  }
+
+  .stat-image.is-archive img {
+    filter: sepia(0.15) contrast(1.05);
+  }
+
+  .stat-block.has-image .stat-text {
+    padding: 1.5rem 1.8rem;
+    border-left: 1px solid rgba(26, 22, 19, 0.08);
+  }
+
+  .stat-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--shu);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--sumi-light);
+    margin: 0.5rem 0 1rem;
+  }
+
+  .stat-desc { color: var(--sumi); font-size: 0.95rem; }
+
+  /* ===== 郷土寿司 ===== */
+  .regional {
+    background: linear-gradient(180deg, var(--washi) 0%, var(--paper) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .regional::before {
+    content: '郷';
+    position: absolute;
+    top: 8rem;
+    left: -3rem;
+    font-family: 'Yuji Syuku', serif;
+    font-size: 32rem;
+    line-height: 0.8;
+    color: rgba(193, 60, 38, 0.04);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .regional-intro {
+    max-width: 42rem;
+    margin-bottom: 4rem;
+    font-size: 1.15rem;
+    color: var(--sumi-light);
+    line-height: 1.9;
+    position: relative;
+    z-index: 2;
+  }
+
+  .regional-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .regional-card {
+    background: var(--paper);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    border: 1px solid rgba(26, 22, 19, 0.08);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .regional-card:nth-child(even) {
+    transform: translateY(2rem);
+  }
+
+  .regional-card:hover {
+    transform: translateY(-0.5rem) !important;
+    box-shadow: 0 35px 70px -25px rgba(26, 22, 19, 0.35);
+    border-color: var(--shu);
+  }
+
+  .regional-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .regional-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.3s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .regional-card:hover .regional-image img {
+    transform: scale(1.1);
+  }
+
+  .regional-region {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--paper);
+    background: rgba(26, 22, 19, 0.85);
+    padding: 0.4rem 0.9rem;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+  }
+
+  .regional-content {
+    padding: 2rem 2rem 2.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .regional-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--sumi);
+    margin-bottom: 0.4rem;
+  }
+
+  .regional-reading {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--shu);
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px dashed rgba(26, 22, 19, 0.15);
+  }
+
+  .regional-desc {
+    color: var(--sumi-light);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  /* ===== フッター ===== */
+  .footer {
+    background: var(--sumi);
+    color: var(--washi);
+    padding: 6rem 8vw 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid rgba(212, 168, 73, 0.2);
+  }
+
+  .footer-brand {
+    font-family: 'Yuji Syuku', serif;
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--washi);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    letter-spacing: 0.25em;
+    color: var(--kin);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .footer-desc {
+    color: rgba(245, 240, 230, 0.7);
+    max-width: 30rem;
+    font-size: 0.95rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: rgba(245, 240, 230, 0.5);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes rotate { to { transform: rotate(360deg); } }
+
+  @media (max-width: 960px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-right {
+      order: 1;
+      height: auto;
+      padding: 7rem 6vw 1rem;
+    }
+    .hero-left {
+      order: 2;
+      padding: 1.5rem 6vw 4rem;
+    }
+    .hero-image-frame {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      margin: 0 auto;
+      width: min(75vmin, 90vw);
+      height: min(75vmin, 90vw);
+    }
+    .brand-mark { margin-bottom: 1.5rem; }
+    .hero-meta { margin-bottom: 0; }
+    .vertical-text { display: none; }
+    .origin-grid, .footer-top {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .world-gallery {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 250px);
+      height: auto;
+    }
+    .world-img:nth-child(1),
+    .world-img:nth-child(2) {
+      grid-row: auto;
+      grid-column: auto;
+    }
+    .world-stats { grid-template-columns: 1fr; }
+    .stat-block.has-image {
+      grid-template-columns: 1fr;
+    }
+    .stat-image {
+      height: 180px;
+    }
+    .stat-block.has-image .stat-text {
+      border-left: none;
+      border-top: 1px solid rgba(26, 22, 19, 0.08);
+    }
+    .regional-gallery { grid-template-columns: 1fr; }
+    .regional-card:nth-child(even) { transform: none; }
+    .section { padding: 6rem 6vw; }
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .section-num { writing-mode: horizontal-tb; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 言語切替 ===== -->
+<div class="lang-switcher">
+  <button class="lang-btn active" data-lang="ja">日本語</button>
+  <button class="lang-btn" data-lang="en">English</button>
+</div>
+
+<!-- ===== ヒーロー ===== -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="brand-mark" data-i18n="brandMark">Since The 8th Century · 千年の歴史</div>
+    <h1 class="hero-kanji" data-i18n="heroKanji">鮨</h1>
+    <div class="hero-reading" data-i18n="heroReading">SUSHI</div>
+    <p class="hero-tagline" data-i18n-html="heroTagline">
+      米と魚、そして<span class="emphasis">酢</span>が織りなす美学。<br>
+      一貫に込められた、千年を超える日本の知恵と情熱。
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="num">1000+</span>
+        <span class="label" data-i18n="metaHistory">Years of History</span>
+      </div>
+      <div class="meta-item">
+        <span class="num">∞</span>
+        <span class="label" data-i18n="metaVarieties">Regional Varieties</span>
+      </div>
+      <div class="meta-item">
+        <span class="num">100+</span>
+        <span class="label" data-i18n="metaCountries">Countries</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-image-frame">
+      <img src="images/01-hero-nigiri.png" alt="握り寿司の盛り合わせ">
+    </div>
+    <div class="vertical-text" data-i18n="verticalText">米と魚 千年の美</div>
+  </div>
+</section>
+
+<!-- ===== 定義 ===== -->
+<section class="definition">
+  <div class="definition-mark" data-i18n="definitionMark">— Definition —</div>
+  <p class="definition-text" data-i18n-html="definitionText">
+    寿司(すし、<span class="accent">鮨・鮓</span>)とは、一般に酢飯などと主に魚介類を組み合わせた<span class="accent">和食</span>。特に<span class="accent">握り寿司</span>のこと。
+  </p>
+  <div class="definition-divider"><span>・</span></div>
+</section>
+
+<!-- ===== 起源 ===== -->
+<section class="section origin" id="origin">
+  <div class="section-header">
+    <div class="section-num" data-i18n="originNum">Ⅰ · 起源</div>
+    <div>
+      <h2 class="section-title" data-i18n="originTitle">始まりは保存食</h2>
+      <p class="section-subtitle" data-i18n="originSubtitle">The Ancient Origins of Preserved Fish</p>
+    </div>
+  </div>
+
+  <div class="origin-grid">
+    <div class="origin-text">
+      <p class="lead" data-i18n="originLead">
+        寿司の起源は、米と魚を発酵させた保存食「なれずし」にある。その歴史は遥か東南アジアの山地民族にまで遡るとされる。
+      </p>
+      <p data-i18n="originP1">
+        米飯と魚介類を組み合わせた和食として世界に知られる寿司。元々は米飯と魚を発酵させた保存食であり、長期保存の手段として発達した。
+      </p>
+      <p data-i18n="originP2">
+        日本での文献初見は、奈良時代の『養老令』(718年)。「鰒鮓(あわびずし)」「貽貝鮓(いがいずし)」などの記述が見られ、千年以上の歴史が確認できる。
+      </p>
+      <p data-i18n="originP3">
+        「すっぱい」を意味する古語「酸(す)し」が、この食の名前の由来となった。
+      </p>
+
+      <div class="kanji-showcase">
+        <div style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--kin); text-transform: uppercase; text-align: center;" data-i18n="kanjiShowcaseTop">
+          Three Characters, One Word
+        </div>
+        <div class="kanji-triple">
+          <div class="kanji-item">寿司</div>
+          <div class="kanji-item">鮨</div>
+          <div class="kanji-item">鮓</div>
+        </div>
+        <div class="kanji-label" data-i18n="kanjiShowcaseLabel">Sushi · Ji · Za — All Mean "Sushi"</div>
+      </div>
+    </div>
+
+    <div class="origin-visual">
+      <div class="origin-image">
+        <img src="images/02-narezushi-bamboo.png" alt="笹に包まれた古式の寿司">
+      </div>
+      <div class="origin-caption" data-i18n="originCaption">古式の押し寿司 — Ancient form of preserved sushi</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 歴史 ===== -->
+<section class="section history" id="history">
+  <div class="section-header">
+    <div class="section-num" data-i18n="historyNum">Ⅱ · 歴史</div>
+    <div>
+      <h2 class="section-title" data-i18n="historyTitle">悠久の時を超えて</h2>
+      <p class="section-subtitle" data-i18n="historySubtitle">A Journey Through The Centuries</p>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item no-image">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era718">Nara · 奈良時代</div>
+        <div class="timeline-year">718</div>
+        <p class="timeline-content" data-i18n-html="content718">
+          <strong>『養老令』に鮓が登場。</strong>鰒(アワビ)や貽貝(イガイ)の鮓が記録される、日本での文献初見。塩と飯で漬け込み乳酸発酵させる「なれずし」として存在していた。
+        </p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era927">Heian · 平安時代</div>
+        <div class="timeline-year">927</div>
+        <p class="timeline-content" data-i18n-html="content927">
+          <strong>『延喜式』に多数の鮓が記録。</strong>諸国からの貢納品として鮒や鮎などのなれずしが盛んに作られていた。『今昔物語集』には「鮨売りの女」の話も登場し、当時の暮らしが伺える。
+        </p>
+      </div>
+      <div class="timeline-image">
+        <img src="images/04-ayu-narezushi.png" alt="鮎のなれずし">
+      </div>
+    </div>
+
+    <div class="timeline-item no-image">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era1400">Muromachi · 室町時代</div>
+        <div class="timeline-year">1400s</div>
+        <p class="timeline-content" data-i18n-html="content1400">
+          <strong>「ナマナレ(生成)」の登場。</strong>発酵期間を短縮し、漬け床の飯も共に食するスタイルが生まれる。蒸した強飯から柔らかい姫飯への食生活変化が背景にあった。
+        </p>
+      </div>
+    </div>
+
+    <div class="timeline-item no-image">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era1600">Edo · 江戸時代初期</div>
+        <div class="timeline-year">1600s</div>
+        <p class="timeline-content" data-i18n-html="content1600">
+          <strong>酢を用いた「早ずし」誕生。</strong>発酵を待たずに酢で酸味を調節する革命的な手法が生まれる。1728年の『料理網目調味抄』には「箱寿司に酢を注ぐ」との記述が登場。
+        </p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era1820">Edo · 江戸時代後期</div>
+        <div class="timeline-year">1820s</div>
+        <p class="timeline-content" data-i18n-html="content1820">
+          <strong>握り寿司の誕生。</strong>華屋與兵衛や堺屋松五郎らによって創案されたとされる握り寿司。江戸っ子にもてはやされ、屋台でも盛んに売られた。江戸のみならず関西にまで「江戸鮓」の店が広がった。
+        </p>
+      </div>
+      <div class="timeline-image">
+        <img src="images/05-edo-ukiyoe.png" alt="江戸時代の寿司屋台 浮世絵">
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era1923">Taisho - Showa · 大正〜昭和</div>
+        <div class="timeline-year">1923</div>
+        <p class="timeline-content" data-i18n-html="content1923">
+          <strong>関東大震災を機に全国へ。</strong>震災により東京から寿司職人が離散し、江戸前寿司が日本全国へと広まった。明治以降の製氷・冷蔵技術の進歩も相まって、生魚を扱える環境が飛躍的に向上した。
+        </p>
+      </div>
+      <div class="timeline-image">
+        <img src="images/06-showa-chef.png" alt="昭和の寿司職人">
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era1958">Showa · 昭和時代</div>
+        <div class="timeline-year">1958</div>
+        <p class="timeline-content" data-i18n-html="content1958">
+          <strong>回転寿司の誕生。</strong>大阪で「廻る元禄ずし」が開店。高級料理だった寿司を、気軽に楽しめる大衆の食へと変えた革命。1980年頃には日本全国に普及した。
+        </p>
+      </div>
+      <div class="timeline-image">
+        <img src="images/07-kaiten-1962.png" alt="1962年の回転寿司">
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-text">
+        <div class="timeline-era" data-i18n="era1990">Heisei · 平成</div>
+        <div class="timeline-year">1990s</div>
+        <p class="timeline-content" data-i18n-html="content1990">
+          <strong>サーモン寿司の革命。</strong>ノルウェー政府のサーモン輸出計画により、日本にサーモン寿司が浸透。2023年の調査では12年連続で回転寿司人気ネタ第1位となった。
+        </p>
+      </div>
+      <div class="timeline-image">
+        <img src="images/08-salmon-nigiri.png" alt="サーモンの握り寿司">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 種類 ===== -->
+<section class="section types" id="types">
+  <div class="section-header">
+    <div class="section-num" data-i18n="typesNum">Ⅲ · 種類</div>
+    <div>
+      <h2 class="section-title" data-i18n="typesTitle">多彩なる寿司の形</h2>
+      <p class="section-subtitle" data-i18n="typesSubtitle">The Many Forms of Sushi</p>
+    </div>
+  </div>
+
+  <div class="types-grid">
+    <div class="type-card">
+      <div class="type-image">
+        <img src="images/01-hero-nigiri.png" alt="握り寿司">
+        <div class="type-kanji-overlay">握</div>
+      </div>
+      <div class="type-content">
+        <div class="type-number">No. 01</div>
+        <div class="type-name">Nigiri</div>
+        <p class="type-description" data-i18n="typeNigiri">
+          小さな酢飯の塊に寿司種を載せ、両手で握って馴染ませた寿司の王道。江戸時代に江戸で考案され、現代の寿司を象徴する存在。一つを「一貫」と数える。
+        </p>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-image">
+        <img src="images/09-futomaki.png" alt="太巻き寿司">
+        <div class="type-kanji-overlay">巻</div>
+      </div>
+      <div class="type-content">
+        <div class="type-number">No. 02</div>
+        <div class="type-name">Maki</div>
+        <p class="type-description" data-i18n="typeMaki">
+          海苔と酢飯で具を巻いた寿司。細巻・中巻・太巻と太さで呼び名が変わる。軍艦巻は崩れやすい具材を乗せる独創的なスタイル。海外では"Roll"として無限の創作が。
+        </p>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-image">
+        <img src="images/10-battera-oshi.png" alt="押し寿司・バッテラ">
+        <div class="type-kanji-overlay">押</div>
+      </div>
+      <div class="type-content">
+        <div class="type-number">No. 03</div>
+        <div class="type-name">Oshi</div>
+        <p class="type-description" data-i18n="typeOshi">
+          酢飯と具を木型に詰め、力をかけて押し固めた寿司。大阪の箱寿司、バッテラ、鱒寿司など、関西を中心に発達した伝統の形。握り寿司の原型ともいわれる。
+        </p>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-image">
+        <img src="images/11-chirashi-box.png" alt="ちらし寿司">
+        <div class="type-kanji-overlay">散</div>
+      </div>
+      <div class="type-content">
+        <div class="type-number">No. 04</div>
+        <div class="type-name">Chirashi</div>
+        <p class="type-description" data-i18n="typeChirashi">
+          酢飯に各種の具材を散らしたもの。江戸前では白い酢飯の上に握り寿司の種を並べる。関西では五目寿司と呼ばれ、家庭でハレの日に作られる祝祭の一品。
+        </p>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-image">
+        <img src="images/22-inari-zushi.png" alt="稲荷寿司">
+        <div class="type-kanji-overlay">稲荷</div>
+      </div>
+      <div class="type-content">
+        <div class="type-number">No. 05</div>
+        <div class="type-name">Inari</div>
+        <p class="type-description" data-i18n="typeInari">
+          甘辛く煮た油揚げに酢飯を詰めた寿司。稲荷信仰の狐の好物に由来する名。東は四角、西は三角と地域で形が異なる。巻き寿司と詰め合わせれば「助六」に。
+        </p>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-image">
+        <img src="images/12-funazushi-fermentation.png" alt="なれずし">
+        <div class="type-kanji-overlay">熟</div>
+      </div>
+      <div class="type-content">
+        <div class="type-number">No. 06</div>
+        <div class="type-name">Narezushi</div>
+        <p class="type-description" data-i18n="typeNarezushi">
+          魚に塩と飯を混ぜ長期保存し乳酸発酵させた寿司の原型。滋賀の鮒寿司、和歌山の鮎寿司、秋田のハタハタ寿司など。強い匂いと深い旨みを持つ保存食の極み。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 世界へ ===== -->
+<section class="section world" id="world">
+  <div class="section-header">
+    <div class="section-num" data-i18n="worldNum">Ⅳ · 世界</div>
+    <div>
+      <h2 class="section-title" data-i18n="worldTitle">世界を魅了する SUSHI</h2>
+      <p class="section-subtitle" data-i18n="worldSubtitle">The Global Ascent of Sushi</p>
+    </div>
+  </div>
+
+  <div class="world-quote-block">
+    <p class="world-quote" data-i18n="worldQuote">
+      Sushi は今や、天ぷらやすき焼きと並ぶ日本食を代表する食品となった。地方都市のスーパーマーケットですら、寿司のパックや巻物が売られている。
+    </p>
+  </div>
+
+  <div class="world-gallery">
+    <div class="world-img">
+      <img src="images/13-sushi-bar-overseas.png" alt="海外のSushi Bar">
+      <div class="world-img-label">Sushi Bar · Overseas</div>
+    </div>
+    <div class="world-img">
+      <img src="images/14-california-roll.png" alt="カリフォルニアロール">
+      <div class="world-img-label">California Roll · 1965</div>
+    </div>
+    <div class="world-img">
+      <img src="images/15-sushi-burrito.png" alt="寿司ブリトー">
+      <div class="world-img-label">Sushi Burrito · Fusion</div>
+    </div>
+  </div>
+
+  <div class="world-stats">
+    <div class="stat-block">
+      <div class="stat-year">1887</div>
+      <div class="stat-label">First Japanese Restaurant</div>
+      <div class="stat-desc" data-i18n="stat1887">サンフランシスコに米国初の日本料理店「大和屋」が開店。</div>
+    </div>
+
+    <div class="stat-block has-image">
+      <div class="stat-image is-archive">
+        <img src="images/20-kawafuku-1962.png" alt="ロサンゼルス川福 1962年">
+      </div>
+      <div class="stat-text">
+        <div class="stat-year">1962</div>
+        <div class="stat-label">The Sushi Bar Begins</div>
+        <div class="stat-desc" data-i18n="stat1962">ロサンゼルスの「川福」に本格的なsushi barカウンターが誕生。</div>
+      </div>
+    </div>
+
+    <div class="stat-block has-image">
+      <div class="stat-image">
+        <img src="images/21-hatsuhana-ny.png" alt="ニューヨーク 初花" style="object-position: right center;">
+      </div>
+      <div class="stat-text">
+        <div class="stat-year">1983</div>
+        <div class="stat-label">Four Stars in NY Times</div>
+        <div class="stat-desc" data-i18n="stat1983">ニューヨークの寿司店「初花」が最高評価の4ッ星を獲得。</div>
+      </div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-year">2005</div>
+      <div class="stat-label">Sustainable Sushi</div>
+      <div class="stat-desc" data-i18n="stat2005">需要拡大による資源枯渇を避ける持続可能な寿司の取り組みが始動。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 郷土寿司 ===== -->
+<section class="section regional" id="regional">
+  <div class="section-header">
+    <div class="section-num" data-i18n="regionalNum">Ⅴ · 郷土</div>
+    <div>
+      <h2 class="section-title" data-i18n="regionalTitle">各地の誇る逸品</h2>
+      <p class="section-subtitle" data-i18n="regionalSubtitle">Regional Treasures of Japan</p>
+    </div>
+  </div>
+
+  <p class="regional-intro" data-i18n="regionalIntro">
+    日本各地の風土と歴史が育んだ、土地ならではの寿司たち。山の幸、海の幸、そして発酵の知恵——その土地に根ざした素材と技法が、唯一無二の味わいを生み出してきた。
+  </p>
+
+  <div class="regional-gallery">
+    <div class="regional-card">
+      <div class="regional-image">
+        <span class="regional-region">Shiga · 滋賀</span>
+        <img src="images/03-funazushi-plate.png" alt="鮒寿司">
+      </div>
+      <div class="regional-content">
+        <h3 class="regional-name" data-i18n="regionalFunazushi">鮒寿司</h3>
+        <div class="regional-reading">Funazushi</div>
+        <p class="regional-desc" data-i18n="regionalFunazushiDesc">
+          琵琶湖のニゴロブナを用いたなれずし。古くからの製法で寿司の原型と呼ばれる滋賀県の名産。数ヶ月以上の飯漬けで醸される、深遠な旨味と香り。
+        </p>
+      </div>
+    </div>
+
+    <div class="regional-card">
+      <div class="regional-image">
+        <span class="regional-region">Osaka · 大阪</span>
+        <img src="images/10-battera-oshi.png" alt="バッテラ">
+      </div>
+      <div class="regional-content">
+        <h3 class="regional-name" data-i18n="regionalBattera">バッテラ</h3>
+        <div class="regional-reading">Battera</div>
+        <p class="regional-desc" data-i18n="regionalBatteraDesc">
+          1893年、大阪順慶町で誕生。ポルトガル語のbateira(小舟)が語源。酢締めの鯖と白板昆布を重ねた押し寿司で、江戸前寿司の原型とされる。
+        </p>
+      </div>
+    </div>
+
+    <div class="regional-card">
+      <div class="regional-image">
+        <span class="regional-region">Toyama · 富山</span>
+        <img src="images/16-masuzushi-toyama.png" alt="鱒寿司">
+      </div>
+      <div class="regional-content">
+        <h3 class="regional-name" data-i18n="regionalMasuzushi">鱒寿司</h3>
+        <div class="regional-reading">Masuzushi</div>
+        <p class="regional-desc" data-i18n="regionalMasuzushiDesc">
+          富山名産の桜色に染まる押し寿司。笹の葉の清々しい香りと、鱒の繊細な風味が調和する。木箱に美しく収められた芸術的な一品。
+        </p>
+      </div>
+    </div>
+
+    <div class="regional-card">
+      <div class="regional-image">
+        <span class="regional-region">Nara · 奈良</span>
+        <img src="images/17-kakinoha-nara.png" alt="柿の葉寿司">
+      </div>
+      <div class="regional-content">
+        <h3 class="regional-name" data-i18n="regionalKakinoha">柿の葉寿司</h3>
+        <div class="regional-reading">Kakinoha-zushi</div>
+        <p class="regional-desc" data-i18n="regionalKakinohaDesc">
+          柿の葉で包んだ押し寿司。奈良県・和歌山県の郷土料理で、鯖・鮭・小鯛などが用いられる。葉の抗菌作用を活かした先人の知恵。
+        </p>
+      </div>
+    </div>
+
+    <div class="regional-card">
+      <div class="regional-image">
+        <span class="regional-region">Tokyo · 東京</span>
+        <img src="images/18-shimazushi-izu.png" alt="島寿司">
+      </div>
+      <div class="regional-content">
+        <h3 class="regional-name" data-i18n="regionalShimazushi">島寿司</h3>
+        <div class="regional-reading">Shimazushi</div>
+        <p class="regional-desc" data-i18n="regionalShimazushiDesc">
+          伊豆諸島・小笠原諸島の郷土料理。島で捕れる魚を醤油漬けにし、ワサビの代わりに唐辛子や洋がらしを使う、島ならではの独創的な握り寿司。
+        </p>
+      </div>
+    </div>
+
+    <div class="regional-card">
+      <div class="regional-image">
+        <span class="regional-region">Kochi · 高知</span>
+        <img src="images/19-inakazushi-kochi.png" alt="田舎寿司">
+      </div>
+      <div class="regional-content">
+        <h3 class="regional-name" data-i18n="regionalInaka">田舎寿司</h3>
+        <div class="regional-reading">Inaka-zushi</div>
+        <p class="regional-desc" data-i18n="regionalInakaDesc">
+          山間部に伝わる野菜と山菜の寿司。柚子酢の酢飯に筍・茗荷・椎茸などを載せる。2018年より「土佐寿司」としてヴィーガン向け輸出も展開中。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== フッター ===== -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">鮨</div>
+      <div class="footer-tagline">— An Eternal Craft —</div>
+    </div>
+    <div>
+      <p class="footer-desc" data-i18n="footerDesc">
+        千年を超える歴史を持つ寿司は、保存食から始まり、発酵の知恵を経て、江戸の粋を纏い、そして今、世界へと広がる日本文化の結晶。米と魚と酢、この三つの素材が生み出す奇跡を、あなたはいくつ味わっただろうか。
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div data-i18n="footerCopyright">© 2026 SUSHI · The Art of Japanese Cuisine</div>
+    <div data-i18n="footerSource">Source: Wikipedia · ウィキペディア</div>
+  </div>
+</footer>
+
+<script>
+  // ===== 翻訳辞書 =====
+  const translations = {
+    ja: {
+      brandMark: "Since The 8th Century · 千年の歴史",
+      heroKanji: "鮨",
+      heroReading: "SUSHI",
+      heroTagline: '米と魚、そして<span class="emphasis">酢</span>が織りなす美学。<br>一貫に込められた、千年を超える日本の知恵と情熱。',
+      metaHistory: "Years of History",
+      metaVarieties: "Regional Varieties",
+      metaCountries: "Countries",
+      verticalText: "米と魚 千年の美",
+
+      definitionMark: "— Definition · 定義 —",
+      definitionText: '寿司(すし、<span class="accent">鮨・鮓</span>)とは、一般に酢飯などと主に魚介類を組み合わせた<span class="accent">和食</span>。特に<span class="accent">握り寿司</span>のこと。',
+
+      originNum: "Ⅰ · 起源",
+      originTitle: "始まりは保存食",
+      originSubtitle: "The Ancient Origins of Preserved Fish",
+      originLead: "寿司の起源は、米と魚を発酵させた保存食「なれずし」にある。その歴史は遥か東南アジアの山地民族にまで遡るとされる。",
+      originP1: "米飯と魚介類を組み合わせた和食として世界に知られる寿司。元々は米飯と魚を発酵させた保存食であり、長期保存の手段として発達した。",
+      originP2: "日本での文献初見は、奈良時代の『養老令』(718年)。「鰒鮓(あわびずし)」「貽貝鮓(いがいずし)」などの記述が見られ、千年以上の歴史が確認できる。",
+      originP3: "「すっぱい」を意味する古語「酸(す)し」が、この食の名前の由来となった。",
+      kanjiShowcaseTop: "Three Characters, One Word",
+      kanjiShowcaseLabel: 'Sushi · Ji · Za — All Mean "Sushi"',
+      originCaption: "古式の押し寿司 — Ancient form of preserved sushi",
+
+      historyNum: "Ⅱ · 歴史",
+      historyTitle: "悠久の時を超えて",
+      historySubtitle: "A Journey Through The Centuries",
+      era718: "Nara · 奈良時代",
+      content718: "<strong>『養老令』に鮓が登場。</strong>鰒(アワビ)や貽貝(イガイ)の鮓が記録される、日本での文献初見。塩と飯で漬け込み乳酸発酵させる「なれずし」として存在していた。",
+      era927: "Heian · 平安時代",
+      content927: "<strong>『延喜式』に多数の鮓が記録。</strong>諸国からの貢納品として鮒や鮎などのなれずしが盛んに作られていた。『今昔物語集』には「鮨売りの女」の話も登場し、当時の暮らしが伺える。",
+      era1400: "Muromachi · 室町時代",
+      content1400: "<strong>「ナマナレ(生成)」の登場。</strong>発酵期間を短縮し、漬け床の飯も共に食するスタイルが生まれる。蒸した強飯から柔らかい姫飯への食生活変化が背景にあった。",
+      era1600: "Edo · 江戸時代初期",
+      content1600: "<strong>酢を用いた「早ずし」誕生。</strong>発酵を待たずに酢で酸味を調節する革命的な手法が生まれる。1728年の『料理網目調味抄』には「箱寿司に酢を注ぐ」との記述が登場。",
+      era1820: "Edo · 江戸時代後期",
+      content1820: "<strong>握り寿司の誕生。</strong>華屋與兵衛や堺屋松五郎らによって創案されたとされる握り寿司。江戸っ子にもてはやされ、屋台でも盛んに売られた。江戸のみならず関西にまで「江戸鮓」の店が広がった。",
+      era1923: "Taisho - Showa · 大正〜昭和",
+      content1923: "<strong>関東大震災を機に全国へ。</strong>震災により東京から寿司職人が離散し、江戸前寿司が日本全国へと広まった。明治以降の製氷・冷蔵技術の進歩も相まって、生魚を扱える環境が飛躍的に向上した。",
+      era1958: "Showa · 昭和時代",
+      content1958: "<strong>回転寿司の誕生。</strong>大阪で「廻る元禄ずし」が開店。高級料理だった寿司を、気軽に楽しめる大衆の食へと変えた革命。1980年頃には日本全国に普及した。",
+      era1990: "Heisei · 平成",
+      content1990: "<strong>サーモン寿司の革命。</strong>ノルウェー政府のサーモン輸出計画により、日本にサーモン寿司が浸透。2023年の調査では12年連続で回転寿司人気ネタ第1位となった。",
+
+      typesNum: "Ⅲ · 種類",
+      typesTitle: "多彩なる寿司の形",
+      typesSubtitle: "The Many Forms of Sushi",
+      typeNigiri: "小さな酢飯の塊に寿司種を載せ、両手で握って馴染ませた寿司の王道。江戸時代に江戸で考案され、現代の寿司を象徴する存在。一つを「一貫」と数える。",
+      typeMaki: '海苔と酢飯で具を巻いた寿司。細巻・中巻・太巻と太さで呼び名が変わる。軍艦巻は崩れやすい具材を乗せる独創的なスタイル。海外では"Roll"として無限の創作が。',
+      typeOshi: "酢飯と具を木型に詰め、力をかけて押し固めた寿司。大阪の箱寿司、バッテラ、鱒寿司など、関西を中心に発達した伝統の形。握り寿司の原型ともいわれる。",
+      typeChirashi: "酢飯に各種の具材を散らしたもの。江戸前では白い酢飯の上に握り寿司の種を並べる。関西では五目寿司と呼ばれ、家庭でハレの日に作られる祝祭の一品。",
+      typeInari: "甘辛く煮た油揚げに酢飯を詰めた寿司。稲荷信仰の狐の好物に由来する名。東は四角、西は三角と地域で形が異なる。巻き寿司と詰め合わせれば「助六」に。",
+      typeNarezushi: "魚に塩と飯を混ぜ長期保存し乳酸発酵させた寿司の原型。滋賀の鮒寿司、和歌山の鮎寿司、秋田のハタハタ寿司など。強い匂いと深い旨みを持つ保存食の極み。",
+
+      worldNum: "Ⅳ · 世界",
+      worldTitle: "世界を魅了する SUSHI",
+      worldSubtitle: "The Global Ascent of Sushi",
+      worldQuote: "Sushi は今や、天ぷらやすき焼きと並ぶ日本食を代表する食品となった。地方都市のスーパーマーケットですら、寿司のパックや巻物が売られている。",
+      stat1887: "サンフランシスコに米国初の日本料理店「大和屋」が開店。",
+      stat1962: "ロサンゼルスの「川福」に本格的なsushi barカウンターが誕生。",
+      stat1983: "ニューヨークの寿司店「初花」が最高評価の4ッ星を獲得。",
+      stat2005: "需要拡大による資源枯渇を避ける持続可能な寿司の取り組みが始動。",
+
+      regionalNum: "Ⅴ · 郷土",
+      regionalTitle: "各地の誇る逸品",
+      regionalSubtitle: "Regional Treasures of Japan",
+      regionalIntro: "日本各地の風土と歴史が育んだ、土地ならではの寿司たち。山の幸、海の幸、そして発酵の知恵——その土地に根ざした素材と技法が、唯一無二の味わいを生み出してきた。",
+      regionalFunazushi: "鮒寿司",
+      regionalFunazushiDesc: "琵琶湖のニゴロブナを用いたなれずし。古くからの製法で寿司の原型と呼ばれる滋賀県の名産。数ヶ月以上の飯漬けで醸される、深遠な旨味と香り。",
+      regionalBattera: "バッテラ",
+      regionalBatteraDesc: "1893年、大阪順慶町で誕生。ポルトガル語のbateira(小舟)が語源。酢締めの鯖と白板昆布を重ねた押し寿司で、江戸前寿司の原型とされる。",
+      regionalMasuzushi: "鱒寿司",
+      regionalMasuzushiDesc: "富山名産の桜色に染まる押し寿司。笹の葉の清々しい香りと、鱒の繊細な風味が調和する。木箱に美しく収められた芸術的な一品。",
+      regionalKakinoha: "柿の葉寿司",
+      regionalKakinohaDesc: "柿の葉で包んだ押し寿司。奈良県・和歌山県の郷土料理で、鯖・鮭・小鯛などが用いられる。葉の抗菌作用を活かした先人の知恵。",
+      regionalShimazushi: "島寿司",
+      regionalShimazushiDesc: "伊豆諸島・小笠原諸島の郷土料理。島で捕れる魚を醤油漬けにし、ワサビの代わりに唐辛子や洋がらしを使う、島ならではの独創的な握り寿司。",
+      regionalInaka: "田舎寿司",
+      regionalInakaDesc: "山間部に伝わる野菜と山菜の寿司。柚子酢の酢飯に筍・茗荷・椎茸などを載せる。2018年より「土佐寿司」としてヴィーガン向け輸出も展開中。",
+
+      footerDesc: "千年を超える歴史を持つ寿司は、保存食から始まり、発酵の知恵を経て、江戸の粋を纏い、そして今、世界へと広がる日本文化の結晶。米と魚と酢、この三つの素材が生み出す奇跡を、あなたはいくつ味わっただろうか。",
+      footerCopyright: "© 2026 SUSHI · The Art of Japanese Cuisine",
+      footerSource: "Source: Wikipedia · ウィキペディア",
+
+      pageTitle: "鮨 — SUSHI | 千年の美食"
+    },
+
+    en: {
+      brandMark: "Since The 8th Century · A Millennial Heritage",
+      heroKanji: "鮨",
+      heroReading: "SUSHI",
+      heroTagline: 'An aesthetic woven of rice, fish, and <span class="emphasis">vinegar</span>.<br>One bite carries a thousand years of Japanese wisdom and passion.',
+      metaHistory: "Years of History",
+      metaVarieties: "Regional Varieties",
+      metaCountries: "Countries",
+      verticalText: "Rice & Fish · Eternal Beauty",
+
+      definitionMark: "— Definition —",
+      definitionText: 'Sushi (寿司, also written <span class="accent">鮨 or 鮓</span>) is generally a <span class="accent">Japanese cuisine</span> combining vinegared rice with seafood. The term refers especially to <span class="accent">nigiri sushi</span>.',
+
+      originNum: "Ⅰ · Origin",
+      originTitle: "Born as a Preserved Food",
+      originSubtitle: "The Ancient Origins of Preserved Fish",
+      originLead: 'The origin of sushi lies in "narezushi" — a preserved food made by fermenting rice and fish. Its history reaches back to the mountain peoples of Southeast Asia.',
+      originP1: "Sushi, known worldwide as Japanese cuisine combining rice and seafood, was originally a preserved food made by fermenting rice and fish, developed as a long-term preservation method.",
+      originP2: 'The first recorded mention in Japan appears in the Yoro Code (718 AD) of the Nara period. References to "abalone-zushi" and "mussel-zushi" confirm a history spanning over a millennium.',
+      originP3: 'The name derives from the archaic word "su-shi," meaning "sour" — reflecting the food\'s tangy nature.',
+      kanjiShowcaseTop: "Three Characters, One Word",
+      kanjiShowcaseLabel: 'Sushi · Ji · Za — All Mean "Sushi"',
+      originCaption: "Ancient Pressed Sushi — A form of preserved sushi",
+
+      historyNum: "Ⅱ · History",
+      historyTitle: "Across the Ages",
+      historySubtitle: "A Journey Through The Centuries",
+      era718: "Nara Period",
+      content718: "<strong>Sushi appears in the Yoro Code.</strong> Records of abalone-zushi and mussel-zushi mark the first written mention in Japan. It existed as narezushi — fish lacto-fermented in salt and rice.",
+      era927: "Heian Period",
+      content927: "<strong>The Engishiki documents many varieties.</strong> Carp and ayu narezushi were widely produced as tribute from various provinces. The Konjaku Monogatari even features a tale of a sushi-selling woman, offering a glimpse into daily life.",
+      era1400: "Muromachi Period",
+      content1400: '<strong>The arrival of "Namanare."</strong> Fermentation periods shortened, and a style emerged where the rice bed itself was eaten alongside the fish. The shift from steamed firm rice to softer boiled rice paved the way.',
+      era1600: "Early Edo Period",
+      content1600: '<strong>The birth of "hayazushi" using vinegar.</strong> A revolutionary method emerged that adjusted sourness with vinegar instead of waiting for fermentation. The 1728 culinary text Ryori Komoku Chomisho mentions "pouring vinegar over box sushi."',
+      era1820: "Late Edo Period",
+      content1820: "<strong>The birth of nigiri sushi.</strong> Said to be invented by Hanaya Yohei or Sakaiya Matsugoro, nigiri became wildly popular among Edoites and was sold at street stalls. Edo-style sushi shops even spread to the Kansai region.",
+      era1923: "Taisho - Showa",
+      content1923: "<strong>Spreading nationwide after the Great Kanto Earthquake.</strong> Sushi chefs scattered from Tokyo following the disaster, and Edomae sushi spread throughout Japan. Combined with the advancement of refrigeration technology since the Meiji era, the environment for handling raw fish improved dramatically.",
+      era1958: "Showa Era",
+      content1958: '<strong>The birth of conveyor belt sushi.</strong> "Mawaru Genroku Zushi" opened in Osaka, transforming sushi from a luxury into casual food for the masses. By around 1980, it had spread throughout Japan.',
+      era1990: "Heisei Era",
+      content1990: "<strong>The salmon sushi revolution.</strong> Through the Norwegian government's salmon export campaign, salmon sushi took root in Japan. In a 2023 survey, it ranked #1 in conveyor belt sushi popularity for the 12th consecutive year.",
+
+      typesNum: "Ⅲ · Types",
+      typesTitle: "The Many Forms of Sushi",
+      typesSubtitle: "The Many Forms of Sushi",
+      typeNigiri: 'The crown jewel of sushi: a small mound of vinegared rice topped with seafood, hand-pressed to perfection. Conceived in Edo-period Tokyo, it remains the iconic symbol of modern sushi. Each piece is counted as "ikkan" (one piece).',
+      typeMaki: 'Sushi rolled with nori (seaweed) and vinegared rice. Names vary by thickness — hosomaki, chumaki, futomaki. Gunkanmaki is an inventive style topping crumbly ingredients. Internationally, infinite "Roll" creations have flourished.',
+      typeOshi: "Sushi made by pressing vinegared rice and toppings into a wooden mold with force. Osaka's box sushi, battera, and Toyama's masuzushi exemplify this Kansai tradition — said to be the prototype of nigiri sushi.",
+      typeChirashi: 'Vinegared rice scattered with various ingredients. In Edomae style, sushi toppings are arranged over plain vinegared rice. In Kansai it\'s called "gomoku-zushi," a festive dish prepared at home for special occasions.',
+      typeInari: 'Sushi of vinegared rice stuffed in sweet-savory simmered fried tofu pouches. Named after foxes (the messengers of Inari), beloved by them. Square in the east, triangular in the west. Combined with rolled sushi, it becomes "Sukeroku."',
+      typeNarezushi: "The prototype of sushi: fish lacto-fermented with rice and salt for long preservation. Shiga's funazushi, Wakayama's ayu-zushi, Akita's hatahata-zushi — the pinnacle of preserved foods, with intense aroma and profound umami.",
+
+      worldNum: "Ⅳ · World",
+      worldTitle: "SUSHI Captivating the World",
+      worldSubtitle: "The Global Ascent of Sushi",
+      worldQuote: "Sushi has now become a representative Japanese food, ranking alongside tempura and sukiyaki. Even supermarkets in regional cities sell packs of sushi and rolls.",
+      stat1887: 'America\'s first Japanese restaurant "Yamato-ya" opens in San Francisco.',
+      stat1962: 'A genuine sushi bar counter is born at "Kawafuku" in Los Angeles.',
+      stat1983: 'New York sushi restaurant "Hatsuhana" earns the highest 4-star rating.',
+      stat2005: "Sustainable sushi initiatives launch to prevent resource depletion from rising demand.",
+
+      regionalNum: "Ⅴ · Regional",
+      regionalTitle: "Treasures of Each Region",
+      regionalSubtitle: "Regional Treasures of Japan",
+      regionalIntro: "Sushi varieties nurtured by the climate and history of each Japanese region. Mountain harvests, ocean bounty, and the wisdom of fermentation — locally rooted ingredients and techniques have created one-of-a-kind flavors.",
+      regionalFunazushi: "Funazushi",
+      regionalFunazushiDesc: "Narezushi made with nigorobuna crucian carp from Lake Biwa. A specialty of Shiga Prefecture using ancient methods, called the prototype of sushi. Months of rice-pickling produce profound umami and aroma.",
+      regionalBattera: "Battera",
+      regionalBatteraDesc: "Born in 1893 in Osaka's Junkei-cho district. The name comes from Portuguese 'bateira' (small boat). Pressed sushi layered with vinegared mackerel and white kombu seaweed — said to be the prototype of Edomae sushi.",
+      regionalMasuzushi: "Masuzushi",
+      regionalMasuzushiDesc: "Toyama's signature pink-hued pressed sushi. The fresh aroma of bamboo leaves harmonizes with the delicate flavor of trout. An artistic dish beautifully arranged in a wooden box.",
+      regionalKakinoha: "Kakinoha-zushi",
+      regionalKakinohaDesc: "Pressed sushi wrapped in persimmon leaves. A specialty of Nara and Wakayama Prefectures using mackerel, salmon, or small sea bream. Ancestral wisdom harnessing the antibacterial properties of leaves.",
+      regionalShimazushi: "Shimazushi",
+      regionalShimazushiDesc: "A specialty of the Izu Islands and Ogasawara Islands. Local fish are marinated in soy sauce, with chili pepper or western mustard substituted for wasabi — uniquely innovative island-style nigiri.",
+      regionalInaka: "Inaka-zushi",
+      regionalInakaDesc: 'Rural sushi using vegetables and mountain herbs from highland areas. Yuzu vinegar rice topped with bamboo shoots, myoga ginger, shiitake mushrooms. Since 2018, exported as "Tosa-zushi" for vegan markets.',
+
+      footerDesc: "With over a millennium of history, sushi began as preserved food, evolved through the wisdom of fermentation, embraced the elegance of Edo, and now spreads across the world — a crystallization of Japanese culture. Rice, fish, and vinegar — how many of the miracles these three ingredients create have you tasted?",
+      footerCopyright: "© 2026 SUSHI · The Art of Japanese Cuisine",
+      footerSource: "Source: Wikipedia",
+
+      pageTitle: "SUSHI | A Millennium of Culinary Art"
+    }
+  };
+
+  // ===== 言語切替ロジック =====
+  function setLanguage(lang) {
+    document.documentElement.lang = lang;
+    document.title = translations[lang].pageTitle;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key] !== undefined) {
+        el.textContent = translations[lang][key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (translations[lang][key] !== undefined) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    try {
+      localStorage.setItem('sushi-lang', lang);
+    } catch(e) {}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setLanguage(btn.getAttribute('data-lang'));
+    });
+  });
+
+  // 初期言語の判定:保存済み > ブラウザ設定 > 日本語
+  let initialLang = 'ja';
+  try {
+    const saved = localStorage.getItem('sushi-lang');
+    if (saved === 'ja' || saved === 'en') {
+      initialLang = saved;
+    } else if (navigator.language && !navigator.language.startsWith('ja')) {
+      initialLang = 'en';
+    }
+  } catch(e) {}
+  setLanguage(initialLang);
+
+  // ===== スクロールアニメーション =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.timeline-item, .type-card, .stat-block, .world-img, .regional-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 1s cubic-bezier(0.19, 1, 0.22, 1), transform 1s cubic-bezier(0.19, 1, 0.22, 1)';
+    observer.observe(el);
+  });
+</script>
+
+<!-- ─── HUB BADGE (Let Me Explain index) ─── -->
+<a href="/" class="lme-back-badge" aria-label="Back to index">
+  <span class="lme-back-arrow">←</span>
+  <span class="lme-back-text"><em>let me explain</em>… index</span>
+</a>
+<style>
+  .lme-back-badge {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    background: rgba(26, 22, 19, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(245, 240, 230, 0.18);
+    color: #f5f0e6;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  .lme-back-badge:hover {
+    background: rgba(193, 60, 38, 0.95);
+    color: #fdfaf3;
+    border-color: rgba(193, 60, 38, 1);
+    transform: translateX(-3px);
+  }
+  .lme-back-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+  .lme-back-badge:hover .lme-back-arrow {
+    transform: translateX(-3px);
+  }
+  .lme-back-text em {
+    font-style: italic;
+    text-transform: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin-right: 0.15em;
+  }
+  @media (max-width: 700px) {
+    .lme-back-badge {
+      bottom: 1rem;
+      left: 1rem;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.65rem;
+    }
+    .lme-back-text em { font-size: 0.75rem; }
+  }
+</style>
+
+</body>
+</html>

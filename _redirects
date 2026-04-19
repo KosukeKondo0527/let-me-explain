@@ -1,0 +1,9 @@
+# Legacy path redirects (in case anyone uses the old style)
+/what-is-meat       /meat       301
+/what-is-meat/*     /meat/:splat 301
+/what-is-sushi      /sushi      301
+/what-is-sushi/*    /sushi/:splat 301
+
+# Old archive: redirect to current sushi page (since we're not hosting v1 anymore)
+/what-is-sushi-old      /sushi  301
+/what-is-sushi-old/*    /sushi  301

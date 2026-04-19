@@ -1,0 +1,25 @@
+# Netlify
+.netlify/
+.netlify-mcp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (将来的にPagefindなど使う場合)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build outputs (将来的に検索インデックス等)
+_pagefind/
+dist/

@@ -1,0 +1,2556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEAT — 食肉という文化</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=Shippori+Mincho:wght@400;500;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0604;
+    --bg-2: #14080a;
+    --ink: #f3ebe1;
+    --ink-dim: #a89588;
+    --blood: #8b0a0a;
+    --blood-bright: #c41e1e;
+    --rare: #d63838;
+    --bone: #e8dccb;
+    --char: #1a0d09;
+    --gold: #c9a961;
+    --line: rgba(243, 235, 225, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: default;
+    background-image:
+      radial-gradient(ellipse at top, rgba(139, 10, 10, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(26, 13, 9, 0.8) 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    z-index: 1000;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  ::selection { background: var(--blood); color: var(--bone); }
+
+  /* ─────────── NAV ─────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: difference;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  nav .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+  nav a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  nav a:hover { opacity: 0.5; }
+
+  /* ─────────── HERO ─────────── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 3rem;
+    overflow: hidden;
+  }
+
+  .hero-meta {
+    position: absolute;
+    top: 50%;
+    left: 3rem;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hero-left {
+    padding-left: 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--rare);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.2s forwards;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--rare);
+  }
+
+  .hero h1 {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 900;
+    font-size: clamp(5rem, 13vw, 12rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1.2s 0.4s forwards;
+  }
+  .hero h1 .ja {
+    display: block;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: 0.4em;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+    margin-bottom: 0.8rem;
+    text-indent: 0.5em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rare);
+    font-weight: 400;
+  }
+
+  .hero-tagline {
+    max-width: 480px;
+    font-size: 1.05rem;
+    color: var(--ink-dim);
+    line-height: 1.9;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+  .hero-stats div {
+    border-left: 1px solid var(--line);
+    padding-left: 1rem;
+  }
+  .hero-stats .num {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--bone);
+    display: block;
+    line-height: 1;
+  }
+  .hero-stats .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* Hero right - photo + diagram */
+  .hero-right {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 2s 0.6s forwards;
+    overflow: hidden;
+  }
+
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.1) saturate(1.05) brightness(0.85);
+  }
+  .hero-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 60% 50%, transparent 0%, rgba(10, 6, 4, 0.2) 65%, rgba(10, 6, 4, 0.85) 100%),
+      linear-gradient(90deg, var(--bg) 0%, rgba(10, 6, 4, 0.6) 12%, transparent 35%, transparent 100%);
+    z-index: 1;
+  }
+  .hero-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(0deg,
+      transparent, transparent 3px,
+      rgba(196, 30, 30, 0.04) 3px, rgba(196, 30, 30, 0.04) 4px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ─────────── SECTION SHARED ─────────── */
+  section {
+    padding: 8rem 3rem;
+    position: relative;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+  .section-title .ja {
+    display: block;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: 0.35em;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+    margin-bottom: 0.8rem;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--rare);
+    font-weight: 400;
+  }
+
+  /* ─────────── DEFINITION ─────────── */
+  .definition {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+  .definition-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .definition-grid p {
+    font-size: 1.15rem;
+    line-height: 2;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .definition-grid p:first-of-type::first-letter {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.85;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    color: var(--rare);
+  }
+
+  /* ─────────── TYPES (animals) ─────────── */
+  .types {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  }
+  .types-header {
+    max-width: 1400px;
+    margin: 0 auto 5rem;
+  }
+  .types-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .type-card {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transition: transform 0.5s;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .type-card:nth-child(4n) { border-right: none; }
+  .type-card:hover .type-photo img {
+    transform: scale(1.08);
+  }
+  .type-photo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #1a0d09;
+  }
+  .type-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+    filter: contrast(1.05) saturate(1.1);
+  }
+  .type-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 6, 4, 0) 50%, rgba(10, 6, 4, 0.9) 100%);
+    pointer-events: none;
+  }
+  .type-photo .tnum {
+    position: absolute;
+    top: 1.2rem; left: 1.2rem;
+    z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--bone);
+    letter-spacing: 0.25em;
+    background: rgba(10, 6, 4, 0.7);
+    padding: 0.4rem 0.7rem;
+    border: 1px solid rgba(243, 235, 225, 0.2);
+    backdrop-filter: blur(4px);
+  }
+  .type-body {
+    padding: 2rem;
+    flex: 1;
+  }
+  .type-card h3 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--bone);
+  }
+  .type-card .ja-name {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    color: var(--rare);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+  .type-card p {
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+    line-height: 1.8;
+  }
+  .type-card .stat {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+  }
+  .type-card .stat strong {
+    color: var(--bone);
+    font-size: 1.1rem;
+  }
+
+  /* ─────────── DATA ─────────── */
+  .data-section {
+    background: var(--char);
+    padding: 10rem 3rem;
+  }
+  .data-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .data-left .big-num {
+    font-family: 'Bodoni Moda', serif;
+    font-size: clamp(6rem, 14vw, 14rem);
+    font-weight: 900;
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    color: var(--bone);
+    margin: 2rem 0 1rem;
+  }
+  .data-left .big-num em {
+    color: var(--rare);
+    font-style: italic;
+  }
+  .data-left .unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .data-left .caption {
+    color: var(--ink-dim);
+    line-height: 1.9;
+    max-width: 400px;
+  }
+
+  .data-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 70px 100px 1fr 100px;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .bar-icon {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .bar-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+    transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+  .bar-row:hover .bar-icon img {
+    transform: scale(1.15) rotate(-3deg);
+  }
+  .bar-name {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--bone);
+  }
+  .bar-name small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+    margin-top: 0.2rem;
+  }
+  .bar-track {
+    height: 32px;
+    background: rgba(243, 235, 225, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blood) 0%, var(--rare) 100%);
+    width: 0;
+    animation: fillBar 1.8s cubic-bezier(0.6, 0.05, 0.3, 0.95) forwards;
+    box-shadow: 0 0 30px rgba(196, 30, 30, 0.4);
+  }
+  .bar-num {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--bone);
+    text-align: right;
+  }
+  .bar-num small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-dim);
+    margin-left: 0.3rem;
+    font-weight: 400;
+  }
+
+  @keyframes fillBar {
+    to { width: var(--w); }
+  }
+
+  /* ─────────── PROCESS ─────────── */
+  .process {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .process-header {
+    max-width: 1400px;
+    margin: 0 auto 6rem;
+    text-align: center;
+  }
+  .process-header .section-title { font-size: clamp(3rem, 6vw, 5rem); }
+
+  .process-flow {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    position: relative;
+  }
+  .process-step {
+    text-align: center;
+    padding: 1rem 1rem 2rem;
+    position: relative;
+  }
+  .process-step .pthumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background: #1a0d09;
+  }
+  .process-step .pthumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(1.05) brightness(0.85);
+    transition: transform 1s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+  .process-step:hover .pthumb img {
+    transform: scale(1.06);
+    filter: contrast(1.1) saturate(1.1) brightness(0.95);
+  }
+  .process-step .pthumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 6, 4, 0.1) 0%, rgba(10, 6, 4, 0.5) 100%);
+    pointer-events: none;
+  }
+  .process-step .pthumb .pnum-overlay {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.8rem;
+    z-index: 2;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--bone);
+    line-height: 1;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+  }
+  .process-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--rare);
+    font-size: 1.5rem;
+    font-family: 'Bodoni Moda', serif;
+    z-index: 3;
+  }
+  .process-step:last-child::after { display: none; }
+  .process-step .pnum {
+    display: none; /* now shown as overlay on the photo */
+  }
+  .process-step h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--bone);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .process-step .romaji {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .process-step p {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    line-height: 1.7;
+  }
+
+  /* ─────────── COMPOSITION ─────────── */
+  .composition {
+    background: var(--bg-2);
+    border-top: 1px solid var(--line);
+  }
+  .comp-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .comp-rings {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .comp-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .comp-item:last-child { border-bottom: none; }
+  .comp-percent {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--rare);
+    line-height: 1;
+    font-style: italic;
+  }
+  .comp-info h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--bone);
+    margin-bottom: 0.3rem;
+  }
+  .comp-info p {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* ─────────── CULTURE ─────────── */
+  .culture {
+    background:
+      linear-gradient(180deg, rgba(10, 6, 4, 0) 0%, rgba(10, 6, 4, 0.9) 100%),
+      var(--char);
+    border-top: 1px solid var(--line);
+  }
+  .culture-header {
+    max-width: 1400px;
+    margin: 0 auto 5rem;
+  }
+  .culture-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .culture-card {
+    padding: 0;
+    border-right: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .culture-card:last-child { border-right: none; }
+  .culture-card .cc-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .culture-card .cc-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.1) saturate(0.85) brightness(0.55);
+    transition: transform 1.5s cubic-bezier(0.2, 0.6, 0.2, 1), filter 1s;
+  }
+  .culture-card:hover .cc-bg img {
+    transform: scale(1.06);
+    filter: contrast(1.1) saturate(0.95) brightness(0.7);
+  }
+  .culture-card .cc-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 6, 4, 0.3) 0%, rgba(10, 6, 4, 0.5) 50%, rgba(10, 6, 4, 0.95) 100%);
+  }
+  .culture-card .cc-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem;
+  }
+  .culture-card::before {
+    content: attr(data-region);
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 6rem;
+    color: var(--rare);
+    opacity: 0.25;
+    font-weight: 700;
+    line-height: 1;
+    z-index: 1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+  .culture-card h3 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--bone);
+  }
+  .culture-card .area {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    color: var(--rare);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+  }
+  .culture-card p {
+    color: var(--ink-dim);
+    line-height: 1.9;
+    font-size: 0.95rem;
+  }
+
+  /* ─────────── QUOTE ─────────── */
+  .quote-section {
+    padding: 12rem 3rem;
+    text-align: center;
+    background: var(--bg);
+    position: relative;
+  }
+  .quote-section::before, .quote-section::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 60px;
+    background: var(--rare);
+  }
+  .quote-section::before { top: 4rem; }
+  .quote-section::after { bottom: 4rem; }
+  .quote-section blockquote {
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--bone);
+    letter-spacing: -0.01em;
+  }
+  .quote-section blockquote em {
+    color: var(--rare);
+    font-weight: 700;
+  }
+  .quote-section cite {
+    display: block;
+    margin-top: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+
+  /* ─────────── FUTURE ─────────── */
+  .future {
+    background: linear-gradient(135deg, var(--bg-2) 0%, var(--char) 100%);
+    border-top: 1px solid var(--line);
+  }
+  .future-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+  .future h2 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 0.95;
+    margin-bottom: 2rem;
+    letter-spacing: -0.03em;
+  }
+  .future h2 em {
+    color: var(--rare);
+    font-style: italic;
+  }
+  .future-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .future-card {
+    padding: 2rem;
+    background: rgba(243, 235, 225, 0.03);
+    border-left: 3px solid var(--rare);
+  }
+  .future-card.has-image {
+    display: grid;
+    grid-template-columns: 1fr 140px;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem 1.5rem 1.5rem 2rem;
+  }
+  .future-card .fc-thumb {
+    width: 140px;
+    height: 140px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+  }
+  .future-card .fc-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(1.1) brightness(0.92);
+    transition: transform 1s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+  .future-card.has-image:hover .fc-thumb img {
+    transform: scale(1.08);
+  }
+  .future-card .fc-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(196, 30, 30, 0.15) 100%);
+    pointer-events: none;
+  }
+  /* Game card variant — two transparent animal illustrations */
+  .future-card .fc-animals {
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .future-card .fc-animals img {
+    position: absolute;
+    max-width: 90px;
+    max-height: 75px;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+    transition: transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+  .future-card .fc-animals img:nth-child(1) {
+    top: 5px; left: 0;
+    transform: rotate(-4deg);
+  }
+  .future-card .fc-animals img:nth-child(2) {
+    bottom: 5px; right: 0;
+    max-width: 95px;
+    max-height: 70px;
+    transform: rotate(3deg);
+  }
+  .future-card.has-image:hover .fc-animals img:nth-child(1) {
+    transform: rotate(-6deg) translate(-3px, -3px) scale(1.05);
+  }
+  .future-card.has-image:hover .fc-animals img:nth-child(2) {
+    transform: rotate(5deg) translate(3px, 3px) scale(1.05);
+  }
+  .future-card h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--bone);
+    margin-bottom: 0.5rem;
+  }
+  .future-card .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--rare);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .future-card p {
+    color: var(--ink-dim);
+    line-height: 1.8;
+    font-size: 0.95rem;
+  }
+
+  /* ─────────── PHOTO FEATURE (full-bleed) ─────────── */
+  .photo-feature {
+    position: relative;
+    min-height: 75vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .photo-feature .pf-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .photo-feature .pf-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.1) saturate(1.05) brightness(0.7);
+  }
+  .photo-feature .pf-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10, 6, 4, 0.5) 0%, rgba(10, 6, 4, 0.3) 40%, rgba(10, 6, 4, 0.95) 100%);
+  }
+  .photo-feature .pf-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 8rem 3rem 6rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+  }
+  .photo-feature .pf-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--rare);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .photo-feature .pf-eyebrow::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--rare);
+  }
+  .photo-feature h2 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--bone);
+    margin-bottom: 1rem;
+  }
+  .photo-feature h2 em {
+    color: var(--rare);
+    font-style: italic;
+  }
+  .photo-feature h2 .ja {
+    display: block;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: 0.3em;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    opacity: 0.8;
+  }
+  .photo-feature p {
+    color: var(--bone);
+    font-size: 1.05rem;
+    line-height: 2;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  }
+  .photo-feature .pf-credit {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    z-index: 3;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(243, 235, 225, 0.4);
+    text-transform: uppercase;
+  }
+
+  /* ─────────── MAPS (rich vs developing) ─────────── */
+  .maps {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 8rem 3rem 6rem;
+  }
+  .maps-header {
+    max-width: 1400px;
+    margin: 0 auto 5rem;
+    text-align: center;
+  }
+  .maps-header .section-title { font-size: clamp(3rem, 6vw, 5rem); }
+  .maps-header p {
+    max-width: 700px;
+    margin: 2rem auto 0;
+    color: var(--ink-dim);
+    line-height: 1.9;
+  }
+
+  .map-block {
+    max-width: 1500px;
+    margin: 0 auto 5rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .map-block:last-child { margin-bottom: 0; }
+
+  .map-meta {
+    position: sticky;
+    top: 6rem;
+    padding: 2rem 0;
+    border-top: 2px solid var(--rare);
+  }
+  .map-meta .map-num {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--rare);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .map-meta .map-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .map-meta h3 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    color: var(--bone);
+    letter-spacing: -0.02em;
+  }
+  .map-meta h3 em {
+    color: var(--rare);
+    font-style: italic;
+  }
+  .map-meta .ja-title {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--rare);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+  .map-meta p {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .map-figure {
+    background: #cfe1ec;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+  .map-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .map-figure::after {
+    content: 'SOURCE: OECD / FAO';
+    position: absolute;
+    bottom: 0.6rem; right: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: rgba(26, 13, 9, 0.4);
+    text-transform: uppercase;
+    background: rgba(207, 225, 236, 0.7);
+    padding: 0.2rem 0.5rem;
+  }
+
+  .map-divider {
+    max-width: 1500px;
+    margin: 0 auto 5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 0 0 0;
+  }
+  .map-divider::before, .map-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .map-divider span {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--rare);
+    letter-spacing: 0.1em;
+  }
+
+  /* ─────────── FOOTER ─────────── */
+  footer {
+    padding: 4rem 3rem 2rem;
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .footer-top {
+    max-width: 1400px;
+    margin: 0 auto 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+  }
+  .footer-brand {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 900;
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .footer-brand em { color: var(--rare); font-style: italic; }
+  .footer-tagline {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--ink-dim);
+    line-height: 1.8;
+    max-width: 350px;
+  }
+  .footer-col h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--rare);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .footer-col a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--rare); }
+
+  .footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 1024px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 5rem 2rem 3rem;
+      min-height: auto;
+      gap: 2rem;
+    }
+    /* Mobile: photo first, then text content */
+    .hero-right {
+      order: -1;
+      height: 45vh;
+      min-height: 280px;
+      max-height: 420px;
+      margin: 0 -2rem;
+      width: calc(100% + 4rem);
+    }
+    .hero-photo::before {
+      background:
+        linear-gradient(180deg, rgba(10, 6, 4, 0.5) 0%, transparent 25%, transparent 75%, var(--bg) 100%),
+        radial-gradient(ellipse at center, transparent 30%, rgba(10, 6, 4, 0.4) 100%);
+    }
+    .hero-left { padding-left: 0; }
+    .hero h1 { font-size: clamp(4rem, 18vw, 7rem); margin-bottom: 1.5rem; }
+    .hero-tagline { font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem; max-width: 100%; }
+    .hero-stats { gap: 1.5rem; }
+    .hero-stats .num { font-size: 1.6rem; }
+    .hero-meta { display: none; }
+    .types-grid { grid-template-columns: repeat(2, 1fr); }
+    .type-card:nth-child(4n) { border-right: 1px solid var(--line); }
+    .type-card:nth-child(2n) { border-right: none; }
+    .definition-grid, .data-wrap, .comp-grid, .future-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .culture-grid { grid-template-columns: 1fr; }
+    .culture-card { border-right: none; min-height: 380px; }
+    .process-flow { grid-template-columns: repeat(2, 1fr); }
+    .process-step::after { display: none; }
+    .map-block { grid-template-columns: 1fr; gap: 2rem; }
+    .map-meta { position: static; padding: 1rem 0; }
+    /* Full-bleed map images on mobile */
+    .maps { padding-left: 0; padding-right: 0; }
+    .maps-header { padding: 0 2rem; }
+    .map-block { padding: 0; margin-left: 0; margin-right: 0; }
+    .map-meta { padding: 1rem 2rem; }
+    .map-figure { box-shadow: none; border: none; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .map-divider { padding: 0 2rem; }
+    .photo-feature .pf-content { grid-template-columns: 1fr; gap: 2rem; padding: 6rem 2rem 4rem; }
+    .photo-feature { min-height: 65vh; }
+    .future-card.has-image { grid-template-columns: 1fr; }
+    .future-card .fc-thumb { width: 100%; height: 180px; order: -1; margin-bottom: 0.5rem; }
+    .future-card .fc-animals { width: 100%; height: 140px; order: -1; margin-bottom: 0.5rem; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 5rem 2rem; }
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 4.5rem 1.5rem 3rem; }
+    .hero-right { margin: 0 -1.5rem; width: calc(100% + 3rem); height: 40vh; min-height: 240px; }
+    .hero h1 .ja { font-size: 0.3em; margin-bottom: 0.5rem; }
+    .types-grid { grid-template-columns: 1fr; }
+    .type-card { border-right: none !important; }
+    .process-flow { grid-template-columns: 1fr; }
+    .bar-row { grid-template-columns: 50px 70px 1fr 70px; gap: 0.8rem; }
+    .bar-icon { width: 50px; height: 50px; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .maps-header { padding: 0 1.5rem; }
+    .map-meta { padding: 1rem 1.5rem; }
+    .map-divider { padding: 0 1.5rem; }
+  }
+
+  /* ─────────── LANG TOGGLE ─────────── */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
+  .lang-btn {
+    background: none;
+    border: none;
+    color: var(--ink);
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+  .lang-btn:hover { opacity: 0.8; }
+  .lang-btn.active { opacity: 1; }
+  .lang-divider {
+    opacity: 0.4;
+  }
+  /* When EN is active, hide all elements that should only appear in JA */
+  body.lang-en .ja,
+  body.lang-en [data-i18n-jaonly] {
+    display: none !important;
+  }
+  /* Roman titles in section-title default to inline; need to keep block when ja is hidden */
+  body.lang-en .section-title [data-i18n-html],
+  body.lang-en .photo-feature h2 [data-i18n-html] {
+    display: block;
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">M·E·A·T</div>
+  <ul>
+    <li><a href="#definition" data-i18n="nav.def">定義</a></li>
+    <li><a href="#types" data-i18n="nav.types">種類</a></li>
+    <li><a href="#data" data-i18n="nav.data">データ</a></li>
+    <li><a href="#maps" data-i18n="nav.world">世界</a></li>
+    <li><a href="#process" data-i18n="nav.process">工程</a></li>
+    <li><a href="#culture" data-i18n="nav.culture">文化</a></li>
+  </ul>
+  <div class="lang-toggle" id="langToggle">
+    <button class="lang-btn active" data-lang="ja">JP</button>
+    <span class="lang-divider">/</span>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-meta">EST. PREHISTORY · A STUDY IN FLESH · VOL. 01</div>
+
+  <div class="hero-left">
+    <div class="eyebrow" data-i18n="hero.eyebrow">食肉という文明</div>
+    <h1>
+      <span class="ja" data-i18n="hero.h.ja">食肉</span>
+      M<em>E</em>AT
+    </h1>
+    <p class="hero-tagline" data-i18n="hero.tagline">人類は鳥獣の肉を捌き、熟成させ、火を入れることで文明を育ててきた。これは、地球上で年間3億トンを超える「肉」という、最も原初的で、最も洗練された食材についての記録である。</p>
+    <div class="hero-stats">
+      <div>
+        <span class="num">341M</span>
+        <span class="lbl" data-i18n="hero.stat1">tons / year</span>
+      </div>
+      <div>
+        <span class="num">9</span>
+        <span class="lbl" data-i18n="hero.stat2">main species</span>
+      </div>
+      <div>
+        <span class="num">∞</span>
+        <span class="lbl" data-i18n="hero.stat3">cultures</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-photo">
+      <img src="img/hero-steak.jpg" alt="Two cuts of premium raw beef on a black slate plate with fresh cilantro">
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════ DEFINITION ═══════════ -->
+<section class="definition" id="definition">
+  <div class="definition-grid">
+    <div>
+      <div class="section-num" data-i18n="def.num">— 01 / 定義</div>
+      <h2 class="section-title">
+        <span class="ja" data-i18n="def.h.ja">そもそも「肉」とは</span>
+        <span data-i18n-html="def.h.en">What is <em>meat</em>?</span>
+      </h2>
+    </div>
+    <div>
+      <p data-i18n="def.p1">食肉とは、主に鳥類を含む動物の肉、畜産動物または野生動物を食肉加工したものを指す。日本語の「肉」は鳥獣の肉を含意し、魚は別枠とする慣習がある。屠畜直後の筋肉は死後硬直のため硬く、そのままでは食用に供せない。</p>
+      <p style="color: var(--ink-dim); font-size: 1rem;" data-i18n="def.p2">一定の熟成プロセスを経て解硬されたものこそが、生体内の筋肉と区別される「食肉」である。骨格筋に付随する血管・神経組織、皮下脂肪および筋間脂肪組織も、狭義の食肉に含まれる。可食臓器類——いわゆるモツも、商取引上は副生物として流通するが、科学的には食肉である。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TYPES ═══════════ -->
+<section class="types" id="types">
+  <div class="types-header">
+    <div class="section-num" data-i18n="types.num">— 02 / 種類</div>
+    <h2 class="section-title">
+      <span class="ja" data-i18n="types.h.ja">世界で食される肉</span>
+      <span data-i18n-html="types.h.en">The <em>animals</em> we eat</span>
+    </h2>
+  </div>
+
+  <div class="types-grid">
+    <div class="type-card">
+      <div class="type-photo">
+        <div class="tnum">№ 01 — POULTRY</div>
+        <img src="img/chicken.jpg" alt="Whole raw chicken with lemon and herbs" loading="lazy">
+      </div>
+      <div class="type-body">
+        <h3 data-i18n="types.chicken.name">Chicken</h3>
+        <div class="ja-name" data-i18n-jaonly>鶏肉</div>
+        <p data-i18n="types.chicken.desc">世界で最も生産量が多い食肉。宗教的禁忌がほぼなく、飼料効率にも優れる。2018年の生産は1億2731万トン。</p>
+        <div class="stat"><span data-i18n="types.world">世界生産</span> <strong>127.31M</strong>t</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-photo">
+        <div class="tnum">№ 02 — PORK</div>
+        <img src="img/pork.jpg" alt="Raw pork belly with layers of fat on a wooden cutting board" loading="lazy">
+      </div>
+      <div class="type-body">
+        <h3 data-i18n="types.pork.name">Pork</h3>
+        <div class="ja-name" data-i18n-jaonly>豚肉</div>
+        <p data-i18n="types.pork.desc">ビタミンB1の優れた給源。日本の食肉消費の中核。イスラム教では不浄とされ、地理的に偏りが大きい。</p>
+        <div class="stat"><span data-i18n="types.world">世界生産</span> <strong>120.88M</strong>t</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-photo">
+        <div class="tnum">№ 03 — BEEF</div>
+        <img src="img/beef.jpg" alt="Two raw bone-in beef steaks on a wooden cutting board" loading="lazy">
+      </div>
+      <div class="type-body">
+        <h3 data-i18n="types.beef.name">Beef</h3>
+        <div class="ja-name" data-i18n-jaonly>牛肉</div>
+        <p data-i18n="types.beef.desc">ヒンドゥー教では聖獣のため禁忌。日本では枝肉に対しA5までの厳格な格付制度を持つ。</p>
+        <div class="stat"><span data-i18n="types.world">世界生産</span> <strong>71.61M</strong>t</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-photo">
+        <div class="tnum">№ 04 — LAMB</div>
+        <img src="img/lamb.jpg" alt="Raw lamb chops with rosemary" loading="lazy">
+      </div>
+      <div class="type-body">
+        <h3 data-i18n="types.lamb.name">Lamb</h3>
+        <div class="ja-name" data-i18n-jaonly>羊肉</div>
+        <p data-i18n="types.lamb.desc">ニュージーランド・オーストラリアで突出して消費される。世界全体では牛肉の数分の一に留まる。</p>
+        <div class="stat"><span data-i18n="types.world">世界生産</span> <strong>15.77M</strong>t</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DATA ═══════════ -->
+<section class="data-section" id="data">
+  <div class="data-wrap">
+    <div class="data-left">
+      <div class="section-num" data-i18n="data.num">— 03 / 統計</div>
+      <h2 class="section-title" style="margin-bottom: 1rem;">
+        <span class="ja" data-i18n="data.h.ja">肉の地球規模</span>
+        <span data-i18n-html="data.h.en">Planetary <em>scale</em></span>
+      </h2>
+      <div class="big-num">3<em>.</em>41<span style="font-size:0.4em;" data-i18n="data.bignum.suffix">億</span></div>
+      <div class="unit" data-i18n="data.bignum.unit">tons / year · 2018</div>
+      <p class="caption" data-i18n="data.caption">全世界の食肉生産量は年間およそ3億4100万トン。アジアが1億4000万トン超で生産の中心。中国一国だけで8800万トンを生産する。</p>
+    </div>
+
+    <div class="data-bars">
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/chicken.png" alt="Chicken"></div>
+        <div class="bar-name"><span data-i18n="bar.poultry">鶏肉</span><small>POULTRY</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 100%;"></div></div>
+        <div class="bar-num">127<small>Mt</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/pig.png" alt="Pig"></div>
+        <div class="bar-name"><span data-i18n="bar.pork">豚肉</span><small>PORK</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 95%;"></div></div>
+        <div class="bar-num">121<small>Mt</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/cow.png" alt="Cow"></div>
+        <div class="bar-name"><span data-i18n="bar.beef">牛肉</span><small>BEEF</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 56%;"></div></div>
+        <div class="bar-num">72<small>Mt</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/sheep.png" alt="Sheep"></div>
+        <div class="bar-name"><span data-i18n="bar.lambgoat">羊・山羊</span><small>LAMB/GOAT</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 12%;"></div></div>
+        <div class="bar-num">16<small>Mt</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/duck.png" alt="Duck"></div>
+        <div class="bar-name"><span data-i18n="bar.duck">アヒル</span><small>DUCK</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 4%;"></div></div>
+        <div class="bar-num">4.5<small>Mt</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/goose.png" alt="Goose"></div>
+        <div class="bar-name"><span data-i18n="bar.goose">ガチョウ</span><small>GOOSE</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 2.5%;"></div></div>
+        <div class="bar-num">2.7<small>Mt</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/deer.png" alt="Deer"></div>
+        <div class="bar-name"><span data-i18n="bar.game">ジビエ</span><small>GAME</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 1.8%;"></div></div>
+        <div class="bar-num">2.1<small>Mt</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-icon"><img src="img/animals/horse.png" alt="Horse"></div>
+        <div class="bar-name"><span data-i18n="bar.horse">馬肉</span><small>HORSE</small></div>
+        <div class="bar-track"><div class="bar-fill" style="--w: 0.7%;"></div></div>
+        <div class="bar-num">0.8<small>Mt</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MAPS (rich vs developing) ═══════════ -->
+<section class="maps" id="maps">
+  <div class="maps-header">
+    <div class="section-num" data-i18n="maps.num">— 04 / 世界の食卓</div>
+    <h2 class="section-title">
+      <span class="ja" data-i18n="maps.h.ja">飽和と急増、二つの世界</span>
+      <span data-i18n-html="maps.h.en">A <em>tale</em> of two worlds</span>
+    </h2>
+    <p data-i18n="maps.intro">一人当たりの食肉消費量は、地球上で大きく二極化している。先進国では既に上限に達して頭打ちとなり、新興国では経済成長とともに急増を続けている。</p>
+  </div>
+
+  <div class="map-block">
+    <div class="map-meta">
+      <div class="map-num">I.</div>
+      <div class="map-tag" data-i18n="maps.ch1.tag">CHAPTER 01 · OECD</div>
+      <h3 data-i18n-html="maps.ch1.h">The <em>satiated</em> world</h3>
+      <div class="ja-title" data-i18n="maps.ch1.subj">先進国──飽和</div>
+      <p data-i18n="maps.ch1.p1">北アメリカ、西ヨーロッパ、オセアニアの先進国では、所得水準と食肉嗜好が結びつき、消費量はすでにほぼ上限に達した。2010-12年の数値と2022年予測の差は小さく、需要は頭打ち状態にある。</p>
+      <p data-i18n="maps.ch1.p2">USAの鶏肉45.6kg、オーストラリアの鶏肉39.6kg、EUの豚肉31.7kg ── 巨大な数字が安定している。</p>
+    </div>
+    <div class="map-figure">
+      <img src="img/meat-rich-world.png" alt="Meat consumption per capita in rich countries (Canada, USA, EU, Japan, Australia, New Zealand). 2010-12 vs 2022 forecast." loading="lazy">
+    </div>
+  </div>
+
+  <div class="map-divider">
+    <span data-i18n="maps.divider">vs.</span>
+  </div>
+
+  <div class="map-block">
+    <div class="map-meta">
+      <div class="map-num">II.</div>
+      <div class="map-tag" data-i18n="maps.ch2.tag">CHAPTER 02 · BRICS</div>
+      <h3 data-i18n-html="maps.ch2.h">The <em>rising</em> world</h3>
+      <div class="ja-title" data-i18n="maps.ch2.subj">新興国──急増</div>
+      <p data-i18n="maps.ch2.p1">ブラジル、ロシア、インド、中国、南アフリカ ── BRICS諸国では、経済の成長と生活水準の向上に伴い、食肉消費が急拡大している。中国の豚肉34.1kg、ブラジルの鶏肉47.0kg。</p>
+      <p data-i18n="maps.ch2.p2">ヒンドゥー教の影響でインドは依然として極端に低い水準を保つが、他の4カ国では2010-12年から2022年にかけて顕著な伸びを示す。21世紀の食肉需要を牽引するのは、間違いなくこちらの世界である。</p>
+    </div>
+    <div class="map-figure">
+      <img src="img/meat-developing-world.png" alt="Meat consumption per capita in BRICS countries (Brazil, Russia, India, China, South Africa). 2010-12 vs 2022 forecast." loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROCESS ═══════════ -->
+<section class="process" id="process">
+  <div class="process-header">
+    <div class="section-num" data-i18n="proc.num">— 05 / 工程</div>
+    <h2 class="section-title">
+      <span class="ja" data-i18n="proc.h.ja">肥育から食卓まで</span>
+      <span data-i18n-html="proc.h.en">From <em>field</em> to <em>plate</em></span>
+    </h2>
+  </div>
+
+  <div class="process-flow">
+    <div class="process-step">
+      <div class="pthumb">
+        <img src="img/p-fattening.jpg" alt="Black wagyu cattle in a barn" loading="lazy">
+        <span class="pnum-overlay">01</span>
+      </div>
+      <h4 data-i18n="proc.s1.h">肥育</h4>
+      <div class="romaji" data-i18n="proc.s1.r">HIIKU</div>
+      <p data-i18n="proc.s1.p">食肉を得るため家畜を飼養する。牛肉1kgに穀物10kgを要するとされる。</p>
+    </div>
+    <div class="process-step">
+      <div class="pthumb">
+        <img src="img/p-slaughter.jpg" alt="Pork carcasses hanging from hooks at a slaughterhouse" loading="lazy">
+        <span class="pnum-overlay">02</span>
+      </div>
+      <h4 data-i18n="proc.s2.h">屠畜</h4>
+      <div class="romaji" data-i18n="proc.s2.r">TOCHIKU</div>
+      <p data-i18n="proc.s2.p">屠畜場へ送られ、解体され、内臓を除去。屠体から枝肉へと姿を変える。</p>
+    </div>
+    <div class="process-step">
+      <div class="pthumb">
+        <img src="img/p-aging.jpg" alt="Cross-section of dry-aged beef showing pristine red meat under the rind" loading="lazy">
+        <span class="pnum-overlay">03</span>
+      </div>
+      <h4 data-i18n="proc.s3.h">熟成</h4>
+      <div class="romaji" data-i18n="proc.s3.r">JUKUSEI</div>
+      <p data-i18n="proc.s3.p">2〜5℃で貯蔵。牛は7〜10日、豚は3〜5日、鶏は半日で解硬。風味が増す。</p>
+    </div>
+    <div class="process-step">
+      <div class="pthumb">
+        <img src="img/p-grading.jpg" alt="Japanese BMS marbling chart from No.1 to No.12" loading="lazy">
+        <span class="pnum-overlay">04</span>
+      </div>
+      <h4 data-i18n="proc.s4.h">格付</h4>
+      <div class="romaji" data-i18n="proc.s4.r">KAKUZUKE</div>
+      <p data-i18n="proc.s4.p">歩留等級A〜C、肉質等級1〜5。最高位はA5。脂肪交雑・色・キメで判定。</p>
+    </div>
+    <div class="process-step">
+      <div class="pthumb">
+        <img src="img/p-cooking.jpg" alt="Steak being cooked on a hot iron griddle with steam rising" loading="lazy">
+        <span class="pnum-overlay">05</span>
+      </div>
+      <h4 data-i18n="proc.s5.h">調理</h4>
+      <div class="romaji" data-i18n="proc.s5.r">CHŌRI</div>
+      <p data-i18n="proc.s5.p">加熱で衛生確保・タンパク質変性・香気生成。レアからウェルダンまで。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COMPOSITION ═══════════ -->
+<section class="composition">
+  <div class="comp-grid">
+    <div>
+      <div class="section-num" data-i18n="comp.num">— 06 / 成分</div>
+      <h2 class="section-title">
+        <span class="ja" data-i18n="comp.h.ja">肉を構成するもの</span>
+        <span data-i18n-html="comp.h.en">What <em>meat</em><br>is made of</span>
+      </h2>
+      <p style="color: var(--ink-dim); margin-top: 2rem; line-height: 1.9;" data-i18n="comp.intro">食肉の主成分は水である。タンパク質、脂質、無機質、ビタミン── うま味を呈するアミノ酸とイノシン酸、酸味を呈する乳酸、鉄を含むミオグロビン。これらが「肉らしさ」を生む。</p>
+    </div>
+
+    <div class="comp-rings">
+      <div class="comp-item">
+        <div class="comp-percent">H₂O</div>
+        <div class="comp-info">
+          <h4 data-i18n="comp.water.h">水分</h4>
+          <p data-i18n="comp.water.p">食肉の最大の構成要素。組織のしなやかさと食感を司る。</p>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-percent">P</div>
+        <div class="comp-info">
+          <h4 data-i18n="comp.prot.h">タンパク質</h4>
+          <p data-i18n="comp.prot.p">筋線維タンパク質、筋漿タンパク質、結合組織タンパク質の三系統。</p>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-percent">L</div>
+        <div class="comp-info">
+          <h4 data-i18n="comp.lipid.h">脂質</h4>
+          <p data-i18n="comp.lipid.p">中性脂質が大半。霜降り(筋肉内脂肪)はロースで40%超に達することも。</p>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-percent">Fe</div>
+        <div class="comp-info">
+          <h4 data-i18n="comp.iron.h">鉄(ヘム鉄)</h4>
+          <p data-i18n="comp.iron.p">ミオグロビン・ヘモグロビンとして存在。肉の赤色を生み出す本体。</p>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-percent">B₁</div>
+        <div class="comp-info">
+          <h4 data-i18n="comp.b1.h">ビタミンB1</h4>
+          <p data-i18n="comp.b1.p">特に豚肉に豊富。日本人に欠乏しがちな栄養素の重要な供給源。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PHOTO FEATURE 01 ═══════════ -->
+<section class="photo-feature">
+  <div class="pf-bg">
+    <img src="img/grilled-steak.jpg" alt="A premium steak with asparagus on a cast iron skillet">
+  </div>
+  <div class="pf-content">
+    <div>
+      <div class="pf-eyebrow" data-i18n="pf1.eyebrow">PLATE 01 · 加熱の科学</div>
+      <h2>
+        <span class="ja" data-i18n="pf1.h.ja">火が、肉を肉にする</span>
+        <span data-i18n-html="pf1.h.en"><em>Fire</em> makes<br>meat into <em>food</em>.</span>
+      </h2>
+    </div>
+    <div>
+      <p data-i18n="pf1.p">加熱はタンパク質を変性させ、新たなペプチドを生み、独特の香気を立ち上げる。生のままでは噛み切れない筋線維も、火を通すことで初めて食べやすい食感へと変わる。ウェルダン、ミディアム、ミディアム・レア、レア ── その温度の選択は、文化と嗜好と科学の交差点にある。</p>
+    </div>
+  </div>
+  <div class="pf-credit">PHOTO · UNSPLASH</div>
+</section>
+
+<!-- ═══════════ QUOTE ═══════════ -->
+<section class="quote-section">
+  <blockquote data-i18n-html="quote.text">熟成によって、硬直した死後の筋肉は<br>再び<em>軟らかく</em>なり、<em>風味</em>を獲得する。</blockquote>
+  <cite data-i18n="quote.cite">— 食肉科学 · MEAT SCIENCE</cite>
+</section>
+
+<!-- ═══════════ CULTURE ═══════════ -->
+<section class="culture" id="culture">
+  <div class="culture-header">
+    <div class="section-num" data-i18n="cul.num">— 07 / 文化</div>
+    <h2 class="section-title">
+      <span class="ja" data-i18n="cul.h.ja">肉と信仰と地理</span>
+      <span data-i18n-html="cul.h.en">Meat &amp; <em>culture</em></span>
+    </h2>
+  </div>
+
+  <div class="culture-grid">
+    <div class="culture-card" data-region="EU">
+      <div class="cc-bg">
+        <img src="img/gibier.jpg" alt="Assorted raw meats including beef, sausages, and ground meat on a wooden board with herbs" loading="lazy">
+      </div>
+      <div class="cc-content">
+        <h3>Gibier</h3>
+        <div class="area" data-i18n="cul.gibier.area">ジビエ · 欧州</div>
+        <p data-i18n="cul.gibier.p">フランスでは野生動物の肉を「ジビエ」と呼び愛好する伝統がある。マガモ、ヤマウズラ、キジ、ライチョウ。狩猟が生んだ食文化。日本でも獣害対策として商品化が進む。</p>
+      </div>
+    </div>
+    <div class="culture-card" data-region="JP">
+      <div class="cc-bg">
+        <img src="img/wagyu.jpg" alt="Premium marbled wagyu beef steak on a slate plate with wasabi and soy sauce" loading="lazy">
+      </div>
+      <div class="cc-content">
+        <h3>Wagyū</h3>
+        <div class="area" data-i18n="cul.wagyu.area">和牛 · 日本</div>
+        <p data-i18n="cul.wagyu.p">枝肉を第6・第7胸椎間で切開し、脂肪交雑・肉色・キメ・締まりで判定する。歩留A〜C、肉質1〜5。最高位A5は世界的ブランドへ。霜降り至上主義は赤身肉を低く見る問題も孕む。</p>
+      </div>
+    </div>
+    <div class="culture-card" data-region="∞">
+      <div class="cc-bg">
+        <img src="img/sheep-flock.jpg" alt="A large flock of sheep grazing in a green pasture" loading="lazy">
+      </div>
+      <div class="cc-content">
+        <h3>Taboo</h3>
+        <div class="area" data-i18n="cul.taboo.area">禁忌 · 世界</div>
+        <p data-i18n="cul.taboo.p">ヒンドゥー教では牛が聖獣、イスラム教では豚が不浄。鶏肉に禁忌をもつ宗教は稀で、これが世界中で需要が偏らない一因となっている。肉の選択は信仰でもある。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PHOTO FEATURE 02 ═══════════ -->
+<section class="photo-feature">
+  <div class="pf-bg">
+    <img src="img/slices.jpg" alt="Sliced grilled meat resting on a wooden cutting board">
+  </div>
+  <div class="pf-content">
+    <div>
+      <div class="pf-eyebrow" data-i18n="pf2.eyebrow">PLATE 02 · 熟成と保存</div>
+      <h2>
+        <span class="ja" data-i18n="pf2.h.ja">時間が風味を育てる</span>
+        <span data-i18n-html="pf2.h.en"><em>Time</em> as an<br>ingredient.</span>
+      </h2>
+    </div>
+    <div>
+      <p data-i18n="pf2.p">屠畜直後の硬直した筋肉は、低温で日数を重ねることで再び軟らかくなる。筋肉細胞のプロテアーゼが筋源繊維を分解し、解硬と熟成のプロセスが進行する。さらに塩漬・燻煙・乾燥・発酵 ── ハム、ソーセージ、ジャーキー、生ハム ── 保存技術は風味の発明でもあった。</p>
+    </div>
+  </div>
+  <div class="pf-credit">PHOTO · UNSPLASH</div>
+</section>
+
+<!-- ═══════════ FUTURE ═══════════ -->
+<section class="future">
+  <div class="future-grid">
+    <div>
+      <div class="section-num" data-i18n="fut.num">— 08 / 未来</div>
+      <h2>
+        <span class="ja" style="font-family: 'Shippori Mincho'; font-size: 0.4em; letter-spacing: 0.05em; display: block; color: var(--ink-dim); margin-bottom: 0.8rem;" data-i18n="fut.subj.ja">肉の行方</span>
+        <span data-i18n-html="fut.h.en">The <em>future</em><br>of meat</span>
+      </h2>
+      <p style="color: var(--ink-dim); line-height: 1.9; margin-top: 2rem; font-size: 1.05rem;" data-i18n="fut.intro">FAOの予測によれば、食肉需要は2040年頃まで高中所得国に牽引され増加し、その後2075年頃まで低所得国によって支えられる。資源・環境問題から、減少の時期はさらに早まる可能性もある。</p>
+    </div>
+
+    <div class="future-cards">
+      <div class="future-card has-image">
+        <div>
+          <div class="tag" data-i18n="fut.plant.tag">PLANT-BASED</div>
+          <h4 data-i18n="fut.plant.h">植物肉</h4>
+          <p data-i18n="fut.plant.p">豆類などから肉に似せた味わいを持たせた製品。健康志向・菜食主義に応える。日本の精進料理、台湾素食など、伝統的にも植物から肉を模す技法は存在した。</p>
+        </div>
+        <div class="fc-thumb">
+          <img src="img/plant-meat.jpg" alt="Soybeans and textured soy protein side by side" loading="lazy">
+        </div>
+      </div>
+      <div class="future-card has-image">
+        <div>
+          <div class="tag" data-i18n="fut.cult.tag">CULTIVATED</div>
+          <h4 data-i18n="fut.cult.h">培養肉</h4>
+          <p data-i18n="fut.cult.p">動物を殺傷せず、食肉となる部位の細胞を組織培養する技術。研究は進むが、大量生産技術は未確立。生産コストの壁が普及を阻んでいる。</p>
+        </div>
+        <div class="fc-thumb">
+          <img src="img/cultivated.jpg" alt="Cultivated meat being lifted with tweezers from a petri dish in a laboratory" loading="lazy">
+        </div>
+      </div>
+      <div class="future-card has-image">
+        <div>
+          <div class="tag" data-i18n="fut.game.tag">RE-DISCOVERY</div>
+          <h4 data-i18n="fut.game.h">ジビエ再評価</h4>
+          <p data-i18n="fut.game.p">日本では獣害対策の一環として、シカ・イノシシなど野生動物の食肉化が促進されている。ただし生食はE型肝炎・寄生虫リスクから厳禁。</p>
+        </div>
+        <div class="fc-animals">
+          <img src="img/animals/deer.png" alt="Deer watercolor illustration">
+          <img src="img/animals/boar.png" alt="Wild boar watercolor illustration">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">M·E·<em>A</em>·T</div>
+      <p class="footer-tagline" data-i18n="foot.tagline">食肉に関する一切の知見を、編集的視点から再構成する。本サイトはWikipedia「食肉」項を典拠とする一次的編集物である。</p>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="foot.h.sec">Sections</h5>
+      <ul>
+        <li><a href="#definition" data-i18n="foot.def">定義</a></li>
+        <li><a href="#types" data-i18n="foot.types">種類</a></li>
+        <li><a href="#data" data-i18n="foot.data">統計データ</a></li>
+        <li><a href="#process" data-i18n="foot.process">生産工程</a></li>
+        <li><a href="#culture" data-i18n="foot.culture">食文化</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="foot.h.src">Source</h5>
+      <ul>
+        <li><a href="https://ja.wikipedia.org/wiki/食肉" target="_blank" data-i18n="foot.wiki">Wikipedia · 食肉</a></li>
+        <li><a href="#">FAO Statistics 2018</a></li>
+        <li><a href="#">Meat Science Journal</a></li>
+        <li><a href="#">日本食肉格付協会</a></li>
+        <li><a href="https://unsplash.com" target="_blank" data-i18n="foot.unsplash">Photos · Unsplash</a></li>
+        <li><a href="#">Maps · OECD / FAO</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div data-i18n="foot.copyright">© MMXXVI · A STUDY IN MEAT</div>
+    <div>RARE · MEDIUM · WELL-DONE</div>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll for nav anchors (already handled by html scroll-behavior)
+  // Reveal-on-scroll for bars
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bar-fill').forEach(bar => {
+    bar.style.animationPlayState = 'paused';
+    observer.observe(bar);
+  });
+</script>
+
+
+<script>
+const I18N = {
+  "nav.def": {
+    "ja": "定義",
+    "en": "Definition"
+  },
+  "nav.types": {
+    "ja": "種類",
+    "en": "Types"
+  },
+  "nav.data": {
+    "ja": "データ",
+    "en": "Data"
+  },
+  "nav.world": {
+    "ja": "世界",
+    "en": "World"
+  },
+  "nav.process": {
+    "ja": "工程",
+    "en": "Process"
+  },
+  "nav.culture": {
+    "ja": "文化",
+    "en": "Culture"
+  },
+  "hero.eyebrow": {
+    "ja": "食肉という文明",
+    "en": "A civilization of meat"
+  },
+  "hero.tagline": {
+    "ja": "人類は鳥獣の肉を捌き、熟成させ、火を入れることで文明を育ててきた。これは、地球上で年間3億トンを超える「肉」という、最も原初的で、最も洗練された食材についての記録である。",
+    "en": "Humans built civilization by butchering, aging, and cooking the flesh of birds and beasts. This is a record of meat — the most primal and most refined ingredient on Earth, produced at over 300 million tons a year."
+  },
+  "hero.stat1": {
+    "ja": "tons / year",
+    "en": "tons / year"
+  },
+  "hero.stat2": {
+    "ja": "main species",
+    "en": "main species"
+  },
+  "hero.stat3": {
+    "ja": "cultures",
+    "en": "cultures"
+  },
+  "hero.corner": {
+    "ja": "Cross-section of<br>bone-in ribeye",
+    "en": "Cross-section of<br>bone-in ribeye"
+  },
+  "def.num": {
+    "ja": "— 01 / 定義",
+    "en": "— 01 / DEFINITION"
+  },
+  "def.h.ja": {
+    "ja": "そもそも「肉」とは",
+    "en": ""
+  },
+  "def.h.en": {
+    "ja": "What is <em>meat</em>?",
+    "en": "What is <em>meat</em>?"
+  },
+  "def.p1": {
+    "ja": "食肉とは、主に鳥類を含む動物の肉、畜産動物または野生動物を食肉加工したものを指す。日本語の「肉」は鳥獣の肉を含意し、魚は別枠とする慣習がある。屠畜直後の筋肉は死後硬直のため硬く、そのままでは食用に供せない。",
+    "en": "Meat refers to the flesh of animals — primarily livestock and game, including birds — processed for human consumption. In Japanese, \"肉\" implies the meat of birds and beasts, with fish conventionally treated as a separate category. Muscle just after slaughter is too rigid to eat due to rigor mortis."
+  },
+  "def.p2": {
+    "ja": "一定の熟成プロセスを経て解硬されたものこそが、生体内の筋肉と区別される「食肉」である。骨格筋に付随する血管・神経組織、皮下脂肪および筋間脂肪組織も、狭義の食肉に含まれる。可食臓器類——いわゆるモツも、商取引上は副生物として流通するが、科学的には食肉である。",
+    "en": "Only after the aging process resolves rigor does muscle become \"meat\" as distinct from living tissue. Vessels, nerves, subcutaneous fat, and intermuscular fat attached to skeletal muscle are also included. Edible organs — offal — circulate as by-products in trade, but scientifically they too are meat."
+  },
+  "types.num": {
+    "ja": "— 02 / 種類",
+    "en": "— 02 / TYPES"
+  },
+  "types.h.ja": {
+    "ja": "世界で食される肉",
+    "en": ""
+  },
+  "types.h.en": {
+    "ja": "The <em>animals</em> we eat",
+    "en": "The <em>animals</em> we eat"
+  },
+  "types.chicken.name": {
+    "ja": "鶏肉",
+    "en": "Chicken"
+  },
+  "types.chicken.desc": {
+    "ja": "世界で最も生産量が多い食肉。宗教的禁忌がほぼなく、飼料効率にも優れる。2018年の生産は1億2731万トン。",
+    "en": "The most-produced meat in the world. Almost free of religious taboos and remarkably feed-efficient. 2018 output: 127.31 million tons."
+  },
+  "types.pork.name": {
+    "ja": "豚肉",
+    "en": "Pork"
+  },
+  "types.pork.desc": {
+    "ja": "ビタミンB1の優れた給源。日本の食肉消費の中核。イスラム教では不浄とされ、地理的に偏りが大きい。",
+    "en": "An excellent source of vitamin B1. A staple of Japanese consumption. Forbidden in Islam, so its distribution is geographically uneven."
+  },
+  "types.beef.name": {
+    "ja": "牛肉",
+    "en": "Beef"
+  },
+  "types.beef.desc": {
+    "ja": "ヒンドゥー教では聖獣のため禁忌。日本では枝肉に対しA5までの厳格な格付制度を持つ。",
+    "en": "Forbidden in Hinduism, where the cow is sacred. Japan applies a strict carcass grading system up to the highest rank, A5."
+  },
+  "types.lamb.name": {
+    "ja": "羊肉",
+    "en": "Lamb"
+  },
+  "types.lamb.desc": {
+    "ja": "ニュージーランド・オーストラリアで突出して消費される。世界全体では牛肉の数分の一に留まる。",
+    "en": "Consumed at remarkable rates in New Zealand and Australia. Globally, only a fraction of beef volume."
+  },
+  "types.world": {
+    "ja": "世界生産",
+    "en": "WORLD"
+  },
+  "data.num": {
+    "ja": "— 03 / 統計",
+    "en": "— 03 / DATA"
+  },
+  "data.h.ja": {
+    "ja": "肉の地球規模",
+    "en": ""
+  },
+  "data.h.en": {
+    "ja": "Planetary <em>scale</em>",
+    "en": "Planetary <em>scale</em>"
+  },
+  "data.bignum.unit": {
+    "ja": "tons / year · 2018",
+    "en": "tons / year · 2018"
+  },
+  "data.bignum.suffix": {
+    "ja": "億",
+    "en": "B"
+  },
+  "data.caption": {
+    "ja": "全世界の食肉生産量は年間およそ3億4100万トン。アジアが1億4000万トン超で生産の中心。中国一国だけで8800万トンを生産する。",
+    "en": "Global meat production reaches roughly 341 million tons a year. Asia leads with over 140 million tons. China alone produces 88 million tons."
+  },
+  "bar.poultry": {
+    "ja": "鶏肉",
+    "en": "Poultry"
+  },
+  "bar.pork": {
+    "ja": "豚肉",
+    "en": "Pork"
+  },
+  "bar.beef": {
+    "ja": "牛肉",
+    "en": "Beef"
+  },
+  "bar.lambgoat": {
+    "ja": "羊・山羊",
+    "en": "Lamb / Goat"
+  },
+  "bar.duck": {
+    "ja": "アヒル",
+    "en": "Duck"
+  },
+  "bar.goose": {
+    "ja": "ガチョウ",
+    "en": "Goose"
+  },
+  "bar.game": {
+    "ja": "ジビエ",
+    "en": "Game"
+  },
+  "bar.horse": {
+    "ja": "馬肉",
+    "en": "Horse"
+  },
+  "maps.num": {
+    "ja": "— 04 / 世界の食卓",
+    "en": "— 04 / TABLES OF THE WORLD"
+  },
+  "maps.h.ja": {
+    "ja": "飽和と急増、二つの世界",
+    "en": ""
+  },
+  "maps.h.en": {
+    "ja": "A <em>tale</em> of two worlds",
+    "en": "A <em>tale</em> of two worlds"
+  },
+  "maps.intro": {
+    "ja": "一人当たりの食肉消費量は、地球上で大きく二極化している。先進国では既に上限に達して頭打ちとなり、新興国では経済成長とともに急増を続けている。",
+    "en": "Per-capita meat consumption is sharply polarized. Wealthy nations have reached a ceiling and plateaued; emerging economies continue to surge alongside their growth."
+  },
+  "maps.ch1.tag": {
+    "ja": "CHAPTER 01 · OECD",
+    "en": "CHAPTER 01 · OECD"
+  },
+  "maps.ch1.h": {
+    "ja": "The <em>satiated</em> world",
+    "en": "The <em>satiated</em> world"
+  },
+  "maps.ch1.subj": {
+    "ja": "先進国──飽和",
+    "en": "Wealthy nations — saturated"
+  },
+  "maps.ch1.p1": {
+    "ja": "北アメリカ、西ヨーロッパ、オセアニアの先進国では、所得水準と食肉嗜好が結びつき、消費量はすでにほぼ上限に達した。2010-12年の数値と2022年予測の差は小さく、需要は頭打ち状態にある。",
+    "en": "In North America, Western Europe, and Oceania, high incomes meet a meat-friendly culture and consumption has nearly hit its ceiling. The gap between 2010-12 figures and 2022 forecasts is narrow — demand has plateaued."
+  },
+  "maps.ch1.p2": {
+    "ja": "USAの鶏肉45.6kg、オーストラリアの鶏肉39.6kg、EUの豚肉31.7kg ── 巨大な数字が安定している。",
+    "en": "USA: 45.6 kg of poultry. Australia: 39.6 kg of poultry. EU: 31.7 kg of pork. Massive figures, stable."
+  },
+  "maps.divider": {
+    "ja": "vs.",
+    "en": "vs."
+  },
+  "maps.ch2.tag": {
+    "ja": "CHAPTER 02 · BRICS",
+    "en": "CHAPTER 02 · BRICS"
+  },
+  "maps.ch2.h": {
+    "ja": "The <em>rising</em> world",
+    "en": "The <em>rising</em> world"
+  },
+  "maps.ch2.subj": {
+    "ja": "新興国──急増",
+    "en": "Emerging nations — rising"
+  },
+  "maps.ch2.p1": {
+    "ja": "ブラジル、ロシア、インド、中国、南アフリカ ── BRICS諸国では、経済の成長と生活水準の向上に伴い、食肉消費が急拡大している。中国の豚肉34.1kg、ブラジルの鶏肉47.0kg。",
+    "en": "Brazil, Russia, India, China, South Africa — across the BRICS, economic growth and rising living standards drive meat consumption sharply upward. China: 34.1 kg of pork. Brazil: 47.0 kg of poultry."
+  },
+  "maps.ch2.p2": {
+    "ja": "ヒンドゥー教の影響でインドは依然として極端に低い水準を保つが、他の4カ国では2010-12年から2022年にかけて顕著な伸びを示す。21世紀の食肉需要を牽引するのは、間違いなくこちらの世界である。",
+    "en": "India stays exceptionally low under Hindu influence, but the other four nations show pronounced growth from 2010-12 to 2022. This is undoubtedly the world that will drive 21st-century demand."
+  },
+  "proc.num": {
+    "ja": "— 05 / 工程",
+    "en": "— 05 / PROCESS"
+  },
+  "proc.h.ja": {
+    "ja": "肥育から食卓まで",
+    "en": ""
+  },
+  "proc.h.en": {
+    "ja": "From <em>field</em> to <em>plate</em>",
+    "en": "From <em>field</em> to <em>plate</em>"
+  },
+  "proc.s1.h": {
+    "ja": "肥育",
+    "en": "Fattening"
+  },
+  "proc.s1.r": {
+    "ja": "HIIKU",
+    "en": "HIIKU"
+  },
+  "proc.s1.p": {
+    "ja": "食肉を得るため家畜を飼養する。牛肉1kgに穀物10kgを要するとされる。",
+    "en": "Livestock is raised to produce meat. Roughly 10 kg of grain are required to yield 1 kg of beef."
+  },
+  "proc.s2.h": {
+    "ja": "屠畜",
+    "en": "Slaughter"
+  },
+  "proc.s2.r": {
+    "ja": "TOCHIKU",
+    "en": "TOCHIKU"
+  },
+  "proc.s2.p": {
+    "ja": "屠畜場へ送られ、解体され、内臓を除去。屠体から枝肉へと姿を変える。",
+    "en": "Animals are sent to abattoirs, butchered, and eviscerated. The carcass is dressed into split sides."
+  },
+  "proc.s3.h": {
+    "ja": "熟成",
+    "en": "Aging"
+  },
+  "proc.s3.r": {
+    "ja": "JUKUSEI",
+    "en": "JUKUSEI"
+  },
+  "proc.s3.p": {
+    "ja": "2〜5℃で貯蔵。牛は7〜10日、豚は3〜5日、鶏は半日で解硬。風味が増す。",
+    "en": "Stored at 2-5°C. Beef rests 7-10 days, pork 3-5, chicken half a day. Rigor resolves and flavor builds."
+  },
+  "proc.s4.h": {
+    "ja": "格付",
+    "en": "Grading"
+  },
+  "proc.s4.r": {
+    "ja": "KAKUZUKE",
+    "en": "KAKUZUKE"
+  },
+  "proc.s4.p": {
+    "ja": "歩留等級A〜C、肉質等級1〜5。最高位はA5。脂肪交雑・色・キメで判定。",
+    "en": "Yield grade A-C, quality grade 1-5. The peak is A5. Marbling, color, and texture decide the rank."
+  },
+  "proc.s5.h": {
+    "ja": "調理",
+    "en": "Cooking"
+  },
+  "proc.s5.r": {
+    "ja": "CHŌRI",
+    "en": "CHŌRI"
+  },
+  "proc.s5.p": {
+    "ja": "加熱で衛生確保・タンパク質変性・香気生成。レアからウェルダンまで。",
+    "en": "Heat ensures safety, denatures proteins, and creates aromas. From rare to well-done."
+  },
+  "comp.num": {
+    "ja": "— 06 / 成分",
+    "en": "— 06 / COMPOSITION"
+  },
+  "comp.h.ja": {
+    "ja": "肉を構成するもの",
+    "en": ""
+  },
+  "comp.h.en": {
+    "ja": "What <em>meat</em><br>is made of",
+    "en": "What <em>meat</em><br>is made of"
+  },
+  "comp.intro": {
+    "ja": "食肉の主成分は水である。タンパク質、脂質、無機質、ビタミン── うま味を呈するアミノ酸とイノシン酸、酸味を呈する乳酸、鉄を含むミオグロビン。これらが「肉らしさ」を生む。",
+    "en": "Meat is mostly water. Then protein, fat, minerals, vitamins — amino acids and inosinate carrying umami, lactic acid carrying tartness, iron-bearing myoglobin. Together they create what we recognize as \"meat\"."
+  },
+  "comp.water.h": {
+    "ja": "水分",
+    "en": "Water"
+  },
+  "comp.water.p": {
+    "ja": "食肉の最大の構成要素。組織のしなやかさと食感を司る。",
+    "en": "Meat's largest component. Governs tissue suppleness and mouthfeel."
+  },
+  "comp.prot.h": {
+    "ja": "タンパク質",
+    "en": "Protein"
+  },
+  "comp.prot.p": {
+    "ja": "筋線維タンパク質、筋漿タンパク質、結合組織タンパク質の三系統。",
+    "en": "Three families: myofibrillar, sarcoplasmic, and connective tissue proteins."
+  },
+  "comp.lipid.h": {
+    "ja": "脂質",
+    "en": "Lipids"
+  },
+  "comp.lipid.p": {
+    "ja": "中性脂質が大半。霜降り(筋肉内脂肪)はロースで40%超に達することも。",
+    "en": "Mostly triglycerides. Marbling (intramuscular fat) in loin can exceed 40%."
+  },
+  "comp.iron.h": {
+    "ja": "鉄(ヘム鉄)",
+    "en": "Iron (heme iron)"
+  },
+  "comp.iron.p": {
+    "ja": "ミオグロビン・ヘモグロビンとして存在。肉の赤色を生み出す本体。",
+    "en": "Carried by myoglobin and hemoglobin. The true source of meat's red color."
+  },
+  "comp.b1.h": {
+    "ja": "ビタミンB1",
+    "en": "Vitamin B1"
+  },
+  "comp.b1.p": {
+    "ja": "特に豚肉に豊富。日本人に欠乏しがちな栄養素の重要な供給源。",
+    "en": "Abundant especially in pork. A key source of a nutrient often deficient in Japanese diets."
+  },
+  "pf1.eyebrow": {
+    "ja": "PLATE 01 · 加熱の科学",
+    "en": "PLATE 01 · THE SCIENCE OF HEAT"
+  },
+  "pf1.h.ja": {
+    "ja": "火が、肉を肉にする",
+    "en": ""
+  },
+  "pf1.h.en": {
+    "ja": "<em>Fire</em> makes<br>meat into <em>food</em>.",
+    "en": "<em>Fire</em> makes<br>meat into <em>food</em>."
+  },
+  "pf1.p": {
+    "ja": "加熱はタンパク質を変性させ、新たなペプチドを生み、独特の香気を立ち上げる。生のままでは噛み切れない筋線維も、火を通すことで初めて食べやすい食感へと変わる。ウェルダン、ミディアム、ミディアム・レア、レア ── その温度の選択は、文化と嗜好と科学の交差点にある。",
+    "en": "Heat denatures proteins, creates new peptides, and lifts distinctive aromas. Muscle fibers that no jaw can sever raw become tender only once cooked. Well-done, medium, medium-rare, rare — the choice of temperature sits at the crossroads of culture, taste, and science."
+  },
+  "quote.text": {
+    "ja": "熟成によって、硬直した死後の筋肉は<br>再び<em>軟らかく</em>なり、<em>風味</em>を獲得する。",
+    "en": "Through aging, muscle that stiffened in death<br>becomes <em>tender</em> again, and acquires <em>flavor</em>."
+  },
+  "quote.cite": {
+    "ja": "— 食肉科学 · MEAT SCIENCE",
+    "en": "— MEAT SCIENCE"
+  },
+  "cul.num": {
+    "ja": "— 07 / 文化",
+    "en": "— 07 / CULTURE"
+  },
+  "cul.h.ja": {
+    "ja": "肉と信仰と地理",
+    "en": ""
+  },
+  "cul.h.en": {
+    "ja": "Meat &amp; <em>culture</em>",
+    "en": "Meat &amp; <em>culture</em>"
+  },
+  "cul.gibier.area": {
+    "ja": "ジビエ · 欧州",
+    "en": "Gibier · Europe"
+  },
+  "cul.gibier.p": {
+    "ja": "フランスでは野生動物の肉を「ジビエ」と呼び愛好する伝統がある。マガモ、ヤマウズラ、キジ、ライチョウ。狩猟が生んだ食文化。日本でも獣害対策として商品化が進む。",
+    "en": "France calls game meat 'gibier' and has long celebrated it. Mallard, partridge, pheasant, ptarmigan — a cuisine born of the hunt. Japan now promotes it too, partly to address wildlife crop damage."
+  },
+  "cul.wagyu.area": {
+    "ja": "和牛 · 日本",
+    "en": "Wagyū · Japan"
+  },
+  "cul.wagyu.p": {
+    "ja": "枝肉を第6・第7胸椎間で切開し、脂肪交雑・肉色・キメ・締まりで判定する。歩留A〜C、肉質1〜5。最高位A5は世界的ブランドへ。霜降り至上主義は赤身肉を低く見る問題も孕む。",
+    "en": "The carcass is opened between the 6th and 7th thoracic vertebrae and judged by marbling, color, texture, and firmness. Yield A-C, quality 1-5. The peak A5 has become a global luxury brand — though the cult of marbling unfairly devalues lean cuts."
+  },
+  "cul.taboo.area": {
+    "ja": "禁忌 · 世界",
+    "en": "Taboo · Global"
+  },
+  "cul.taboo.p": {
+    "ja": "ヒンドゥー教では牛が聖獣、イスラム教では豚が不浄。鶏肉に禁忌をもつ宗教は稀で、これが世界中で需要が偏らない一因となっている。肉の選択は信仰でもある。",
+    "en": "In Hinduism the cow is sacred; in Islam pork is impure. Religions that forbid chicken are rare — one reason its demand is geographically even. The choice of meat is also a matter of faith."
+  },
+  "pf2.eyebrow": {
+    "ja": "PLATE 02 · 熟成と保存",
+    "en": "PLATE 02 · AGING & PRESERVATION"
+  },
+  "pf2.h.ja": {
+    "ja": "時間が風味を育てる",
+    "en": ""
+  },
+  "pf2.h.en": {
+    "ja": "<em>Time</em> as an<br>ingredient.",
+    "en": "<em>Time</em> as an<br>ingredient."
+  },
+  "pf2.p": {
+    "ja": "屠畜直後の硬直した筋肉は、低温で日数を重ねることで再び軟らかくなる。筋肉細胞のプロテアーゼが筋源繊維を分解し、解硬と熟成のプロセスが進行する。さらに塩漬・燻煙・乾燥・発酵 ── ハム、ソーセージ、ジャーキー、生ハム ── 保存技術は風味の発明でもあった。",
+    "en": "Rigid muscle softens again over days of cold storage. Proteases inside the cells break down myofibrils, advancing both rigor's resolution and aging proper. Then salting, smoking, drying, fermenting — ham, sausage, jerky, prosciutto — preservation was also the invention of flavor."
+  },
+  "fut.num": {
+    "ja": "— 08 / 未来",
+    "en": "— 08 / FUTURE"
+  },
+  "fut.subj.ja": {
+    "ja": "肉の行方",
+    "en": ""
+  },
+  "fut.h.en": {
+    "ja": "The <em>future</em><br>of meat",
+    "en": "The <em>future</em><br>of meat"
+  },
+  "fut.intro": {
+    "ja": "FAOの予測によれば、食肉需要は2040年頃まで高中所得国に牽引され増加し、その後2075年頃まで低所得国によって支えられる。資源・環境問題から、減少の時期はさらに早まる可能性もある。",
+    "en": "According to the FAO, meat demand will rise — driven by upper- and middle-income countries until around 2040, then sustained by lower-income countries through about 2075. Resource and environmental constraints may bring the decline forward."
+  },
+  "fut.plant.tag": {
+    "ja": "PLANT-BASED",
+    "en": "PLANT-BASED"
+  },
+  "fut.plant.h": {
+    "ja": "植物肉",
+    "en": "Plant meat"
+  },
+  "fut.plant.p": {
+    "ja": "豆類などから肉に似せた味わいを持たせた製品。健康志向・菜食主義に応える。日本の精進料理、台湾素食など、伝統的にも植物から肉を模す技法は存在した。",
+    "en": "Products that mimic meat using legumes and other plants. They answer health and vegetarian demand. Japan's shōjin cuisine and Taiwanese sùshí have long practiced the art of imitating meat from plants."
+  },
+  "fut.cult.tag": {
+    "ja": "CULTIVATED",
+    "en": "CULTIVATED"
+  },
+  "fut.cult.h": {
+    "ja": "培養肉",
+    "en": "Cultivated meat"
+  },
+  "fut.cult.p": {
+    "ja": "動物を殺傷せず、食肉となる部位の細胞を組織培養する技術。研究は進むが、大量生産技術は未確立。生産コストの壁が普及を阻んでいる。",
+    "en": "A technology that grows meat from cell tissue without slaughter. Research advances steadily, but mass-production techniques remain unsettled and costs block adoption."
+  },
+  "fut.game.tag": {
+    "ja": "RE-DISCOVERY",
+    "en": "RE-DISCOVERY"
+  },
+  "fut.game.h": {
+    "ja": "ジビエ再評価",
+    "en": "Game revisited"
+  },
+  "fut.game.p": {
+    "ja": "日本では獣害対策の一環として、シカ・イノシシなど野生動物の食肉化が促進されている。ただし生食はE型肝炎・寄生虫リスクから厳禁。",
+    "en": "Japan is promoting deer and wild boar as meat to manage agricultural damage by wildlife — though raw consumption is strictly forbidden because of hepatitis E and parasite risks."
+  },
+  "foot.tagline": {
+    "ja": "食肉に関する一切の知見を、編集的視点から再構成する。本サイトはWikipedia「食肉」項を典拠とする一次的編集物である。",
+    "en": "Reconstructing the full knowledge of meat through an editorial lens. This site is an editorial work based on Wikipedia's '食肉' (meat) article."
+  },
+  "foot.h.sec": {
+    "ja": "Sections",
+    "en": "Sections"
+  },
+  "foot.h.src": {
+    "ja": "Source",
+    "en": "Source"
+  },
+  "foot.def": {
+    "ja": "定義",
+    "en": "Definition"
+  },
+  "foot.types": {
+    "ja": "種類",
+    "en": "Types"
+  },
+  "foot.data": {
+    "ja": "統計データ",
+    "en": "Statistics"
+  },
+  "foot.process": {
+    "ja": "生産工程",
+    "en": "Production process"
+  },
+  "foot.culture": {
+    "ja": "食文化",
+    "en": "Food culture"
+  },
+  "foot.wiki": {
+    "ja": "Wikipedia · 食肉",
+    "en": "Wikipedia · Meat (JP)"
+  },
+  "foot.fao": {
+    "ja": "FAO Statistics 2018",
+    "en": "FAO Statistics 2018"
+  },
+  "foot.msj": {
+    "ja": "Meat Science Journal",
+    "en": "Meat Science Journal"
+  },
+  "foot.jmga": {
+    "ja": "日本食肉格付協会",
+    "en": "Japan Meat Grading Association"
+  },
+  "foot.unsplash": {
+    "ja": "Photos · Unsplash",
+    "en": "Photos · Unsplash"
+  },
+  "foot.maps": {
+    "ja": "Maps · OECD / FAO",
+    "en": "Maps · OECD / FAO"
+  },
+  "foot.copyright": {
+    "ja": "© MMXXVI · A STUDY IN MEAT",
+    "en": "© MMXXVI · A STUDY IN MEAT"
+  },
+  "foot.tagline2": {
+    "ja": "RARE · MEDIUM · WELL-DONE",
+    "en": "RARE · MEDIUM · WELL-DONE"
+  }
+};
+
+const LANG_KEY = 'meat-site-lang';
+
+function applyLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.body.classList.toggle('lang-ja', lang === 'ja');
+  document.documentElement.setAttribute('lang', lang);
+
+  // Standard text replacement
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (I18N[key] && I18N[key][lang] !== undefined) {
+      el.textContent = I18N[key][lang];
+    }
+  });
+
+  // HTML replacement (for elements containing <em> etc.)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (I18N[key] && I18N[key][lang] !== undefined) {
+      el.innerHTML = I18N[key][lang];
+    }
+  });
+
+  // Update toggle UI
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  let lang = 'ja';
+  try {
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved === 'ja' || saved === 'en') lang = saved;
+  } catch (e) {}
+  applyLang(lang);
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+  });
+});
+</script>
+
+<!-- ─── HUB BADGE (Let Me Explain index) ─── -->
+<a href="/" class="lme-back-badge" aria-label="Back to index">
+  <span class="lme-back-arrow">←</span>
+  <span class="lme-back-text"><em>let me explain</em>… index</span>
+</a>
+<style>
+  .lme-back-badge {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    background: rgba(10, 6, 4, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(243, 235, 225, 0.18);
+    color: #f3ebe1;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    mix-blend-mode: normal;
+  }
+  .lme-back-badge:hover {
+    background: rgba(201, 169, 97, 0.95);
+    color: #0a0604;
+    border-color: rgba(201, 169, 97, 1);
+    transform: translateX(-3px);
+  }
+  .lme-back-arrow {
+    transition: transform 0.3s ease;
+    font-family: 'Bodoni Moda', serif;
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+  .lme-back-badge:hover .lme-back-arrow {
+    transform: translateX(-3px);
+  }
+  .lme-back-text em {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    text-transform: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin-right: 0.15em;
+  }
+  @media (max-width: 700px) {
+    .lme-back-badge {
+      bottom: 1rem;
+      left: 1rem;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.6rem;
+    }
+    .lme-back-text em { font-size: 0.75rem; }
+  }
+</style>
+
+</body>
+</html>

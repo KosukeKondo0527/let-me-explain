@@ -1,0 +1,27 @@
+# Netlify build configuration
+# 静的サイト(ビルド不要)。リポジトリのルートをそのまま公開する。
+
+[build]
+  publish = "."
+  # ビルドコマンドは現状不要。将来Pagefind等を入れる場合はここに追記。
+  # 例: command = "npx pagefind --site ."
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# キャッシュヘッダ(画像は長期キャッシュ可)
+[[headers]]
+  for = "/*/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTMLは短めのキャッシュ
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

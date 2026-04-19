@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Let Me Explain… — 説明させて</title>
+<meta name="description" content="一つのモノを、ちゃんと説明させてください。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=Shippori+Mincho:wght@400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0807;
+    --ink: #f3ebe1;
+    --ink-dim: #a89588;
+    --ink-faint: #5a4f47;
+    --bone: #e8dccb;
+    --accent: #c9a961;
+    --hot: #c41e1e;
+    --line: rgba(243, 235, 225, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.6;
+    overflow: hidden;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201, 169, 97, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 30% at 100% 100%, rgba(196, 30, 30, 0.05) 0%, transparent 60%);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* ─────── LAYOUT ─────── */
+  .stage {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 2rem 3rem;
+    position: relative;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .topbar .left {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: none;
+  }
+  .topbar .left .dots { color: var(--accent); }
+
+  /* CENTER */
+  .center {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .intro {
+    opacity: 0;
+    animation: fadeUp 1s 0.2s forwards;
+  }
+  .intro .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .intro .label::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--accent);
+  }
+  .intro h1 {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+  .intro h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .intro h1 .dots {
+    color: var(--hot);
+    font-weight: 400;
+  }
+  .intro .ja {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.2em;
+  }
+  .intro .note {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+    max-width: 380px;
+  }
+  .intro .note .en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  /* LIST */
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 50px 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideIn 0.7s forwards;
+    transition: padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .item:nth-child(1) { animation-delay: 0.5s; }
+  .item:nth-child(2) { animation-delay: 0.65s; }
+  .item:nth-child(3) { animation-delay: 0.8s; }
+
+  .item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(to right, rgba(201, 169, 97, 0.08), transparent);
+    transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+  }
+  .item:hover {
+    padding-left: 1.5rem;
+  }
+  .item:hover::before { width: 100%; }
+  .item:hover .num { color: var(--accent); }
+  .item:hover .title { color: var(--accent); }
+  .item:hover .arrow { transform: translateX(8px); color: var(--accent); }
+
+  .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.15em;
+    transition: color 0.3s;
+  }
+  .title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .prefix {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+  .title {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--bone);
+    transition: color 0.3s;
+  }
+  .title em {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .title .ja {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 500;
+    font-size: 0.5em;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+    margin-left: 0.6em;
+    vertical-align: 0.15em;
+  }
+  .arrow {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.4rem;
+    color: var(--ink-faint);
+    transition: transform 0.4s, color 0.3s;
+    line-height: 1;
+  }
+  .item.archive .title { color: var(--ink-dim); }
+  .item.archive .num { color: var(--hot); opacity: 0.6; }
+
+  /* FOOT */
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .foot .right { color: var(--accent); }
+  .foot a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--line);
+    transition: color 0.3s, border-color 0.3s;
+    padding-bottom: 0.1rem;
+  }
+  .foot a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ─────── RESPONSIVE ─────── */
+  @media (max-width: 900px) {
+    body { overflow-y: auto; }
+    .stage {
+      padding: 1.5rem 1.5rem;
+      gap: 2rem;
+    }
+    .center {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 1rem 0;
+    }
+    .intro h1 { font-size: clamp(2.8rem, 12vw, 4rem); }
+    .item {
+      grid-template-columns: 40px 1fr auto;
+      gap: 1rem;
+      padding: 1.4rem 0;
+    }
+    .item:hover { padding-left: 0; }
+    .title { font-size: clamp(1.5rem, 6vw, 2rem); }
+    .title .ja { display: block; margin-left: 0; margin-top: 0.4rem; font-size: 0.7rem; vertical-align: baseline; }
+    .arrow { font-size: 1.2rem; }
+    .foot { flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+    .topbar .meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <header class="topbar">
+    <div class="left">Let&nbsp;Me&nbsp;Explain<span class="dots">…</span></div>
+    <div class="meta">A Wikipedia Re-edit · MMXXV</div>
+  </header>
+
+  <main class="center">
+
+    <div class="intro">
+      <div class="label">Index</div>
+      <h1>Let me<br><em>explain</em><span class="dots">…</span></h1>
+      <p class="ja">一つのモノを、ちゃんと説明させて。</p>
+      <p class="note">Wikipedia の記事を、編集とデザインで読み直す試み。<br><span class="en">An editorial re-reading of Wikipedia articles.</span></p>
+    </div>
+
+    <nav class="list">
+
+      <a class="item" href="/meat/">
+        <span class="num">N°&nbsp;001</span>
+        <div class="title-block">
+          <span class="prefix">let me explain…</span>
+          <span class="title"><em>Meat</em><span class="ja">食肉</span></span>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="item" href="/sushi/">
+        <span class="num">N°&nbsp;002</span>
+        <div class="title-block">
+          <span class="prefix">let me explain…</span>
+          <span class="title"><em>Sushi</em><span class="ja">鮨</span></span>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+    </nav>
+
+  </main>
+
+  <footer class="foot">
+    <span>© MMXXV — Source: <a href="https://ja.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a> · CC BY-SA</span>
+    <span class="right">説明中 · IN PROGRESS</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
