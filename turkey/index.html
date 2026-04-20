@@ -1370,20 +1370,54 @@
   .dish {
     background: var(--bg);
     border: 1px solid var(--line);
-    padding: 2rem 1.8rem;
     display: flex;
     flex-direction: column;
     position: relative;
     transition: transform 0.3s, border-color 0.3s;
+    overflow: hidden;
   }
   .dish:hover { transform: translateY(-3px); border-color: var(--ottoman-red); }
+  .dish .dish-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .dish:hover .dish-img { transform: scale(1.04); }
+  .dish-no-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background:
+      linear-gradient(135deg, var(--bg-deeper) 0%, #2a4060 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-soft);
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+  .dish-body {
+    padding: 1.6rem 1.8rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
   .dish .dish-id {
     position: absolute;
-    top: 1rem; right: 1rem;
+    top: 0.8rem; right: 0.8rem;
+    z-index: 2;
+    background: rgba(10, 26, 46, 0.7);
+    color: var(--gold-soft);
+    padding: 0.25rem 0.55rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.65rem;
-    color: var(--ink-dim);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
   .dish h4 {
     font-family: 'Shippori Mincho', serif;
@@ -1392,7 +1426,6 @@
     color: var(--bg-deeper);
     margin-bottom: 0.2rem;
     line-height: 1.15;
-    padding-right: 2rem;
   }
   .dish .dish-tr {
     font-family: 'Cormorant Garamond', serif;
@@ -1473,8 +1506,45 @@
     letter-spacing: -0.03em;
     line-height: 1;
     pointer-events: none;
+    z-index: 0;
   }
-  .breakfast-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .breakfast-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .breakfast-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    box-shadow: 0 30px 60px -30px rgba(15, 40, 64, 0.3);
+  }
+  .breakfast-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .breakfast-image::after {
+    content: 'Türk Kahvaltısı';
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    color: var(--paper);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  }
+  .breakfast-text { display: flex; flex-direction: column; }
   .breakfast-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
@@ -1786,6 +1856,8 @@
     .ingredients { grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3rem 0; }
     .breakfast-feature { margin: 4rem -1.5rem 3rem; padding: 3rem 1.5rem; }
     .breakfast-feature::before { font-size: 4rem; top: 1rem; right: 1rem; }
+    .breakfast-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .breakfast-image { aspect-ratio: 4 / 3; max-height: 400px; }
     .drinks-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
 
     .modern-showcase { margin: 3rem -1.5rem; }
@@ -2158,66 +2230,90 @@
     <div class="dishes-grid">
       <div class="dish">
         <span class="dish-id">01</span>
-        <h4>ケバブ</h4>
-        <div class="dish-tr">Kebap</div>
-        <p class="dish-desc">「焼き肉」の総称。垂直の串で焼き削ぐ<em>ドネル</em>、串焼きの<em>シシ</em>、トマトとヨーグルトを纏った<em>イスケンデル</em>など、200以上の種類がある。基本は羊、現代は鶏と牛も。</p>
-        <div class="dish-tag">Grill · Lamb · Street food</div>
+        <img class="dish-img" src="img/17-kebab.webp" alt="ドネルケバブ">
+        <div class="dish-body">
+          <h4>ケバブ</h4>
+          <div class="dish-tr">Kebap</div>
+          <p class="dish-desc">「焼き肉」の総称。垂直の串で焼き削ぐ<em>ドネル</em>、串焼きの<em>シシ</em>、トマトとヨーグルトを纏った<em>イスケンデル</em>など、200以上の種類がある。基本は羊、現代は鶏と牛も。</p>
+          <div class="dish-tag">Grill · Lamb · Street food</div>
+        </div>
       </div>
 
       <div class="dish">
         <span class="dish-id">02</span>
-        <h4>キョフテ</h4>
-        <div class="dish-tr">Köfte</div>
-        <p class="dish-desc">挽肉にスパイスと玉ねぎを混ぜて成形する、トルコ風ミートボール。煮込み、焼き、揚げ——200を超えるバリエーション。家庭料理の代表格。</p>
-        <div class="dish-tag">Meatball · Homestyle</div>
+        <div class="dish-no-img">Köfte</div>
+        <div class="dish-body">
+          <h4>キョフテ</h4>
+          <div class="dish-tr">Köfte</div>
+          <p class="dish-desc">挽肉にスパイスと玉ねぎを混ぜて成形する、トルコ風ミートボール。煮込み、焼き、揚げ——200を超えるバリエーション。家庭料理の代表格。</p>
+          <div class="dish-tag">Meatball · Homestyle</div>
+        </div>
       </div>
 
       <div class="dish">
         <span class="dish-id">03</span>
-        <h4>メゼ</h4>
-        <div class="dish-tr">Meze</div>
-        <p class="dish-desc">食事の幕開けを飾る冷前菜の集合。フムス(ひよこ豆)、ジャジュク(きゅうりのヨーグルト和え)、焼きナス、パトゥルジャンサラタス——20種以上を小皿で。ラクの最良の相手。</p>
-        <div class="dish-tag">Mezze · Cold starter · Shared</div>
+        <img class="dish-img" src="img/18-meze.webp" alt="メゼ盛り合わせ">
+        <div class="dish-body">
+          <h4>メゼ</h4>
+          <div class="dish-tr">Meze</div>
+          <p class="dish-desc">食事の幕開けを飾る冷前菜の集合。フムス(ひよこ豆)、ジャジュク(きゅうりのヨーグルト和え)、焼きナス、パトゥルジャンサラタス——20種以上を小皿で。ラクの最良の相手。</p>
+          <div class="dish-tag">Mezze · Cold starter · Shared</div>
+        </div>
       </div>
 
       <div class="dish">
         <span class="dish-id">04</span>
-        <h4>ピデ</h4>
-        <div class="dish-tr">Pide</div>
-        <p class="dish-desc">「トルコ風ピザ」と呼ばれるが、形は船形。石窯で焼いた生地の上に、ひき肉、チーズ、卵、野菜を載せる。地方ごとに生地の厚みと具が異なる。</p>
-        <div class="dish-tag">Flatbread · Stone oven</div>
+        <div class="dish-no-img">Pide</div>
+        <div class="dish-body">
+          <h4>ピデ</h4>
+          <div class="dish-tr">Pide</div>
+          <p class="dish-desc">「トルコ風ピザ」と呼ばれるが、形は船形。石窯で焼いた生地の上に、ひき肉、チーズ、卵、野菜を載せる。地方ごとに生地の厚みと具が異なる。</p>
+          <div class="dish-tag">Flatbread · Stone oven</div>
+        </div>
       </div>
 
       <div class="dish">
         <span class="dish-id">05</span>
-        <h4>ドルマ</h4>
-        <div class="dish-tr">Dolma</div>
-        <p class="dish-desc">野菜に米や肉を詰めた料理の総称。ブドウの葉、ピーマン、ナス、ズッキーニ——何でも器になる。肉なしはメゼに、肉入りはメイン料理に。宮廷料理の系譜。</p>
-        <div class="dish-tag">Stuffed · Vegetables · Rice</div>
+        <div class="dish-no-img">Dolma</div>
+        <div class="dish-body">
+          <h4>ドルマ</h4>
+          <div class="dish-tr">Dolma</div>
+          <p class="dish-desc">野菜に米や肉を詰めた料理の総称。ブドウの葉、ピーマン、ナス、ズッキーニ——何でも器になる。肉なしはメゼに、肉入りはメイン料理に。宮廷料理の系譜。</p>
+          <div class="dish-tag">Stuffed · Vegetables · Rice</div>
+        </div>
       </div>
 
       <div class="dish">
         <span class="dish-id">06</span>
-        <h4>サバサンド</h4>
-        <div class="dish-tr">Balık Ekmek</div>
-        <p class="dish-desc">イスタンブールのガラタ橋下で焼きたての鯖をパンに挟む、庶民の味。レモンを絞り、塩を振る。海峡を渡る風のなかで食べる。観光客にも愛される名物。</p>
-        <div class="dish-tag">Street food · Istanbul · Fish</div>
+        <img class="dish-img" src="img/22-balik-ekmek.webp" alt="サバサンドの炭火焼き">
+        <div class="dish-body">
+          <h4>サバサンド</h4>
+          <div class="dish-tr">Balık Ekmek</div>
+          <p class="dish-desc">イスタンブールのガラタ橋下で焼きたての鯖をパンに挟む、庶民の味。レモンを絞り、塩を振る。海峡を渡る風のなかで食べる。観光客にも愛される名物。</p>
+          <div class="dish-tag">Street food · Istanbul · Fish</div>
+        </div>
       </div>
 
       <div class="dish">
         <span class="dish-id">07</span>
-        <h4>バクラヴァ</h4>
-        <div class="dish-tr">Baklava</div>
-        <p class="dish-desc">フィロ生地を40層重ね、ピスタチオかクルミを挟んで焼き、シロップをかける。オスマン宮廷菓子の極致。南東部ガズィアンテプが本場で、地理的表示保護の対象。</p>
-        <div class="dish-tag">Dessert · Pistachio · Syrup</div>
+        <img class="dish-img" src="img/20-baklava.webp" alt="バクラヴァ(ピスタチオ)">
+        <div class="dish-body">
+          <h4>バクラヴァ</h4>
+          <div class="dish-tr">Baklava</div>
+          <p class="dish-desc">フィロ生地を40層重ね、ピスタチオかクルミを挟んで焼き、シロップをかける。オスマン宮廷菓子の極致。南東部ガズィアンテプが本場で、地理的表示保護の対象。</p>
+          <div class="dish-tag">Dessert · Pistachio · Syrup</div>
+        </div>
       </div>
 
       <div class="dish">
         <span class="dish-id">—</span>
-        <h4>もっと食べるなら</h4>
-        <div class="dish-tr">Beyond the seven</div>
-        <p class="dish-desc">マントゥ(水餃子)、ラフマジュン(薄焼き肉載せパン)、イチリ・キョフテ(肉詰め挽肉)、ミディエ・ドルマス(ムール貝のピラフ詰め)、ロクム(求肥菓子)、トルコアイス(ドンドゥルマ)——まだまだ続く。</p>
-        <div class="dish-tag">Mantı · Lahmacun · Lokum</div>
+        <div class="dish-no-img">+ More</div>
+        <div class="dish-body">
+          <h4>もっと食べるなら</h4>
+          <div class="dish-tr">Beyond the seven</div>
+          <p class="dish-desc">マントゥ(水餃子)、ラフマジュン(薄焼き肉載せパン)、イチリ・キョフテ(肉詰め挽肉)、ミディエ・ドルマス(ムール貝のピラフ詰め)、ロクム(求肥菓子)、トルコアイス(ドンドゥルマ)——まだまだ続く。</p>
+          <div class="dish-tag">Mantı · Lahmacun · Lokum</div>
+        </div>
       </div>
     </div>
 
@@ -2253,23 +2349,28 @@
     <!-- 朝食特集 -->
     <div class="breakfast-feature">
       <div class="breakfast-inner">
-        <div class="breakfast-label">Special Feature — 朝食という小宇宙</div>
-        <h3>トルコの朝食</h3>
-        <div class="tr-sub">Türk Kahvaltısı</div>
-        <p>トルコの朝食は、世界一豪華だと言われる。<strong>小皿が20枚以上</strong>並ぶのは珍しくない。チーズ数種、オリーブ数種、トマト、きゅうり、はちみつ、カイマク(濃厚クリーム)、ジャム、卵料理、焼きたてのパン、そしてチャイ——。</p>
-        <p>トルコはパン消費量が世界一(一人あたり年間104kg、二位の倍近い)。朝食は <em>kahvaltı</em>(カフヴァルトゥ)と呼ばれ、語源は「コーヒーの前」。コーヒーを飲む前の小さな食事、という意味だったものが、現在では一日の主役級の食事になった。</p>
-        <p>週末はさらに長い <strong>serpme kahvaltı</strong>(敷き詰め朝食)を数時間かけてとる。家族、友人、隣人が集まり、話し、食べ、チャイを重ね、昼へ地続きで移行する。これは食事というより、<strong>儀式</strong>に近い。</p>
-        <div class="breakfast-items">
-          <span>Peynir(チーズ)</span>
-          <span>Zeytin(オリーブ)</span>
-          <span>Bal &amp; Kaymak(蜂蜜&クリーム)</span>
-          <span>Domates &amp; Salatalık(野菜)</span>
-          <span>Menemen(卵のトマト煮)</span>
-          <span>Sucuk(ソーセージ)</span>
-          <span>Simit(ゴマパン)</span>
-          <span>Börek(パイ)</span>
-          <span>Reçel(ジャム)</span>
-          <span>Çay(紅茶)</span>
+        <div class="breakfast-image">
+          <img src="img/19-kahvalti.webp" alt="トルコの朝食 — 卵料理、パン、オリーブ、チャイ">
+        </div>
+        <div class="breakfast-text">
+          <div class="breakfast-label">Special Feature — 朝食という小宇宙</div>
+          <h3>トルコの朝食</h3>
+          <div class="tr-sub">Türk Kahvaltısı</div>
+          <p>トルコの朝食は、世界一豪華だと言われる。<strong>小皿が20枚以上</strong>並ぶのは珍しくない。チーズ数種、オリーブ数種、トマト、きゅうり、はちみつ、カイマク(濃厚クリーム)、ジャム、卵料理、焼きたてのパン、そしてチャイ——。</p>
+          <p>トルコはパン消費量が世界一(一人あたり年間104kg、二位の倍近い)。朝食は <em>kahvaltı</em>(カフヴァルトゥ)と呼ばれ、語源は「コーヒーの前」。コーヒーを飲む前の小さな食事、という意味だったものが、現在では一日の主役級の食事になった。</p>
+          <p>週末はさらに長い <strong>serpme kahvaltı</strong>(敷き詰め朝食)を数時間かけてとる。家族、友人、隣人が集まり、話し、食べ、チャイを重ね、昼へ地続きで移行する。これは食事というより、<strong>儀式</strong>に近い。</p>
+          <div class="breakfast-items">
+            <span>Peynir(チーズ)</span>
+            <span>Zeytin(オリーブ)</span>
+            <span>Bal &amp; Kaymak(蜂蜜&クリーム)</span>
+            <span>Domates &amp; Salatalık(野菜)</span>
+            <span>Menemen(卵のトマト煮)</span>
+            <span>Sucuk(ソーセージ)</span>
+            <span>Simit(ゴマパン)</span>
+            <span>Börek(パイ)</span>
+            <span>Reçel(ジャム)</span>
+            <span>Çay(紅茶)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -2312,7 +2413,9 @@
       </div>
 
       <div class="drink-card">
-        <div class="drink-no-img"></div>
+        <div class="drink-img-box">
+          <img src="img/21-raki.webp" alt="ラク(Yeni Rakı)— 白濁した蒸留酒">
+        </div>
         <div class="drink-card-body">
           <h5>ラク</h5>
           <div class="dr-tr">Rakı — the lion's milk</div>
@@ -2458,7 +2561,7 @@
       <!-- 05 アンタルヤ -->
       <div class="spot-card">
         <div class="spot-img-wrap">
-          <img class="spot-img" src="img/06-aegean-coast.webp" alt="トルコの海岸">
+          <img class="spot-img" src="img/15-antalya.webp" alt="アンタルヤ旧市街(カレイチ)とヤット港">
           <span class="spot-rank">N°&nbsp;05</span>
         </div>
         <div class="spot-body">
@@ -2486,7 +2589,7 @@
       <!-- 06 アンカラ -->
       <div class="spot-card">
         <div class="spot-img-wrap">
-          <img class="spot-img" src="img/04-cappadocia-rocks.webp" alt="アナトリア中央部の風景">
+          <img class="spot-img" src="img/16-ankara.webp" alt="アタテュルク廟">
           <span class="spot-rank">N°&nbsp;06</span>
         </div>
         <div class="spot-body">
