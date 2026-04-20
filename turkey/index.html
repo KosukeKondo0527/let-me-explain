@@ -504,6 +504,28 @@
   }
   .geo-quote em { color: var(--ottoman-red); font-style: italic; font-weight: 500; }
 
+  /* ボスポラス海峡解説文(ショーケース直後) */
+  .bosphorus-body {
+    max-width: 900px;
+    margin: 2.5rem auto 4rem;
+    padding: 0 1rem;
+  }
+  .bosphorus-body p {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+  }
+  .bosphorus-body p:first-child {
+    font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--bg-deeper);
+    line-height: 1.7;
+  }
+  .bosphorus-body strong { color: var(--ottoman-red); font-weight: 500; }
+  .bosphorus-body em { font-style: normal; font-family: 'Shippori Mincho', serif; color: var(--iznik); font-weight: 500; }
+
   /* ボスポラスの大判写真 */
   .bosphorus-showcase {
     margin: 4rem 0 5rem;
@@ -2039,17 +2061,24 @@
     <p class="section-title-en">Where Asia Meets Europe</p>
 
     <p class="geo-quote">
-      国土の97%は<em>アナトリア半島</em>(小アジア)、残る3%は<em>東トラキア</em>。
-      ボスポラス海峡をひと跨ぎした先に、ヨーロッパ大陸がある。
+      国土の97%は<em>アナトリア半島</em>(小アジア)、残る3%が<em>東トラキア</em>。
+      ふたつを分けるのは、ひとすじの海峡。
     </p>
 
     <!-- ボスポラス大判ショーケース -->
     <div class="bosphorus-showcase">
-      <img src="img/02-bosphorus.webp" alt="ボスポラス海峡と乙女の塔、対岸に旧市街のモスク群">
+      <img src="img/02-bosphorus.webp" alt="ボスポラス大橋 — アジア側とヨーロッパ側を結ぶ">
       <div class="bosphorus-caption">
-        <div class="cap-en">The Bosphorus — where two continents meet</div>
-        <div class="cap-ja">乙女の塔の向こうに、二つの大陸が並んで立つ</div>
+        <div class="cap-en">The Bosphorus Bridge — where Asia meets Europe</div>
+        <div class="cap-ja">一本の橋が、アジアとヨーロッパを縫い合わせる</div>
       </div>
+    </div>
+
+    <!-- ボスポラス海峡の解説 -->
+    <div class="bosphorus-body">
+      <p>イスタンブール市内を南北に貫く、長さ約30km・最狭部700mの<strong>ボスポラス海峡</strong>。この細い水路が、<em>アジア側(アナドル)</em>と<em>ヨーロッパ側(アヴルパ)</em>を物理的に分けている。</p>
+      <p>写真の橋は<strong>第一ボスポラス大橋(1973年開通)</strong>。全長1,560m、二大陸を陸路で結ぶ人類初の橋として架けられた。現在は第二・第三の橋と海底鉄道トンネル(マルマライ)も加わり、毎日数百万人がこの海峡を越えて通勤する。</p>
+      <p>地形が国を分け、人が国を繋ぎ直す——<strong>「分断と接続が同時に起きている」</strong>のが、この街の本質。イスタンブールは世界で唯一、<strong>二つの大陸に跨がる都市</strong>として、そのことを日常で体現している。</p>
     </div>
 
     <div class="seas-grid">
