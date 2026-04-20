@@ -526,6 +526,17 @@
   .bosphorus-body strong { color: var(--ottoman-red); font-weight: 500; }
   .bosphorus-body em { font-style: normal; font-family: 'Shippori Mincho', serif; color: var(--iznik); font-weight: 500; }
 
+  /* イスタンブール章内に置かれた時の上書き(暗い背景対応) */
+  .chapter-istanbul .bosphorus-body p {
+    color: rgba(250, 243, 226, 0.8);
+  }
+  .chapter-istanbul .bosphorus-body p:first-child {
+    color: var(--paper);
+  }
+  .chapter-istanbul .bosphorus-body strong { color: var(--gold-soft); }
+  .chapter-istanbul .bosphorus-body em { color: var(--gold); }
+  .chapter-istanbul .bosphorus-showcase { margin: 0 0 3rem; }
+
   /* ボスポラスの大判写真 */
   .bosphorus-showcase {
     margin: 4rem 0 5rem;
@@ -2131,24 +2142,8 @@
 
     <p class="geo-quote">
       国土の97%は<em>アナトリア半島</em>(小アジア)、残る3%が<em>東トラキア</em>。
-      ふたつを分けるのは、ひとすじの海峡。
+      北に<em>黒海</em>、西に<em>エーゲ海</em>、南に<em>地中海</em>——三方を、海が縁取っている。
     </p>
-
-    <!-- ボスポラス大判ショーケース -->
-    <div class="bosphorus-showcase">
-      <img src="img/02-bosphorus.webp" alt="ボスポラス大橋 — アジア側とヨーロッパ側を結ぶ">
-      <div class="bosphorus-caption">
-        <div class="cap-en">The Bosphorus Bridge — where Asia meets Europe</div>
-        <div class="cap-ja">一本の橋が、アジアとヨーロッパを縫い合わせる</div>
-      </div>
-    </div>
-
-    <!-- ボスポラス海峡の解説 -->
-    <div class="bosphorus-body">
-      <p>イスタンブール市内を南北に貫く、長さ約30km・最狭部700mの<strong>ボスポラス海峡</strong>。この細い水路が、<em>アジア側(アナドル)</em>と<em>ヨーロッパ側(アヴルパ)</em>を物理的に分けている。</p>
-      <p>写真の橋は<strong>第一ボスポラス大橋(1973年開通)</strong>。全長1,560m、二大陸を陸路で結ぶ人類初の橋として架けられた。現在は第二・第三の橋と海底鉄道トンネル(マルマライ)も加わり、毎日数百万人がこの海峡を越えて通勤する。</p>
-      <p>地形が国を分け、人が国を繋ぎ直す——<strong>「分断と接続が同時に起きている」</strong>のが、この街の本質。イスタンブールは世界で唯一、<strong>二つの大陸に跨がる都市</strong>として、そのことを日常で体現している。</p>
-    </div>
 
     <div class="seas-grid">
       <div class="sea-card">
@@ -2298,12 +2293,22 @@
         ローマ帝国、東ローマ帝国、オスマン帝国——<br>
         <strong>三つの世界帝国の首都</strong>となった、世界で唯一の都市。
       </p>
-      <p class="istanbul-quote" style="font-size:1rem;font-style:normal;color:rgba(250,243,226,0.75);">
-        ボスポラス海峡を挟んでアジア側とヨーロッパ側にまたがる、地球上で唯一の「二大陸都市」。
-        アヤソフィア、ブルーモスク、トプカプ宮殿——ビザンツの石とオスマンの石が、
-        同じ街路に並んで立っている。
-      </p>
     </div>
+  </div>
+
+  <!-- ボスポラス海峡:二大陸都市の証 -->
+  <div class="bosphorus-showcase">
+    <img src="img/02-bosphorus.webp" alt="ボスポラス大橋 — アジア側とヨーロッパ側を結ぶ">
+    <div class="bosphorus-caption">
+      <div class="cap-en">The Bosphorus Bridge — where Asia meets Europe</div>
+      <div class="cap-ja">一本の橋が、アジアとヨーロッパを縫い合わせる</div>
+    </div>
+  </div>
+
+  <div class="bosphorus-body">
+    <p>市内を南北に貫く、長さ約30km・最狭部700mの<strong>ボスポラス海峡</strong>。この細い水路が、<em>アジア側(アナドル)</em>と<em>ヨーロッパ側(アヴルパ)</em>を物理的に分けている。イスタンブールは世界で唯一、<strong>二つの大陸に跨がる都市</strong>。</p>
+    <p>写真の橋は<strong>第一ボスポラス大橋(1973年開通)</strong>。全長1,560m、二大陸を陸路で結ぶ人類初の橋として架けられた。現在は第二・第三の橋と海底鉄道トンネル(マルマライ)も加わり、毎日数百万人がこの海峡を越えて通勤する。</p>
+    <p>地形が街を分け、人が街を繋ぎ直す——<strong>「分断と接続が同時に起きている」</strong>のが、この都市の本質。そしてその上に、三つの帝国が千七百年をかけて層を重ねてきた。</p>
   </div>
 
   <!-- 三大帝国 -->
