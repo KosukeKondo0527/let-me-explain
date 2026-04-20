@@ -185,6 +185,39 @@
   }
   .hero-meta-top::before { content: ''; width: 60px; height: 1px; background: var(--gold); }
 
+  /* 国旗 */
+  .country-flag {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+    border: 1px solid rgba(217, 181, 105, 0.4);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+  }
+  .country-flag img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .flag-hero {
+    width: 36px;
+    height: 27px;
+    margin-right: 0.2rem;
+  }
+  .flag-card {
+    width: 32px;
+    height: 24px;
+    margin-left: auto;
+    border-color: rgba(31, 32, 36, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  .data-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
   .hero h1 {
     font-family: 'Shippori Mincho', serif;
     font-weight: 800;
@@ -1786,7 +1819,12 @@
   <img class="hero-img" src="img/01-hero-istanbul.webp" alt="イスタンブールの夕景 — ガラタ橋とスレイマニエ・モスク">
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-meta-top">N°&nbsp;003 — Let&nbsp;Me&nbsp;Explain…</div>
+    <div class="hero-meta-top">
+      <span class="country-flag flag-hero" aria-label="トルコ国旗">
+        <img src="https://cdn.jsdelivr.net/npm/flag-icons@7/flags/4x3/tr.svg" alt="" loading="eager">
+      </span>
+      N°&nbsp;003 — Let&nbsp;Me&nbsp;Explain…
+    </div>
     <h1>トルコ</h1>
     <div class="hero-subtitle-en">Türkiye</div>
     <div class="hero-subtitle-tr">— Cumhuriyet, between two continents</div>
@@ -1818,7 +1856,12 @@
       <p>1923年、ムスタファ・ケマル・アタテュルクの指揮のもと、オスマン帝国の遺領から共和国として再出発した。世俗主義、ローマ字導入、女性参政権——イスラム圏で最初の近代世俗国家として、その軌跡は今も国の根幹をなしている。</p>
     </div>
     <div class="data-card">
-      <h3>Basic Data — 基本情報</h3>
+      <h3>
+        Basic Data — 基本情報
+        <span class="country-flag flag-card" aria-label="トルコ国旗">
+          <img src="https://cdn.jsdelivr.net/npm/flag-icons@7/flags/4x3/tr.svg" alt="" loading="lazy">
+        </span>
+      </h3>
       <div class="data-row"><span class="data-key">公式名</span><span class="data-val"><span class="big">Türkiye Cumhuriyeti</span><span class="small">トルコ共和国 / Republic of Türkiye</span></span></div>
       <div class="data-row"><span class="data-key">首都</span><span class="data-val"><span class="big">Ankara</span><span class="small">アンカラ(国の中央内陸部)</span></span></div>
       <div class="data-row"><span class="data-key">最大都市</span><span class="data-val"><span class="big">İstanbul</span><span class="small">イスタンブール(海峡都市)</span></span></div>
