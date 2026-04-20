@@ -177,7 +177,6 @@
     opacity: 0;
     transform: translateX(20px);
     animation: slideIn 0.7s forwards;
-    transition: padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .item:nth-child(1) { animation-delay: 0.5s; }
   .item:nth-child(2) { animation-delay: 0.65s; }
@@ -201,6 +200,61 @@
   .item:hover .num { color: var(--accent); }
   .item:hover .title { color: var(--accent); }
   .item:hover .arrow { transform: translateX(8px); color: var(--accent); }
+
+  /* ─────── HOVER PREVIEW(マウス操作時のみ) ─────── */
+  .hover-preview {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 42vw;
+    max-width: 540px;
+    aspect-ratio: 4 / 3;
+    opacity: 0;
+    z-index: 50;
+    transform: translate3d(-50%, -50%, 0) scale(0.96);
+    transition:
+      opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow: hidden;
+    box-shadow:
+      0 40px 80px -40px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(201, 169, 97, 0.15);
+  }
+  .hover-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,8,7,0) 60%, rgba(10,8,7,0.4) 100%);
+    pointer-events: none;
+  }
+  .hover-preview img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .hover-preview.is-visible {
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+  .hover-preview.is-visible img { opacity: 1; }
+
+  /* ホバー時、他のアイテムを少し薄く(集中感) */
+  .list:hover .item:not(:hover) {
+    opacity: 0.35;
+    transition: opacity 0.3s;
+  }
+  .list .item {
+    transition: padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s;
+  }
+
+  /* タッチデバイス・モバイルではプレビューと dim は無効 */
+  @media (hover: none), (max-width: 900px) {
+    .hover-preview { display: none !important; }
+    .list:hover .item:not(:hover) { opacity: 1; }
+  }
 
   .num {
     font-family: 'JetBrains Mono', monospace;
@@ -332,7 +386,7 @@
 
     <nav class="list">
 
-      <a class="item" href="/meat/">
+      <a class="item" href="/meat/" data-preview="meat/img/hero-steak.jpg">
         <span class="num">N°&nbsp;001</span>
         <div class="title-block">
           <span class="prefix">let me explain…</span>
@@ -341,7 +395,7 @@
         <span class="arrow">→</span>
       </a>
 
-      <a class="item" href="/sushi/">
+      <a class="item" href="/sushi/" data-preview="sushi/images/01-hero-nigiri.png">
         <span class="num">N°&nbsp;002</span>
         <div class="title-block">
           <span class="prefix">let me explain…</span>
@@ -350,7 +404,7 @@
         <span class="arrow">→</span>
       </a>
 
-      <a class="item" href="/turkey/">
+      <a class="item" href="/turkey/" data-preview="turkey/img/01-hero-istanbul.webp">
         <span class="num">N°&nbsp;003</span>
         <div class="title-block">
           <span class="prefix">let me explain…</span>
@@ -369,6 +423,92 @@
   </footer>
 
 </div>
+
+<!-- ホバープレビュー(マウス時のみアクティブ) -->
+<div class="hover-preview" aria-hidden="true">
+  <img alt="">
+</div>
+
+<script>
+  (() => {
+    // タッチデバイスでは何もしない
+    if (!window.matchMedia('(hover: hover)').matches) return;
+
+    const preview = document.querySelector('.hover-preview');
+    const previewImg = preview.querySelector('img');
+    const items = document.querySelectorAll('.item[data-preview]');
+    const cache = new Map();
+
+    let currentSrc = null;
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+    let rafId = null;
+
+    // 画像をプリロード
+    items.forEach(item => {
+      const src = item.dataset.preview;
+      if (src && !cache.has(src)) {
+        const img = new Image();
+        img.src = src;
+        cache.set(src, img);
+      }
+    });
+
+    // 滑らかな追従アニメーション
+    function animate() {
+      // イージング(lerp)で追従
+      currentX += (targetX - currentX) * 0.12;
+      currentY += (targetY - currentY) * 0.12;
+      preview.style.left = currentX + 'px';
+      preview.style.top = currentY + 'px';
+      rafId = requestAnimationFrame(animate);
+    }
+
+    items.forEach(item => {
+      item.addEventListener('mouseenter', (e) => {
+        const src = item.dataset.preview;
+        if (src !== currentSrc) {
+          previewImg.src = src;
+          currentSrc = src;
+        }
+        const rect = item.getBoundingClientRect();
+        // 初期位置:アイテムの右側、画面中央寄りに配置
+        const x = Math.min(window.innerWidth * 0.72, rect.right + 120);
+        const y = rect.top + rect.height / 2;
+        targetX = x;
+        targetY = y;
+        // 初回はsnap
+        if (!preview.classList.contains('is-visible')) {
+          currentX = x;
+          currentY = y;
+          preview.style.left = x + 'px';
+          preview.style.top = y + 'px';
+        }
+        preview.classList.add('is-visible');
+        if (!rafId) animate();
+      });
+
+      item.addEventListener('mousemove', (e) => {
+        // カーソルに緩やかに引き寄せる(少しオフセット)
+        const offsetX = window.innerWidth * 0.22;
+        targetX = e.clientX + offsetX;
+        targetY = e.clientY;
+        // 画面内に収める
+        targetX = Math.min(targetX, window.innerWidth - preview.offsetWidth / 2 - 30);
+        targetY = Math.min(Math.max(targetY, preview.offsetHeight / 2 + 20),
+                           window.innerHeight - preview.offsetHeight / 2 - 20);
+      });
+
+      item.addEventListener('mouseleave', () => {
+        preview.classList.remove('is-visible');
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
