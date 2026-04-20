@@ -922,6 +922,156 @@
   }
   .culture-item p { font-size: 0.95rem; line-height: 1.9; color: var(--ink-soft); }
 
+  /* Local Tip ボックス(文化カード内) */
+  .local-tip {
+    margin-top: 1.5rem;
+    padding: 1rem 1.2rem;
+    background: rgba(200, 16, 46, 0.06);
+    border-left: 2px solid var(--ottoman-red);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .local-tip .tip-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+
+  /* ─────────── 見どころスポット(CH.07) ─────────── */
+  .chapter-spots {
+    background: var(--bg);
+    padding: 8rem 3rem;
+    border-top: 1px solid var(--line);
+  }
+  .spots-inner { max-width: 1400px; margin: 0 auto; }
+
+  .spots-intro {
+    font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 4rem;
+  }
+
+  .spots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .spot-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .spot-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px -24px rgba(15, 40, 64, 0.25);
+  }
+  .spot-img-wrap {
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+  }
+  .spot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .spot-card:hover .spot-img { transform: scale(1.06); }
+  .spot-rank {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: var(--ottoman-red);
+    color: var(--paper);
+    padding: 0.4rem 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .spot-body {
+    padding: 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .spot-region {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .spot-region::before { content: '📍 '; }
+  .spot-name {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--bg-deeper);
+    margin-bottom: 0.2rem;
+    line-height: 1.15;
+  }
+  .spot-name-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ottoman-red);
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  .spot-desc {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .spot-meta {
+    margin-top: auto;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .spot-meta-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0.8rem;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+  .spot-meta-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--iznik);
+    text-transform: uppercase;
+    font-weight: 500;
+    align-self: start;
+    padding-top: 0.1rem;
+  }
+  .spot-meta-val {
+    color: var(--ink);
+  }
+  .spot-meta-val strong {
+    color: var(--ottoman-red);
+    font-weight: 500;
+  }
+
   /* ─────────── 現代 ─────────── */
   .chapter-modern { background: var(--bg); padding: 8rem 3rem; position: relative; overflow: hidden; }
   .modern-inner { max-width: 1400px; margin: 0 auto; }
@@ -1103,6 +1253,12 @@
     .culture-grid { grid-template-columns: 1fr; gap: 1rem; }
     .culture-item-body { padding: 1.5rem 2rem 2rem; }
 
+    .chapter-spots { padding: 5rem 1.5rem; }
+    .spots-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .spot-card { grid-template-columns: 1fr; }
+    .spot-img-wrap { min-height: 220px; aspect-ratio: 4 / 3; }
+    .spot-body { padding: 1.5rem 1.8rem 1.8rem; }
+
     .modern-showcase { margin: 3rem -1.5rem; }
     .modern-showcase img { aspect-ratio: 16 / 9; }
     .modern-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -1123,6 +1279,7 @@
     <li><a href="#history">歴史</a></li>
     <li><a href="#istanbul">イスタンブール</a></li>
     <li><a href="#culture">文化</a></li>
+    <li><a href="#spots">見どころ</a></li>
     <li><a href="#modern">現代</a></li>
   </ul>
 </nav>
@@ -1395,6 +1552,10 @@
           <h4>トルココーヒー</h4>
           <div class="ja-sub">— UNESCO intangible heritage</div>
           <p>細かく挽いた粉と水、砂糖を銅製のジェズベで三度沸かす。粉ごと注ぎ、上澄みだけを啜る。500年続く淹れ方は、ユネスコ無形文化遺産。飲み終えたカップの底に残る粉の形で、占いをすることでも知られる。</p>
+          <div class="local-tip">
+            <span class="tip-label">Local Tip</span>
+            注文時に砂糖の量を3段階で聞かれる:<strong>sade</strong>(無糖)/ <strong>orta</strong>(中)/ <strong>şekerli</strong>(甘め)。最初は <em>orta</em> がおすすめ。粉を飲んでしまわないよう、最後の一口は残すのが流儀。
+          </div>
         </div>
       </div>
 
@@ -1405,6 +1566,10 @@
           <h4>チャイの国</h4>
           <div class="ja-sub">— A nation that runs on tea</div>
           <p>世界有数の茶消費国。黒海沿岸で栽培された紅茶を、チューリップ型の小さなグラスで飲む。朝食から商談まで、一日の節目に必ずチャイがある。角砂糖をふたつ落として、短く啜る。それが会話の始まり。</p>
+          <div class="local-tip">
+            <span class="tip-label">Local Tip</span>
+            バザールで買い物中、店主に <strong>「チャイ、ナスル?」</strong>(チャイいかが?)と勧められたら、断らずに座るのが粋。商談=チャイの時間。観光客向けカフェのチャイは1〜2倍高く、街の <em>çay bahçesi</em>(チャイ庭園)が最も安く美味しい。
+          </div>
         </div>
       </div>
 
@@ -1415,6 +1580,10 @@
           <h4>グランドバザール</h4>
           <div class="ja-sub">— The world's oldest covered market</div>
           <p>イスタンブール旧市街にある、15世紀から続く屋根付き市場。約4,000の店舗が並ぶ、世界最大級の歴史的バザール。タイル、絨毯、香辛料、金細工、革製品——オスマンの商業文化が、アーチ天井の下で今も呼吸している。</p>
+          <div class="local-tip">
+            <span class="tip-label">Local Tip</span>
+            <strong>営業:</strong> 月〜土 9:00–19:00、日曜休。<strong>値切り必須</strong>(提示価格の半額が目安)。20以上の門があるので入る門の名前を覚えておくこと。スパイスがメインなら隣接する <em>エジプシャン・バザール</em> へ。
+          </div>
         </div>
       </div>
 
@@ -1425,16 +1594,207 @@
           <h4>イズニックタイル</h4>
           <div class="ja-sub">— Blue & turquoise of the empire</div>
           <p>オスマン宮廷を彩った陶器装飾。コバルトブルーとターコイズを基調に、チューリップ、カーネーション、サイプレスを描いた。アヤソフィア、ブルーモスク、トプカプ宮殿——帝国の建築は、この青いタイルで内側から発光する。</p>
+          <div class="local-tip">
+            <span class="tip-label">Local Tip</span>
+            本場で買うなら<strong>イズニック市</strong>(イスタンブールから車で約2時間)の <em>İznik Çini Vakfı</em>。本物の手描きタイルは1枚数千円〜数万円。バザールの量産品との違いは、裏面の作家サインと釉薬の透明感。
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────── 現代 ─────────── -->
+<!-- ─────────── 見どころスポット(CH.06) ─────────── -->
+<section class="chapter-spots" id="spots">
+  <div class="spots-inner">
+    <div class="section-num">CH. 06 — 見どころスポット</div>
+    <h2 class="section-title">どこへ<br>行くか</h2>
+    <p class="section-title-en">Six Places You Cannot Miss</p>
+
+    <p class="spots-intro">
+      トルコは「都市」と「自然」と「遺跡」が、それぞれ別の旅を提供する国。
+      初めての訪問者には、この六か所の組み合わせが王道。
+      移動はトルコ国内線を使えば、二週間で全部回れる。
+    </p>
+
+    <div class="spots-grid">
+
+      <!-- 01 イスタンブール -->
+      <div class="spot-card">
+        <div class="spot-img-wrap">
+          <img class="spot-img" src="img/01-hero-istanbul.webp" alt="イスタンブールの夕景">
+          <span class="spot-rank">N°&nbsp;01</span>
+        </div>
+        <div class="spot-body">
+          <div class="spot-region">イスタンブール / İstanbul</div>
+          <div class="spot-name">イスタンブール 歴史地区</div>
+          <div class="spot-name-en">Historic Areas of Istanbul</div>
+          <p class="spot-desc">アヤソフィア、ブルーモスク、トプカプ宮殿、グランドバザール——主要な見どころが旧市街(スルタンアフメット)に集中。徒歩で全部回れる。</p>
+          <div class="spot-meta">
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Best</span>
+              <span class="spot-meta-val"><strong>4〜5月、9〜10月</strong>(夏は暑く混雑、冬は雨)</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Access</span>
+              <span class="spot-meta-val">日本から直行便で約12時間。空港から市街はメトロM11で約45分</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Don't Miss</span>
+              <span class="spot-meta-val">ボスポラス・クルーズ(2時間・夕方便がおすすめ)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 カッパドキア -->
+      <div class="spot-card">
+        <div class="spot-img-wrap">
+          <img class="spot-img" src="img/03-cappadocia.webp" alt="カッパドキアの気球">
+          <span class="spot-rank">N°&nbsp;02</span>
+        </div>
+        <div class="spot-body">
+          <div class="spot-region">中央アナトリア / Cappadocia</div>
+          <div class="spot-name">カッパドキア</div>
+          <div class="spot-name-en">Göreme National Park</div>
+          <p class="spot-desc">気球と奇岩、洞窟ホテル。火山岩を削った地下都市と岩窟教会群がユネスコ世界遺産。トルコでもっとも幻想的な場所。</p>
+          <div class="spot-meta">
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Best</span>
+              <span class="spot-meta-val"><strong>4〜6月、9〜10月</strong>(気球の運航率が高い時期)</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Access</span>
+              <span class="spot-meta-val">イスタンブールから国内線で約1.5時間 → ネヴシェヒル空港</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Don't Miss</span>
+              <span class="spot-meta-val">気球ツアー(<strong>朝5時集合</strong>・夜明けの30分間)/ 洞窟ホテル泊</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 パムッカレ -->
+      <div class="spot-card">
+        <div class="spot-img-wrap">
+          <img class="spot-img" src="img/05-pamukkale.webp" alt="パムッカレの石灰棚">
+          <span class="spot-rank">N°&nbsp;03</span>
+        </div>
+        <div class="spot-body">
+          <div class="spot-region">南西部 / Denizli</div>
+          <div class="spot-name">パムッカレ &amp; ヒエラポリス</div>
+          <div class="spot-name-en">Pamukkale &amp; Hierapolis</div>
+          <p class="spot-desc">「綿の城」と呼ばれる白い石灰華段々と、隣接する古代ヒエラポリス遺跡。クレオパトラも入ったとされる温泉プールに浸かれる。</p>
+          <div class="spot-meta">
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Best</span>
+              <span class="spot-meta-val"><strong>4〜6月、9〜10月</strong>(夏は石灰岩が反射して暑い)</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Access</span>
+              <span class="spot-meta-val">イスタンブールから国内線でデニズリ空港 → バス約1時間</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Don't Miss</span>
+              <span class="spot-meta-val">夕日に染まる石灰棚 / アンティーク・プールでの遊泳</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 エフェソス -->
+      <div class="spot-card">
+        <div class="spot-img-wrap">
+          <img class="spot-img" src="img/10-ephesus.webp" alt="エフェソスのセルシウス図書館">
+          <span class="spot-rank">N°&nbsp;04</span>
+        </div>
+        <div class="spot-body">
+          <div class="spot-region">西部エーゲ / Selçuk</div>
+          <div class="spot-name">エフェソス古代都市</div>
+          <div class="spot-name-en">Ancient City of Ephesus</div>
+          <p class="spot-desc">古代ローマ時代の地中海世界第二の都市。セルシウス図書館、大劇場、アゴラ——保存状態は世界屈指。半日でじっくり歩ける。</p>
+          <div class="spot-meta">
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Best</span>
+              <span class="spot-meta-val"><strong>4〜5月、10月</strong>(日陰が少ないので夏は厳しい)</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Access</span>
+              <span class="spot-meta-val">クシャダス港から車で約30分 / イズミル空港から約1時間</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Don't Miss</span>
+              <span class="spot-meta-val">朝一番の入場(8時)で人混みを避ける / テラスハウスの内装は別料金で必見</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 アンタルヤ -->
+      <div class="spot-card">
+        <div class="spot-img-wrap">
+          <img class="spot-img" src="img/06-aegean-coast.webp" alt="トルコの海岸">
+          <span class="spot-rank">N°&nbsp;05</span>
+        </div>
+        <div class="spot-body">
+          <div class="spot-region">地中海岸 / Antalya</div>
+          <div class="spot-name">アンタルヤ &amp; トルコ・リヴィエラ</div>
+          <div class="spot-name-en">Antalya &amp; the Turkish Riviera</div>
+          <p class="spot-desc">トルコのビーチリゾート首都。古代遺跡(アスペンドス円形劇場)と海、ヤット港、旧市街(カレイチ)が一度に楽しめる、ヨーロッパ屈指の保養地。</p>
+          <div class="spot-meta">
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Best</span>
+              <span class="spot-meta-val"><strong>5〜6月、9〜10月</strong>(夏は40°C超え、冬も温暖)</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Access</span>
+              <span class="spot-meta-val">イスタンブールから国内線で約1時間。直行便もあり</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Don't Miss</span>
+              <span class="spot-meta-val">アスペンドス円形劇場(夏は野外オペラ開催) / デュデン滝</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 アンカラ -->
+      <div class="spot-card">
+        <div class="spot-img-wrap">
+          <img class="spot-img" src="img/04-cappadocia-rocks.webp" alt="アナトリア中央部の風景">
+          <span class="spot-rank">N°&nbsp;06</span>
+        </div>
+        <div class="spot-body">
+          <div class="spot-region">首都 / Ankara</div>
+          <div class="spot-name">アンカラ &amp; アナトリア文明博物館</div>
+          <div class="spot-name-en">Ankara &amp; Museum of Anatolian Civilizations</div>
+          <p class="spot-desc">首都ながら観光客は少なめ。アタテュルク廟と<strong>アナトリア文明博物館</strong>で、ヒッタイトから現代までの文明史を一日で総覧できる。学びの旅向き。</p>
+          <div class="spot-meta">
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Best</span>
+              <span class="spot-meta-val"><strong>春・秋</strong>(内陸高地で冬は雪、夏は乾燥)</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Access</span>
+              <span class="spot-meta-val">イスタンブールから高速鉄道(YHT)で約4.5時間 / 国内線約1時間</span>
+            </div>
+            <div class="spot-meta-row">
+              <span class="spot-meta-key">Don't Miss</span>
+              <span class="spot-meta-val">アナトリア文明博物館(年間の最優秀欧州博物館受賞歴あり)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 現代(CH.07) ─────────── -->
 <section class="chapter-modern" id="modern">
   <div class="modern-inner">
-    <div class="section-num">CH. 06 — 現代</div>
+    <div class="section-num">CH. 07 — 現代</div>
     <h2 class="section-title">いまの<br>トルコ</h2>
     <p class="section-title-en">A Rising Power, A Tourist Magnet</p>
 
