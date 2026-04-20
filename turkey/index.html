@@ -363,14 +363,16 @@
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     grid-template-areas:
-      "text  map"
-      "card  card";
-    gap: 4rem 5rem;
+      "intro  map"
+      "rest   map"
+      "card   card";
+    gap: 0 5rem;
     align-items: start;
   }
-  .overview-text { grid-area: text; }
-  .overview-map { grid-area: map; }
-  .overview-card { grid-area: card; margin-top: 2rem; }
+  .overview-text-intro { grid-area: intro; }
+  .overview-text-rest  { grid-area: rest; align-self: start; margin-top: 0.5rem; }
+  .overview-map        { grid-area: map; }
+  .overview-card       { grid-area: card; margin-top: 3rem; }
 
   .overview-text p {
     font-size: 1.1rem;
@@ -378,7 +380,7 @@
     margin-bottom: 1.5rem;
     color: var(--ink-soft);
   }
-  .overview-text p:first-of-type {
+  .overview-text-intro p:first-of-type {
     font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
     font-style: italic;
     font-size: 1.4rem;
@@ -1870,9 +1872,10 @@
     .overview-grid {
       grid-template-columns: 1fr;
       grid-template-areas:
+        "intro"
         "map"
-        "card"
-        "text";
+        "rest"
+        "card";
       gap: 2.5rem;
     }
     .overview-map { aspect-ratio: 4 / 3.2; }
@@ -1987,19 +1990,22 @@
 <!-- ─────────── 概要 ─────────── -->
 <section class="chapter" id="overview">
   <div class="overview-grid">
-    <div class="overview-text">
+    <div class="overview-text overview-text-intro">
       <div class="section-num">CH. 01 — 概要</div>
       <h2 class="section-title">国の<br>かたち</h2>
       <p class="section-title-en">A Republic between Two Continents</p>
       <p>正式名称、トルコ共和国——トルコ語で「テュルキイェ・ジュムフリイェティ」。<strong>ヨーロッパとアジアに跨がる二大陸国家</strong>で、ふたつを分けるのが、イスタンブール市内を流れるボスポラス海峡。</p>
       <p>国土の97%は<strong>アナトリア半島</strong>(小アジア)、残る3%が<strong>東トラキア</strong>(ヨーロッパ側)。北は黒海、西はエーゲ海、南は地中海。三方を海に囲まれ、陸では8か国と接する地政学的な要所。</p>
-      <p>面積は日本のおよそ二倍、人口は八千五百万を超える。1923年、ムスタファ・ケマル・アタテュルクの指揮のもと、オスマン帝国の遺領から共和国として再出発。世俗主義、ローマ字導入、女性参政権——イスラム圏で最初の近代世俗国家として、その軌跡は今も国の根幹をなしている。</p>
     </div>
 
     <div class="overview-map">
       <div class="overview-map-caption">N°003 · LOCATION</div>
       <svg id="turkey-map-svg" role="img" aria-label="トルコの位置を示した地図"></svg>
       <div class="map-loading" id="map-loading">Loading map…</div>
+    </div>
+
+    <div class="overview-text overview-text-rest">
+      <p>面積は日本のおよそ二倍、人口は八千五百万を超える。1923年、ムスタファ・ケマル・アタテュルクの指揮のもと、オスマン帝国の遺領から共和国として再出発。世俗主義、ローマ字導入、女性参政権——イスラム圏で最初の近代世俗国家として、その軌跡は今も国の根幹をなしている。</p>
     </div>
 
     <div class="overview-card data-card">
