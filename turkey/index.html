@@ -356,15 +356,22 @@
     margin-bottom: 3rem;
   }
 
-  /* ─────────── 概要 ─────────── */
+  /* ─────────── 概要(統合レイアウト) ─────────── */
   .overview-grid {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    gap: 5rem;
+    grid-template-areas:
+      "text  map"
+      "card  card";
+    gap: 4rem 5rem;
     align-items: start;
   }
+  .overview-text { grid-area: text; }
+  .overview-map { grid-area: map; }
+  .overview-card { grid-area: card; margin-top: 2rem; }
+
   .overview-text p {
     font-size: 1.1rem;
     line-height: 2;
@@ -378,6 +385,49 @@
     line-height: 1.8;
     color: var(--bg-deeper);
   }
+  .overview-text strong { color: var(--ottoman-red); font-weight: 500; }
+
+  /* 概要内の地図ラッパー */
+  .overview-map {
+    position: relative;
+    background: #0a1a2e;
+    border: 1px solid rgba(31, 32, 36, 0.15);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    box-shadow: 0 24px 48px -24px rgba(15, 40, 64, 0.25);
+  }
+  .overview-map svg { width: 100%; height: 100%; display: block; }
+  .overview-map-caption {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    z-index: 5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* データカード(横幅いっぱい・横並び) */
+  .overview-card.data-card {
+    padding: 2.5rem 3rem;
+  }
+  .data-card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .data-card-grid .data-row {
+    grid-template-columns: 1fr;
+    border-bottom: none;
+    border-right: 1px dotted var(--line-strong);
+    padding: 0.8rem 1.5rem;
+  }
+  .data-card-grid .data-row:nth-child(4n) { border-right: none; }
+  .data-card-grid .data-row:nth-child(n+5) { border-top: 1px dotted var(--line-strong); }
+  .data-card-grid .data-row:first-child { padding-left: 0; }
+  .data-card-grid .data-row:nth-child(5) { padding-left: 0; }
 
   .data-card {
     background: var(--paper);
@@ -1817,7 +1867,26 @@
     .hero-stats .num { font-size: 1.8rem; }
     .scroll-cue { display: none; }
 
-    .overview-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .overview-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "map"
+        "card"
+        "text";
+      gap: 2.5rem;
+    }
+    .overview-map { aspect-ratio: 4 / 3.2; }
+    .overview-card.data-card { padding: 2rem 1.5rem; margin-top: 0; }
+    .data-card-grid { grid-template-columns: 1fr 1fr; }
+    .data-card-grid .data-row {
+      border-right: 1px dotted var(--line-strong);
+      padding: 0.8rem 1rem;
+    }
+    .data-card-grid .data-row:nth-child(2n) { border-right: none; }
+    .data-card-grid .data-row:nth-child(n+3) { border-top: 1px dotted var(--line-strong); }
+    .data-card-grid .data-row:first-child { padding-left: 0; }
+    .data-card-grid .data-row:nth-child(3) { padding-left: 0; }
+    .data-card-grid .data-row:nth-child(5) { padding-left: 1rem; }
     .data-card { padding: 2rem; }
     .data-row { grid-template-columns: 100px 1fr; gap: 1rem; }
 
@@ -1876,7 +1945,6 @@
   <div class="logo">Türkiye<span class="gold">.</span></div>
   <ul>
     <li><a href="#overview">概要</a></li>
-    <li><a href="#location">位置</a></li>
     <li><a href="#geography">地理</a></li>
     <li><a href="#history">歴史</a></li>
     <li><a href="#istanbul">イスタンブール</a></li>
@@ -1922,74 +1990,45 @@
     <div class="overview-text">
       <div class="section-num">CH. 01 — 概要</div>
       <h2 class="section-title">国の<br>かたち</h2>
-      <p class="section-title-en">A Republic at the Crossroads</p>
-      <p>正式名称、トルコ共和国——トルコ語で「テュルキイェ・ジュムフリイェティ」。アナトリア半島と東トラキアの一部からなり、首都はアンカラ。</p>
-      <p>面積は日本のおよそ二倍、人口は八千五百万を超える。北は黒海、西はエーゲ海、南は地中海。三つの海と九つの隣国に囲まれた、地政学的にきわめて稠密な位置にある。</p>
-      <p>1923年、ムスタファ・ケマル・アタテュルクの指揮のもと、オスマン帝国の遺領から共和国として再出発した。世俗主義、ローマ字導入、女性参政権——イスラム圏で最初の近代世俗国家として、その軌跡は今も国の根幹をなしている。</p>
+      <p class="section-title-en">A Republic between Two Continents</p>
+      <p>正式名称、トルコ共和国——トルコ語で「テュルキイェ・ジュムフリイェティ」。<strong>ヨーロッパとアジアに跨がる二大陸国家</strong>で、ふたつを分けるのが、イスタンブール市内を流れるボスポラス海峡。</p>
+      <p>国土の97%は<strong>アナトリア半島</strong>(小アジア)、残る3%が<strong>東トラキア</strong>(ヨーロッパ側)。北は黒海、西はエーゲ海、南は地中海。三方を海に囲まれ、陸では8か国と接する地政学的な要所。</p>
+      <p>面積は日本のおよそ二倍、人口は八千五百万を超える。1923年、ムスタファ・ケマル・アタテュルクの指揮のもと、オスマン帝国の遺領から共和国として再出発。世俗主義、ローマ字導入、女性参政権——イスラム圏で最初の近代世俗国家として、その軌跡は今も国の根幹をなしている。</p>
     </div>
-    <div class="data-card">
+
+    <div class="overview-map">
+      <div class="overview-map-caption">N°003 · LOCATION</div>
+      <svg id="turkey-map-svg" role="img" aria-label="トルコの位置を示した地図"></svg>
+      <div class="map-loading" id="map-loading">Loading map…</div>
+    </div>
+
+    <div class="overview-card data-card">
       <h3>
         Basic Data — 基本情報
         <span class="country-flag flag-card" aria-label="トルコ国旗">
           <img src="https://cdn.jsdelivr.net/npm/flag-icons@7/flags/4x3/tr.svg" alt="" loading="lazy">
         </span>
       </h3>
-      <div class="data-row"><span class="data-key">公式名</span><span class="data-val"><span class="big">Türkiye Cumhuriyeti</span><span class="small">トルコ共和国 / Republic of Türkiye</span></span></div>
-      <div class="data-row"><span class="data-key">首都</span><span class="data-val"><span class="big">Ankara</span><span class="small">アンカラ(国の中央内陸部)</span></span></div>
-      <div class="data-row"><span class="data-key">最大都市</span><span class="data-val"><span class="big">İstanbul</span><span class="small">イスタンブール(海峡都市)</span></span></div>
-      <div class="data-row"><span class="data-key">公用語</span><span class="data-val">トルコ語<span class="small">Türkçe(テュルクチェ)</span></span></div>
-      <div class="data-row"><span class="data-key">通貨</span><span class="data-val">トルコリラ<span class="small">Türk Lirası / TRY</span></span></div>
-      <div class="data-row"><span class="data-key">建国</span><span class="data-val"><span class="big">1923</span><span class="small">10月29日 — 共和国宣言</span></span></div>
-      <div class="data-row"><span class="data-key">体制</span><span class="data-val">大統領制共和国<span class="small">単一国家 / NATO加盟国</span></span></div>
-      <div class="data-row"><span class="data-key">名称変更</span><span class="data-val">2022年〜<span class="small">国際表記がTurkeyからTürkiyeへ</span></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────── 位置(CH.02 / 地図) ─────────── -->
-<section class="chapter-location" id="location">
-  <div class="location-inner">
-    <div class="location-text">
-      <div class="section-num">CH. 02 — 位置</div>
-      <h2 class="section-title">どこに<br>ある国か</h2>
-      <p class="section-title-en">Between Europe &amp; Asia</p>
-
-      <p>トルコは、ユーラシア大陸の西端。ヨーロッパとアジアの境目に跨がる、二大陸国家。</p>
-      <p>国土の西に<strong>ヨーロッパ</strong>(東トラキア)、東に<strong>アジア</strong>(アナトリア半島)。ふたつを分けるのが、イスタンブール市内を流れる<strong>ボスポラス海峡</strong>。</p>
-      <p>北は黒海、西はエーゲ海、南は地中海。三方を海に囲まれ、陸では8か国と接する。シリア、イラク、イラン、ジョージア——地政学的な要所に立つ国。</p>
-
-      <div class="location-facts">
-        <div class="location-fact">
-          <span class="lbl">首都</span>
-          アンカラ(内陸中央部)
-        </div>
-        <div class="location-fact">
-          <span class="lbl">最大都市</span>
-          イスタンブール(海峡都市)
-        </div>
-        <div class="location-fact">
-          <span class="lbl">日本からの距離</span>
-          直行便で約12時間
-        </div>
-        <div class="location-fact">
-          <span class="lbl">時差</span>
-          日本より6時間遅い
-        </div>
+      <div class="data-card-grid">
+        <div class="data-row"><span class="data-key">公式名</span><span class="data-val"><span class="big">Türkiye Cumhuriyeti</span><span class="small">トルコ共和国</span></span></div>
+        <div class="data-row"><span class="data-key">首都</span><span class="data-val"><span class="big">Ankara</span><span class="small">アンカラ(内陸中央部)</span></span></div>
+        <div class="data-row"><span class="data-key">最大都市</span><span class="data-val"><span class="big">İstanbul</span><span class="small">イスタンブール(海峡都市)</span></span></div>
+        <div class="data-row"><span class="data-key">公用語</span><span class="data-val">トルコ語<span class="small">Türkçe(テュルクチェ)</span></span></div>
+        <div class="data-row"><span class="data-key">通貨</span><span class="data-val">トルコリラ<span class="small">Türk Lirası / TRY</span></span></div>
+        <div class="data-row"><span class="data-key">建国</span><span class="data-val"><span class="big">1923</span><span class="small">10月29日 — 共和国宣言</span></span></div>
+        <div class="data-row"><span class="data-key">体制</span><span class="data-val">大統領制共和国<span class="small">単一国家 / NATO加盟国</span></span></div>
+        <div class="data-row"><span class="data-key">日本から</span><span class="data-val">直行便<span class="big" style="font-size:1.3rem">12<span style="font-size:0.7em">時間</span></span><span class="small">時差: 6時間遅い</span></span></div>
       </div>
     </div>
-
-    <div class="map-wrap">
-      <svg id="turkey-map-svg" role="img" aria-label="トルコの位置を示した地図"></svg>
-      <div class="map-loading" id="map-loading">Loading map…</div>
-    </div>
-
   </div>
 </section>
 
-<!-- ─────────── 地理(CH.03) ─────────── -->
+<!-- 旧 位置セクション(CH.02)は CH.01 概要に統合 -->
+
+<!-- ─────────── 地理(CH.02) ─────────── -->
 <section class="chapter chapter-geography" id="geography">
   <div class="geo-inner">
-    <div class="section-num">CH. 03 — 地理</div>
+    <div class="section-num">CH. 02 — 地理</div>
     <h2 class="section-title">三つの海、<br>二つの大陸</h2>
     <p class="section-title-en">Where Asia Meets Europe</p>
 
@@ -2042,7 +2081,7 @@
 <!-- ─────────── 歴史 ─────────── -->
 <section class="chapter chapter-history" id="history">
   <div class="history-inner">
-    <div class="section-num">CH. 04 — 歴史</div>
+    <div class="section-num">CH. 03 — 歴史</div>
     <h2 class="section-title">積層する<br>大地</h2>
     <p class="section-title-en">A Land of Layered Civilizations</p>
 
@@ -2129,7 +2168,7 @@
     <img class="istanbul-hero-img" src="img/09-blue-mosque.webp" alt="ブルーモスクの夕景">
     <div class="istanbul-hero-overlay"></div>
     <div class="istanbul-hero-inner">
-      <div class="istanbul-eyebrow">CH. 05 — 一つの都市の物語</div>
+      <div class="istanbul-eyebrow">CH. 04 — 一つの都市の物語</div>
       <h2 class="istanbul-title">イスタンブール</h2>
       <p class="istanbul-title-en">The City of Three Empires</p>
       <p class="istanbul-quote">
@@ -2192,7 +2231,7 @@
 <!-- ─────────── 食文化(CH.06) ─────────── -->
 <section class="chapter-cuisine" id="cuisine">
   <div class="cuisine-inner">
-    <div class="section-num">CH. 06 — 食文化</div>
+    <div class="section-num">CH. 05 — 食文化</div>
     <h2 class="section-title">The<br>Turkish Table</h2>
     <p class="section-title-en">The World's Third Great Cuisine</p>
 
@@ -2434,7 +2473,7 @@
 <!-- ─────────── 見どころスポット(CH.06) ─────────── -->
 <section class="chapter-spots" id="spots">
   <div class="spots-inner">
-    <div class="section-num">CH. 07 — 見どころスポット</div>
+    <div class="section-num">CH. 06 — 見どころスポット</div>
     <h2 class="section-title">どこへ<br>行くか</h2>
     <p class="section-title-en">Six Places You Cannot Miss</p>
 
@@ -2621,7 +2660,7 @@
 <!-- ─────────── 現代(CH.07) ─────────── -->
 <section class="chapter-modern" id="modern">
   <div class="modern-inner">
-    <div class="section-num">CH. 08 — 現代</div>
+    <div class="section-num">CH. 07 — 現代</div>
     <h2 class="section-title">いまの<br>トルコ</h2>
     <p class="section-title-en">A Rising Power, A Tourist Magnet</p>
 
