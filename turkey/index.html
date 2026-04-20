@@ -1072,6 +1072,488 @@
     font-weight: 500;
   }
 
+  /* ─────────── 位置セクション(地図・CH.02) ─────────── */
+  .chapter-location {
+    background: var(--bg-deeper);
+    color: var(--paper);
+    padding: 8rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .chapter-location::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 30% 30%, rgba(201, 158, 60, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 70%, rgba(45, 166, 166, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .location-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .chapter-location .section-num { color: var(--gold-soft); }
+  .chapter-location .section-num::before { color: var(--ottoman-red); }
+  .chapter-location .section-title { color: var(--paper); }
+  .chapter-location .section-title-en { color: var(--gold-soft); }
+
+  .location-text p {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: rgba(250, 243, 226, 0.85);
+    margin-bottom: 1.3rem;
+  }
+  .location-text p:first-of-type {
+    font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--gold-soft);
+  }
+  .location-text strong { color: var(--gold-soft); font-weight: 500; }
+
+  .location-facts {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(217, 181, 105, 0.25);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 2rem;
+  }
+  .location-fact {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.9rem;
+    color: rgba(250, 243, 226, 0.8);
+    line-height: 1.6;
+  }
+  .location-fact .lbl {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .map-wrap {
+    position: relative;
+    background: #0a1a2e;
+    border: 1px solid rgba(217, 181, 105, 0.2);
+    aspect-ratio: 16 / 12;
+    overflow: hidden;
+  }
+  .map-wrap svg { width: 100%; height: 100%; display: block; }
+  .map-loading {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+  .map-loading.hidden { opacity: 0; pointer-events: none; }
+
+  /* 地図のレイヤースタイル */
+  .map-sea { fill: #0a1a2e; }
+  .map-graticule { fill: none; stroke: rgba(201, 158, 60, 0.12); stroke-width: 0.4; }
+  .map-country { fill: #1f3a50; stroke: rgba(217, 181, 105, 0.25); stroke-width: 0.5; stroke-linejoin: round; }
+  .map-country-turkey { fill: #c41e1e; stroke: #d9b569; stroke-width: 1.2; }
+  .map-country-neighbor { fill: #1a2e42; stroke: rgba(217, 181, 105, 0.3); stroke-width: 0.6; }
+  .map-coast { fill: none; stroke: rgba(58, 141, 200, 0.4); stroke-width: 0.8; }
+  .map-label-country {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 8px;
+    fill: #d9b569;
+    opacity: 0.75;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  .map-label-sea {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    fill: #3a8dc8;
+    text-anchor: middle;
+    letter-spacing: 1px;
+    pointer-events: none;
+  }
+  .map-label-sea-ja {
+    font-family: 'Shippori Mincho', serif;
+    fill: #3a8dc8;
+    opacity: 0.85;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  .map-label-continent {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 15px;
+    fill: #c89e3c;
+    opacity: 0.45;
+    letter-spacing: 3px;
+    pointer-events: none;
+  }
+  .map-label-turkey {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 22px;
+    fill: #faf3e2;
+    text-anchor: middle;
+    letter-spacing: 4px;
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: rgba(10, 26, 46, 0.6);
+    stroke-width: 3;
+  }
+  .map-label-turkey-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 11px;
+    fill: rgba(250, 243, 226, 0.9);
+    text-anchor: middle;
+    letter-spacing: 2px;
+    pointer-events: none;
+  }
+  .map-city-dot { fill: #faf3e2; stroke: rgba(10, 26, 46, 0.8); stroke-width: 1; }
+  .map-city-ankara { fill: #c89e3c; }
+  .map-label-city {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px;
+    fill: #faf3e2;
+    letter-spacing: 1px;
+    pointer-events: none;
+  }
+  .map-label-city-ankara { fill: #c89e3c; opacity: 0.85; }
+  .map-legend {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    fill: #c89e3c;
+    opacity: 0.6;
+    letter-spacing: 3px;
+  }
+
+  /* ─────────── 食文化(CH.06) ─────────── */
+  .chapter-cuisine {
+    background: var(--paper);
+    padding: 8rem 3rem;
+    position: relative;
+  }
+  .cuisine-inner { max-width: 1400px; margin: 0 auto; }
+
+  .cuisine-intro {
+    max-width: 820px;
+    margin-bottom: 5rem;
+  }
+  .cuisine-intro p {
+    font-size: 1.1rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .cuisine-intro p:first-child {
+    font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--bg-deeper);
+  }
+  .cuisine-intro strong { color: var(--ottoman-red); font-weight: 500; }
+
+  /* 3大料理の根拠カード */
+  .three-reasons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 4rem 0 6rem;
+    padding: 3rem 2rem;
+    background: var(--bg);
+    border-top: 3px solid var(--ottoman-red);
+  }
+  .reason {
+    text-align: center;
+  }
+  .reason .num {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 3rem;
+    color: var(--ottoman-red);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .reason h5 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--bg-deeper);
+    margin-bottom: 0.6rem;
+  }
+  .reason p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  /* 料理グリッド(7品) */
+  .dishes-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .dishes-heading h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--bg-deeper);
+    line-height: 1.1;
+  }
+  .dishes-heading .h-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    color: var(--ottoman-red);
+    font-size: 1.05rem;
+  }
+
+  .dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+  }
+  .dish {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .dish:hover { transform: translateY(-3px); border-color: var(--ottoman-red); }
+  .dish .dish-id {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+  }
+  .dish h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--bg-deeper);
+    margin-bottom: 0.2rem;
+    line-height: 1.15;
+    padding-right: 2rem;
+  }
+  .dish .dish-tr {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ottoman-red);
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+  .dish .dish-desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+  .dish .dish-tag {
+    margin-top: auto;
+    padding-top: 0.8rem;
+    border-top: 1px dotted var(--line-strong);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--iznik);
+    text-transform: uppercase;
+  }
+
+  /* 素材の国(4大要素) */
+  .ingredients {
+    margin: 5rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .ingredient {
+    text-align: center;
+    padding: 2rem 1rem;
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .ingredient .ing-icon {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 2.2rem;
+    color: var(--ottoman-red);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+    display: block;
+  }
+  .ingredient h6 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--bg-deeper);
+    margin-bottom: 0.4rem;
+  }
+  .ingredient p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* 朝食特集 */
+  .breakfast-feature {
+    margin: 6rem -3rem 5rem;
+    padding: 5rem 3rem;
+    background: linear-gradient(135deg, #f8efd6 0%, #e8dcc0 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .breakfast-feature::before {
+    content: 'Kahvaltı';
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 8rem;
+    color: rgba(200, 16, 46, 0.08);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .breakfast-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .breakfast-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .breakfast-label::before { content: '— '; color: var(--gold); }
+  .breakfast-feature h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--bg-deeper);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .breakfast-feature h3 + .tr-sub {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    color: var(--ottoman-red);
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+  .breakfast-feature p {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    margin-bottom: 1.3rem;
+    max-width: 720px;
+  }
+  .breakfast-feature p strong { color: var(--ottoman-red); font-weight: 500; }
+  .breakfast-items {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .breakfast-items span {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--bg-deeper);
+    padding: 0.4rem 0.9rem;
+    background: rgba(250, 243, 226, 0.7);
+    border: 1px solid var(--line);
+    letter-spacing: 0.05em;
+  }
+
+  /* 飲み物カード(3つ) */
+  .drinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .drink-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .drink-card .drink-img-box {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--bg-deeper);
+  }
+  .drink-card .drink-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .drink-card:hover .drink-img-box img { transform: scale(1.06); }
+  .drink-card .drink-no-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, #2a0815 0%, #6b0f1f 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .drink-card .drink-no-img::after {
+    content: 'RAKI';
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 4rem;
+    color: rgba(217, 181, 105, 0.5);
+    letter-spacing: 0.1em;
+  }
+  .drink-card-body { padding: 1.8rem 2rem 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+  .drink-card-body h5 {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--bg-deeper);
+    margin-bottom: 0.2rem;
+    line-height: 1.15;
+  }
+  .drink-card-body .dr-tr {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ottoman-red);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .drink-card-body p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+
   /* ─────────── 現代 ─────────── */
   .chapter-modern { background: var(--bg); padding: 8rem 3rem; position: relative; overflow: hidden; }
   .modern-inner { max-width: 1400px; margin: 0 auto; }
@@ -1259,6 +1741,19 @@
     .spot-img-wrap { min-height: 220px; aspect-ratio: 4 / 3; }
     .spot-body { padding: 1.5rem 1.8rem 1.8rem; }
 
+    .chapter-location { padding: 5rem 1.5rem; }
+    .location-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .location-facts { grid-template-columns: 1fr; gap: 1rem; }
+
+    .chapter-cuisine { padding: 5rem 1.5rem; }
+    .cuisine-intro { margin-bottom: 3rem; }
+    .three-reasons { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; margin: 3rem 0 4rem; }
+    .dishes-grid { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 3rem; }
+    .ingredients { grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3rem 0; }
+    .breakfast-feature { margin: 4rem -1.5rem 3rem; padding: 3rem 1.5rem; }
+    .breakfast-feature::before { font-size: 4rem; top: 1rem; right: 1rem; }
+    .drinks-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+
     .modern-showcase { margin: 3rem -1.5rem; }
     .modern-showcase img { aspect-ratio: 16 / 9; }
     .modern-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -1275,10 +1770,11 @@
   <div class="logo">Türkiye<span class="gold">.</span></div>
   <ul>
     <li><a href="#overview">概要</a></li>
+    <li><a href="#location">位置</a></li>
     <li><a href="#geography">地理</a></li>
     <li><a href="#history">歴史</a></li>
     <li><a href="#istanbul">イスタンブール</a></li>
-    <li><a href="#culture">文化</a></li>
+    <li><a href="#cuisine">食文化</a></li>
     <li><a href="#spots">見どころ</a></li>
     <li><a href="#modern">現代</a></li>
   </ul>
@@ -1334,10 +1830,50 @@
   </div>
 </section>
 
-<!-- ─────────── 地理 ─────────── -->
+<!-- ─────────── 位置(CH.02 / 地図) ─────────── -->
+<section class="chapter-location" id="location">
+  <div class="location-inner">
+    <div class="location-text">
+      <div class="section-num">CH. 02 — 位置</div>
+      <h2 class="section-title">どこに<br>ある国か</h2>
+      <p class="section-title-en">Between Europe &amp; Asia</p>
+
+      <p>トルコは、ユーラシア大陸の西端。ヨーロッパとアジアの境目に跨がる、二大陸国家。</p>
+      <p>国土の西に<strong>ヨーロッパ</strong>(東トラキア)、東に<strong>アジア</strong>(アナトリア半島)。ふたつを分けるのが、イスタンブール市内を流れる<strong>ボスポラス海峡</strong>。</p>
+      <p>北は黒海、西はエーゲ海、南は地中海。三方を海に囲まれ、陸では8か国と接する。シリア、イラク、イラン、ジョージア——地政学的な要所に立つ国。</p>
+
+      <div class="location-facts">
+        <div class="location-fact">
+          <span class="lbl">首都</span>
+          アンカラ(内陸中央部)
+        </div>
+        <div class="location-fact">
+          <span class="lbl">最大都市</span>
+          イスタンブール(海峡都市)
+        </div>
+        <div class="location-fact">
+          <span class="lbl">日本からの距離</span>
+          直行便で約12時間
+        </div>
+        <div class="location-fact">
+          <span class="lbl">時差</span>
+          日本より6時間遅い
+        </div>
+      </div>
+    </div>
+
+    <div class="map-wrap">
+      <svg id="turkey-map-svg" role="img" aria-label="トルコの位置を示した地図"></svg>
+      <div class="map-loading" id="map-loading">Loading map…</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────── 地理(CH.03) ─────────── -->
 <section class="chapter chapter-geography" id="geography">
   <div class="geo-inner">
-    <div class="section-num">CH. 02 — 地理</div>
+    <div class="section-num">CH. 03 — 地理</div>
     <h2 class="section-title">三つの海、<br>二つの大陸</h2>
     <p class="section-title-en">Where Asia Meets Europe</p>
 
@@ -1390,7 +1926,7 @@
 <!-- ─────────── 歴史 ─────────── -->
 <section class="chapter chapter-history" id="history">
   <div class="history-inner">
-    <div class="section-num">CH. 03 — 歴史</div>
+    <div class="section-num">CH. 04 — 歴史</div>
     <h2 class="section-title">積層する<br>大地</h2>
     <p class="section-title-en">A Land of Layered Civilizations</p>
 
@@ -1477,7 +2013,7 @@
     <img class="istanbul-hero-img" src="img/09-blue-mosque.webp" alt="ブルーモスクの夕景">
     <div class="istanbul-hero-overlay"></div>
     <div class="istanbul-hero-inner">
-      <div class="istanbul-eyebrow">CH. 04 — 一つの都市の物語</div>
+      <div class="istanbul-eyebrow">CH. 05 — 一つの都市の物語</div>
       <h2 class="istanbul-title">イスタンブール</h2>
       <p class="istanbul-title-en">The City of Three Empires</p>
       <p class="istanbul-quote">
@@ -1537,77 +2073,221 @@
   </div>
 </section>
 
-<!-- ─────────── 文化 ─────────── -->
-<section class="chapter chapter-culture" id="culture">
-  <div class="culture-inner">
-    <div class="section-num">CH. 05 — 文化と暮らし</div>
-    <h2 class="section-title">日々の<br>豊かさ</h2>
-    <p class="section-title-en">The Texture of Daily Life</p>
+<!-- ─────────── 食文化(CH.06) ─────────── -->
+<section class="chapter-cuisine" id="cuisine">
+  <div class="cuisine-inner">
+    <div class="section-num">CH. 06 — 食文化</div>
+    <h2 class="section-title">The<br>Turkish Table</h2>
+    <p class="section-title-en">The World's Third Great Cuisine</p>
 
-    <div class="culture-grid">
-      <div class="culture-item">
-        <img class="culture-img" src="img/14-turkish-coffee.webp" alt="ジェズベで淹れるトルココーヒー">
-        <div class="culture-item-body">
-          <div class="topic">COFFEE — 珈琲</div>
-          <h4>トルココーヒー</h4>
-          <div class="ja-sub">— UNESCO intangible heritage</div>
-          <p>細かく挽いた粉と水、砂糖を銅製のジェズベで三度沸かす。粉ごと注ぎ、上澄みだけを啜る。500年続く淹れ方は、ユネスコ無形文化遺産。飲み終えたカップの底に残る粉の形で、占いをすることでも知られる。</p>
-          <div class="local-tip">
+    <div class="cuisine-intro">
+      <p>トルコ料理は<strong>フランス、中華と並ぶ世界三大料理</strong>のひとつ。そう言われても、ケバブとトルコアイスしか思い浮かばない人が多い。</p>
+      <p>実際のトルコ料理は、小皿の前菜(メゼ)から始まり、焼き物、煮込み、米料理、魚料理、パン、デザートまで、千を越えるレシピを持つ体系的な宮廷料理。羊、ヨーグルト、オリーブオイル、ナッツ、スパイス——それらが気候の異なる七つの地方で、それぞれの顔を持っている。</p>
+      <p>食卓は「食べる」だけの場所ではなく、家族と客を迎える社交の中心。長い食事、何杯ものチャイ、締めのラク。そのすべてが「食文化」を成している。</p>
+    </div>
+
+    <!-- 世界三大料理の根拠 -->
+    <div class="three-reasons">
+      <div class="reason">
+        <div class="num">i.</div>
+        <h5>オスマン宮廷の遺産</h5>
+        <p>トプカプ宮殿の厨房では、10部門に分かれた数百人の料理人が毎日数千人分を作った。その技術と品目が民衆に降りていった。</p>
+      </div>
+      <div class="reason">
+        <div class="num">ii.</div>
+        <h5>三大陸の交差点</h5>
+        <p>帝国の版図は北アフリカからハンガリー、イエメンまで。各地の食材、調理法、香辛料が首都に集まった。</p>
+      </div>
+      <div class="reason">
+        <div class="num">iii.</div>
+        <h5>多様な食材の国</h5>
+        <p>三つの海、肥沃な大地、遊牧の羊。気候の幅が広く、農産・畜産・水産のすべてが自給できる稀有な条件。</p>
+      </div>
+    </div>
+
+    <!-- 主役7品 -->
+    <div class="dishes-heading">
+      <h3>主役となる7皿</h3>
+      <div class="h-en">Seven Essential Dishes</div>
+    </div>
+
+    <div class="dishes-grid">
+      <div class="dish">
+        <span class="dish-id">01</span>
+        <h4>ケバブ</h4>
+        <div class="dish-tr">Kebap</div>
+        <p class="dish-desc">「焼き肉」の総称。垂直の串で焼き削ぐ<em>ドネル</em>、串焼きの<em>シシ</em>、トマトとヨーグルトを纏った<em>イスケンデル</em>など、200以上の種類がある。基本は羊、現代は鶏と牛も。</p>
+        <div class="dish-tag">Grill · Lamb · Street food</div>
+      </div>
+
+      <div class="dish">
+        <span class="dish-id">02</span>
+        <h4>キョフテ</h4>
+        <div class="dish-tr">Köfte</div>
+        <p class="dish-desc">挽肉にスパイスと玉ねぎを混ぜて成形する、トルコ風ミートボール。煮込み、焼き、揚げ——200を超えるバリエーション。家庭料理の代表格。</p>
+        <div class="dish-tag">Meatball · Homestyle</div>
+      </div>
+
+      <div class="dish">
+        <span class="dish-id">03</span>
+        <h4>メゼ</h4>
+        <div class="dish-tr">Meze</div>
+        <p class="dish-desc">食事の幕開けを飾る冷前菜の集合。フムス(ひよこ豆)、ジャジュク(きゅうりのヨーグルト和え)、焼きナス、パトゥルジャンサラタス——20種以上を小皿で。ラクの最良の相手。</p>
+        <div class="dish-tag">Mezze · Cold starter · Shared</div>
+      </div>
+
+      <div class="dish">
+        <span class="dish-id">04</span>
+        <h4>ピデ</h4>
+        <div class="dish-tr">Pide</div>
+        <p class="dish-desc">「トルコ風ピザ」と呼ばれるが、形は船形。石窯で焼いた生地の上に、ひき肉、チーズ、卵、野菜を載せる。地方ごとに生地の厚みと具が異なる。</p>
+        <div class="dish-tag">Flatbread · Stone oven</div>
+      </div>
+
+      <div class="dish">
+        <span class="dish-id">05</span>
+        <h4>ドルマ</h4>
+        <div class="dish-tr">Dolma</div>
+        <p class="dish-desc">野菜に米や肉を詰めた料理の総称。ブドウの葉、ピーマン、ナス、ズッキーニ——何でも器になる。肉なしはメゼに、肉入りはメイン料理に。宮廷料理の系譜。</p>
+        <div class="dish-tag">Stuffed · Vegetables · Rice</div>
+      </div>
+
+      <div class="dish">
+        <span class="dish-id">06</span>
+        <h4>サバサンド</h4>
+        <div class="dish-tr">Balık Ekmek</div>
+        <p class="dish-desc">イスタンブールのガラタ橋下で焼きたての鯖をパンに挟む、庶民の味。レモンを絞り、塩を振る。海峡を渡る風のなかで食べる。観光客にも愛される名物。</p>
+        <div class="dish-tag">Street food · Istanbul · Fish</div>
+      </div>
+
+      <div class="dish">
+        <span class="dish-id">07</span>
+        <h4>バクラヴァ</h4>
+        <div class="dish-tr">Baklava</div>
+        <p class="dish-desc">フィロ生地を40層重ね、ピスタチオかクルミを挟んで焼き、シロップをかける。オスマン宮廷菓子の極致。南東部ガズィアンテプが本場で、地理的表示保護の対象。</p>
+        <div class="dish-tag">Dessert · Pistachio · Syrup</div>
+      </div>
+
+      <div class="dish">
+        <span class="dish-id">—</span>
+        <h4>もっと食べるなら</h4>
+        <div class="dish-tr">Beyond the seven</div>
+        <p class="dish-desc">マントゥ(水餃子)、ラフマジュン(薄焼き肉載せパン)、イチリ・キョフテ(肉詰め挽肉)、ミディエ・ドルマス(ムール貝のピラフ詰め)、ロクム(求肥菓子)、トルコアイス(ドンドゥルマ)——まだまだ続く。</p>
+        <div class="dish-tag">Mantı · Lahmacun · Lokum</div>
+      </div>
+    </div>
+
+    <!-- 素材の国 -->
+    <div class="dishes-heading">
+      <h3>4つの根幹素材</h3>
+      <div class="h-en">Four Pillars of the Turkish Kitchen</div>
+    </div>
+
+    <div class="ingredients">
+      <div class="ingredient">
+        <span class="ing-icon">乳</span>
+        <h6>ヨーグルト</h6>
+        <p>発祥はトルコ説が有力。消費量世界一。料理の<strong style="color:var(--ottoman-red)">調味料</strong>として肉にもスープにもかかる。</p>
+      </div>
+      <div class="ingredient">
+        <span class="ing-icon">油</span>
+        <h6>オリーブオイル</h6>
+        <p>エーゲ海沿岸が産地。<em>zeytinyağlı</em>(オリーブ油料理)は野菜を冷たく仕上げる一ジャンル。</p>
+      </div>
+      <div class="ingredient">
+        <span class="ing-icon">実</span>
+        <h6>ナッツ</h6>
+        <p>ピスタチオ、クルミ、ヘーゼルナッツ(生産量世界一)、アーモンド。バクラヴァからピラフまで。</p>
+      </div>
+      <div class="ingredient">
+        <span class="ing-icon">羊</span>
+        <h6>羊肉</h6>
+        <p>豚肉はほぼ使わない。代わりに羊が主役。現代は牛・鶏も増加。ケバブもキョフテも起源は羊。</p>
+      </div>
+    </div>
+
+    <!-- 朝食特集 -->
+    <div class="breakfast-feature">
+      <div class="breakfast-inner">
+        <div class="breakfast-label">Special Feature — 朝食という小宇宙</div>
+        <h3>トルコの朝食</h3>
+        <div class="tr-sub">Türk Kahvaltısı</div>
+        <p>トルコの朝食は、世界一豪華だと言われる。<strong>小皿が20枚以上</strong>並ぶのは珍しくない。チーズ数種、オリーブ数種、トマト、きゅうり、はちみつ、カイマク(濃厚クリーム)、ジャム、卵料理、焼きたてのパン、そしてチャイ——。</p>
+        <p>トルコはパン消費量が世界一(一人あたり年間104kg、二位の倍近い)。朝食は <em>kahvaltı</em>(カフヴァルトゥ)と呼ばれ、語源は「コーヒーの前」。コーヒーを飲む前の小さな食事、という意味だったものが、現在では一日の主役級の食事になった。</p>
+        <p>週末はさらに長い <strong>serpme kahvaltı</strong>(敷き詰め朝食)を数時間かけてとる。家族、友人、隣人が集まり、話し、食べ、チャイを重ね、昼へ地続きで移行する。これは食事というより、<strong>儀式</strong>に近い。</p>
+        <div class="breakfast-items">
+          <span>Peynir(チーズ)</span>
+          <span>Zeytin(オリーブ)</span>
+          <span>Bal &amp; Kaymak(蜂蜜&クリーム)</span>
+          <span>Domates &amp; Salatalık(野菜)</span>
+          <span>Menemen(卵のトマト煮)</span>
+          <span>Sucuk(ソーセージ)</span>
+          <span>Simit(ゴマパン)</span>
+          <span>Börek(パイ)</span>
+          <span>Reçel(ジャム)</span>
+          <span>Çay(紅茶)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 食卓のリズム(ドリンク) -->
+    <div class="dishes-heading">
+      <h3>食卓を支える三つの飲み物</h3>
+      <div class="h-en">Three Drinks that Shape the Day</div>
+    </div>
+
+    <div class="drinks-grid">
+      <div class="drink-card">
+        <div class="drink-img-box">
+          <img src="img/13-turkish-tea.webp" alt="トルコのチャイ">
+        </div>
+        <div class="drink-card-body">
+          <h5>チャイ</h5>
+          <div class="dr-tr">Çay — from morning to midnight</div>
+          <p>一日の節目に必ずチャイがある。黒海沿岸産の紅茶をチューリップ型グラスに、角砂糖を二つ。商談、休憩、再会——すべてチャイと共にある。断ってはいけない。</p>
+          <div class="local-tip" style="margin-top:1rem;">
             <span class="tip-label">Local Tip</span>
-            注文時に砂糖の量を3段階で聞かれる:<strong>sade</strong>(無糖)/ <strong>orta</strong>(中)/ <strong>şekerli</strong>(甘め)。最初は <em>orta</em> がおすすめ。粉を飲んでしまわないよう、最後の一口は残すのが流儀。
+            観光客向けカフェより、<em>çay bahçesi</em>(チャイ庭園)のほうが安くて美味しい。
           </div>
         </div>
       </div>
 
-      <div class="culture-item">
-        <img class="culture-img" src="img/13-turkish-tea.webp" alt="チューリップ型グラスに入ったトルコのチャイ">
-        <div class="culture-item-body">
-          <div class="topic">TEA — 茶</div>
-          <h4>チャイの国</h4>
-          <div class="ja-sub">— A nation that runs on tea</div>
-          <p>世界有数の茶消費国。黒海沿岸で栽培された紅茶を、チューリップ型の小さなグラスで飲む。朝食から商談まで、一日の節目に必ずチャイがある。角砂糖をふたつ落として、短く啜る。それが会話の始まり。</p>
-          <div class="local-tip">
+      <div class="drink-card">
+        <div class="drink-img-box">
+          <img src="img/14-turkish-coffee.webp" alt="ジェズベで淹れるトルココーヒー">
+        </div>
+        <div class="drink-card-body">
+          <h5>トルココーヒー</h5>
+          <div class="dr-tr">Türk Kahvesi — UNESCO Heritage</div>
+          <p>細かく挽いた粉と水と砂糖を銅製のジェズベで三度沸かす。500年の淹れ方は、ユネスコ無形文化遺産。飲み終えたカップの底の粉で、占いをする。</p>
+          <div class="local-tip" style="margin-top:1rem;">
             <span class="tip-label">Local Tip</span>
-            バザールで買い物中、店主に <strong>「チャイ、ナスル?」</strong>(チャイいかが?)と勧められたら、断らずに座るのが粋。商談=チャイの時間。観光客向けカフェのチャイは1〜2倍高く、街の <em>çay bahçesi</em>(チャイ庭園)が最も安く美味しい。
+            砂糖は3段階:<strong>sade</strong>(無糖)/ <strong>orta</strong>(中)/ <strong>şekerli</strong>(甘め)。初めては <em>orta</em> で。
           </div>
         </div>
       </div>
 
-      <div class="culture-item">
-        <img class="culture-img" src="img/11-grand-bazaar.webp" alt="グランドバザールのアーチ天井と絨毯">
-        <div class="culture-item-body">
-          <div class="topic">BAZAAR — 市場</div>
-          <h4>グランドバザール</h4>
-          <div class="ja-sub">— The world's oldest covered market</div>
-          <p>イスタンブール旧市街にある、15世紀から続く屋根付き市場。約4,000の店舗が並ぶ、世界最大級の歴史的バザール。タイル、絨毯、香辛料、金細工、革製品——オスマンの商業文化が、アーチ天井の下で今も呼吸している。</p>
-          <div class="local-tip">
+      <div class="drink-card">
+        <div class="drink-no-img"></div>
+        <div class="drink-card-body">
+          <h5>ラク</h5>
+          <div class="dr-tr">Rakı — the lion's milk</div>
+          <p>ブドウの蒸留酒にアニスを加えた、度数40度超の国民酒。水で割ると白濁することから <em>「ライオンのミルク」</em> と呼ばれる。メゼとケバブの最良のパートナー。夕食は長く、ラクと共に流れていく。</p>
+          <div class="local-tip" style="margin-top:1rem;">
             <span class="tip-label">Local Tip</span>
-            <strong>営業:</strong> 月〜土 9:00–19:00、日曜休。<strong>値切り必須</strong>(提示価格の半額が目安)。20以上の門があるので入る門の名前を覚えておくこと。スパイスがメインなら隣接する <em>エジプシャン・バザール</em> へ。
-          </div>
-        </div>
-      </div>
-
-      <div class="culture-item">
-        <img class="culture-img" src="img/12-iznik-tile.webp" alt="イズニックタイルの陳列">
-        <div class="culture-item-body">
-          <div class="topic">CRAFT — 工芸</div>
-          <h4>イズニックタイル</h4>
-          <div class="ja-sub">— Blue & turquoise of the empire</div>
-          <p>オスマン宮廷を彩った陶器装飾。コバルトブルーとターコイズを基調に、チューリップ、カーネーション、サイプレスを描いた。アヤソフィア、ブルーモスク、トプカプ宮殿——帝国の建築は、この青いタイルで内側から発光する。</p>
-          <div class="local-tip">
-            <span class="tip-label">Local Tip</span>
-            本場で買うなら<strong>イズニック市</strong>(イスタンブールから車で約2時間)の <em>İznik Çini Vakfı</em>。本物の手描きタイルは1枚数千円〜数万円。バザールの量産品との違いは、裏面の作家サインと釉薬の透明感。
+            氷、水、ラクの順で注ぐのが正しい。魚料理、白チーズ、メロンが定番の合わせ。
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- ─────────── 見どころスポット(CH.06) ─────────── -->
 <section class="chapter-spots" id="spots">
   <div class="spots-inner">
-    <div class="section-num">CH. 06 — 見どころスポット</div>
+    <div class="section-num">CH. 07 — 見どころスポット</div>
     <h2 class="section-title">どこへ<br>行くか</h2>
     <p class="section-title-en">Six Places You Cannot Miss</p>
 
@@ -1794,7 +2474,7 @@
 <!-- ─────────── 現代(CH.07) ─────────── -->
 <section class="chapter-modern" id="modern">
   <div class="modern-inner">
-    <div class="section-num">CH. 07 — 現代</div>
+    <div class="section-num">CH. 08 — 現代</div>
     <h2 class="section-title">いまの<br>トルコ</h2>
     <p class="section-title-en">A Rising Power, A Tourist Magnet</p>
 
@@ -1890,6 +2570,197 @@
     } else {
       nav.classList.remove('scrolled');
     }
+  });
+</script>
+
+<!-- D3 + TopoJSON for location map -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js" defer></script>
+<script defer>
+  // 位置セクションの地図を D3 で描画
+  window.addEventListener('load', () => {
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+      console.warn('D3 or topojson not loaded');
+      return;
+    }
+
+    const svgEl = document.getElementById('turkey-map-svg');
+    const loadingEl = document.getElementById('map-loading');
+    if (!svgEl) return;
+
+    const width = 800;
+    const height = 600;
+    svgEl.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+    const svg = d3.select(svgEl);
+
+    // ISO 3166-1 numeric codes
+    const TURKEY_ID = '792';
+    const NEIGHBORS = {
+      '300': 'ギリシャ',
+      '100': 'ブルガリア',
+      '196': 'キプロス',
+      '268': 'ジョージア',
+      '051': 'アルメニア',
+      '31':  'アゼルバイジャン',
+      '364': 'イラン',
+      '368': 'イラク',
+      '760': 'シリア',
+      '422': 'レバノン',
+      '642': 'ルーマニア',
+      '498': 'モルドバ',
+      '688': 'セルビア',
+      '807': '北マケドニア',
+      '008': 'アルバニア',
+    };
+
+    // トルコ周辺の経度緯度範囲
+    // 経度: 20°E - 50°E, 緯度: 33°N - 45°N
+    const projection = d3.geoMercator()
+      .center([36, 39.2])
+      .scale(1350)
+      .translate([width / 2, height / 2]);
+
+    const path = d3.geoPath(projection);
+
+    // 背景(海) 
+    svg.append('rect')
+       .attr('width', width).attr('height', height)
+       .attr('class', 'map-sea');
+
+    // 経緯線グリッド
+    const graticule = d3.geoGraticule().step([5, 5]);
+    svg.append('path')
+       .datum(graticule())
+       .attr('class', 'map-graticule')
+       .attr('d', path);
+
+    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
+      .then(world => {
+        const countries = topojson.feature(world, world.objects.countries).features;
+
+        // 周辺国(トルコ以外)
+        const neighborLayer = svg.append('g').attr('class', 'layer-neighbors');
+        countries.forEach(country => {
+          if (country.id === TURKEY_ID) return;
+          neighborLayer.append('path')
+            .datum(country)
+            .attr('class', NEIGHBORS[country.id] ? 'map-country-neighbor' : 'map-country')
+            .attr('d', path);
+        });
+
+        // トルコ本体(ハイライト)
+        const turkey = countries.find(c => c.id === TURKEY_ID);
+        if (turkey) {
+          svg.append('path')
+             .datum(turkey)
+             .attr('class', 'map-country-turkey')
+             .attr('d', path);
+        }
+
+        // 大陸ラベル
+        svg.append('text')
+          .attr('class', 'map-label-continent')
+          .attr('x', 80).attr('y', 60).text('EUROPE');
+        svg.append('text')
+          .attr('class', 'map-label-continent')
+          .attr('x', width - 160).attr('y', 60).text('ASIA');
+
+        // 海ラベル
+        const seaLabels = [
+          { en: 'BLACK  SEA', ja: '黒海', lng: 34.5, lat: 43.5, size: 14 },
+          { en: 'MEDITERRANEAN  SEA', ja: '地中海', lng: 32.5, lat: 34.5, size: 12 },
+          { en: 'AEGEAN  SEA', ja: 'エーゲ海', lng: 25, lat: 38.5, size: 11 },
+          { en: 'CASPIAN  SEA', ja: 'カスピ海', lng: 50.5, lat: 41.5, size: 10 },
+        ];
+        seaLabels.forEach(s => {
+          const [x, y] = projection([s.lng, s.lat]);
+          if (x < 0 || x > width || y < 0 || y > height) return;
+          svg.append('text')
+            .attr('class', 'map-label-sea')
+            .attr('x', x).attr('y', y)
+            .attr('font-size', s.size)
+            .text(s.en);
+          svg.append('text')
+            .attr('class', 'map-label-sea-ja')
+            .attr('x', x).attr('y', y + s.size + 2)
+            .attr('font-size', s.size * 0.75)
+            .text(s.ja);
+        });
+
+        // 周辺国ラベル(主要のみ)
+        const neighborLabels = [
+          { name: 'ギリシャ', lng: 22, lat: 39 },
+          { name: 'ブルガリア', lng: 25, lat: 42.5 },
+          { name: 'ジョージア', lng: 43, lat: 42.3 },
+          { name: 'アルメニア', lng: 45.2, lat: 40.3 },
+          { name: 'イラン', lng: 47.5, lat: 36.5 },
+          { name: 'イラク', lng: 44, lat: 34.5 },
+          { name: 'シリア', lng: 38.5, lat: 35 },
+          { name: 'キプロス', lng: 33.5, lat: 34.9 },
+        ];
+        neighborLabels.forEach(n => {
+          const [x, y] = projection([n.lng, n.lat]);
+          svg.append('text')
+            .attr('class', 'map-label-country')
+            .attr('x', x).attr('y', y)
+            .text(n.name);
+        });
+
+        // トルコの国名ラベル(中央に大きく)
+        const [tx, ty] = projection([35.5, 39.3]);
+        svg.append('text')
+          .attr('class', 'map-label-turkey')
+          .attr('x', tx).attr('y', ty)
+          .text('トルコ');
+        svg.append('text')
+          .attr('class', 'map-label-turkey-en')
+          .attr('x', tx).attr('y', ty + 18)
+          .text('TÜRKİYE');
+
+        // 都市マーカー
+        const cities = [
+          { name: 'ISTANBUL', lng: 28.98, lat: 41.01, star: true },
+          { name: 'ANKARA ★', lng: 32.87, lat: 39.93, ankara: true },
+        ];
+        cities.forEach(c => {
+          const [x, y] = projection([c.lng, c.lat]);
+          const g = svg.append('g');
+          if (c.star) {
+            g.append('circle')
+              .attr('class', 'map-city-dot')
+              .attr('cx', x).attr('cy', y).attr('r', 3.5);
+            g.append('circle')
+              .attr('fill', 'none').attr('stroke', '#faf3e2').attr('stroke-width', 1)
+              .attr('cx', x).attr('cy', y).attr('r', 6).attr('opacity', 0.6);
+          } else {
+            g.append('circle')
+              .attr('class', 'map-city-dot map-city-ankara')
+              .attr('cx', x).attr('cy', y).attr('r', 3);
+          }
+          g.append('text')
+            .attr('class', c.ankara ? 'map-label-city map-label-city-ankara' : 'map-label-city')
+            .attr('x', x + 8).attr('y', y + 3)
+            .text(c.name);
+        });
+
+        // Legend
+        svg.append('text')
+          .attr('class', 'map-legend')
+          .attr('x', 24).attr('y', 30)
+          .text('N°003 · LOCATION MAP');
+        svg.append('line')
+          .attr('x1', 24).attr('y1', 36).attr('x2', 200).attr('y2', 36)
+          .attr('stroke', '#c89e3c').attr('stroke-width', 0.4).attr('opacity', 0.5);
+
+        // ローディング非表示
+        if (loadingEl) loadingEl.classList.add('hidden');
+      })
+      .catch(err => {
+        console.error('Map load failed:', err);
+        if (loadingEl) loadingEl.textContent = 'Map failed to load';
+      });
   });
 </script>
 
