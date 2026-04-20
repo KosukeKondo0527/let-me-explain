@@ -365,6 +365,7 @@
     grid-template-areas:
       "intro  map"
       "rest   map"
+      "seas   seas"
       "card   card";
     gap: 0 5rem;
     align-items: start;
@@ -372,6 +373,7 @@
   .overview-text-intro { grid-area: intro; }
   .overview-text-rest  { grid-area: rest; align-self: start; margin-top: 0.5rem; }
   .overview-map        { grid-area: map; }
+  .overview-seas       { grid-area: seas; margin-top: 3rem; }
   .overview-card       { grid-area: card; margin-top: 3rem; }
 
   .overview-text p {
@@ -626,6 +628,36 @@
     line-height: 1.8;
     color: var(--ink-soft);
   }
+
+  /* 概要章の地図下に置く海カード用コンパクトスタイル */
+  .overview-seas {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+  }
+  .overview-seas-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .overview-seas-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .overview-seas .seas-grid { gap: 1.3rem; }
+  .overview-seas .sea-card-body { padding: 1.3rem 1.4rem 1.6rem; }
+  .overview-seas .sea-card .sea-num { font-size: 1.6rem; margin-bottom: 0.4rem; }
+  .overview-seas .sea-card h4 { font-size: 1.15rem; margin-bottom: 0.15rem; }
+  .overview-seas .sea-card .sea-en { font-size: 0.82rem; margin-bottom: 0.6rem; }
+  .overview-seas .sea-card p { font-size: 0.82rem; line-height: 1.7; }
+  .overview-seas .sea-card-img { aspect-ratio: 16 / 10; }
   /* 地中海はまだ写真なし → パターン装飾 */
   .sea-no-img {
     width: 100%;
@@ -1973,12 +2005,15 @@
       grid-template-areas:
         "intro"
         "map"
+        "seas"
         "rest"
         "card";
       gap: 2.5rem;
     }
     .overview-map { aspect-ratio: 4 / 3.2; }
     .overview-card.data-card { padding: 2rem 1.5rem; margin-top: 0; }
+    .overview-seas { margin-top: 0; }
+    .overview-seas .seas-grid { grid-template-columns: 1fr; gap: 1rem; }
     .data-card-grid { grid-template-columns: 1fr 1fr; }
     .data-card-grid .data-row {
       border-right: 1px dotted var(--line-strong);
@@ -2106,6 +2141,39 @@
       <div class="map-loading" id="map-loading">Loading map…</div>
     </div>
 
+    <div class="overview-seas">
+      <div class="overview-seas-label">Three Seas — 三方を縁取る海</div>
+      <div class="seas-grid">
+        <div class="sea-card">
+          <img class="sea-card-img" src="img/23-black-sea.webp" alt="黒海沿岸の港町アマスラの夕景">
+          <div class="sea-card-body">
+            <div class="sea-num">i.</div>
+            <h4>黒海</h4>
+            <div class="sea-en">Karadeniz</div>
+            <p>北岸。歴史的にロシア、コーカサス、バルカンとの交易と緊張の舞台。湿潤な気候が茶葉を育む。</p>
+          </div>
+        </div>
+        <div class="sea-card">
+          <img class="sea-card-img" src="img/06-aegean-coast.webp" alt="エーゲ海岸の港町クシャダス">
+          <div class="sea-card-body">
+            <div class="sea-num">ii.</div>
+            <h4>エーゲ海</h4>
+            <div class="sea-en">Ege Denizi</div>
+            <p>西岸。ギリシャと向かい合う、無数の島々が散らばる海。古代ギリシア文明とトロイの世界がここにある。</p>
+          </div>
+        </div>
+        <div class="sea-card">
+          <img class="sea-card-img" src="img/15-antalya.webp" alt="アンタルヤ旧市街(カレイチ)と地中海">
+          <div class="sea-card-body">
+            <div class="sea-num">iii.</div>
+            <h4>地中海</h4>
+            <div class="sea-en">Akdeniz</div>
+            <p>南岸。アンタルヤからアレクサンドレッタまで、ヨーロッパ屈指のビーチリゾート地帯が連なる。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="overview-text overview-text-rest">
       <p>面積は日本のおよそ二倍、人口は八千五百万を超える。1923年、ムスタファ・ケマル・アタテュルクの指揮のもと、オスマン帝国の遺領から共和国として再出発。世俗主義、ローマ字導入、女性参政権——イスラム圏で最初の近代世俗国家として、その軌跡は今も国の根幹をなしている。</p>
     </div>
@@ -2137,40 +2205,40 @@
 <section class="chapter chapter-geography" id="geography">
   <div class="geo-inner">
     <div class="section-num">CH. 02 — 地理</div>
-    <h2 class="section-title">三つの海、<br>二つの大陸</h2>
-    <p class="section-title-en">Where Asia Meets Europe</p>
+    <h2 class="section-title">大地の、<br>奇景</h2>
+    <p class="section-title-en">Landscapes of Anatolia</p>
 
     <p class="geo-quote">
-      国土の97%は<em>アナトリア半島</em>(小アジア)、残る3%が<em>東トラキア</em>。
-      北に<em>黒海</em>、西に<em>エーゲ海</em>、南に<em>地中海</em>——三方を、海が縁取っている。
+      海が縁取るその内側には、もうひとつの顔がある。<br>
+      <em>高原</em>と<em>火山</em>と<em>石灰</em>が、数千万年かけて刻んだ地形。
     </p>
 
     <div class="seas-grid">
       <div class="sea-card">
-        <img class="sea-card-img" src="img/23-black-sea.webp" alt="黒海沿岸の港町アマスラの夕景">
-        <div class="sea-card-body">
-          <div class="sea-num">i.</div>
-          <h4>黒海</h4>
-          <div class="sea-en">Karadeniz</div>
-          <p>北岸に広がる海。歴史的にロシア、コーカサス、バルカンとの交易と緊張の舞台であり続けてきた。湿潤な気候は茶葉の栽培を育む。</p>
-        </div>
-      </div>
-      <div class="sea-card">
-        <img class="sea-card-img" src="img/06-aegean-coast.webp" alt="エーゲ海岸の港町クシャダス">
-        <div class="sea-card-body">
-          <div class="sea-num">ii.</div>
-          <h4>エーゲ海</h4>
-          <div class="sea-en">Ege Denizi</div>
-          <p>西岸。ギリシャと向かい合う、無数の島々が散らばる海。古代ギリシア文明とトロイの世界がここにあり、リゾート都市が連なる現代的な顔も持つ。</p>
-        </div>
-      </div>
-      <div class="sea-card">
         <img class="sea-card-img" src="img/05-pamukkale.webp" alt="パムッカレの石灰棚">
         <div class="sea-card-body">
-          <div class="sea-num">iii.</div>
-          <h4>内陸の奇景</h4>
+          <div class="sea-num">i.</div>
+          <h4>パムッカレ</h4>
           <div class="sea-en">Pamukkale — Cotton Castle</div>
-          <p>海だけでなく、内陸にも奇景がある。パムッカレの石灰華段々は、温泉水が長い時間をかけて作り出した「綿の城」。古代ヒエラポリス遺跡と隣り合う。</p>
+          <p>温泉水が長い時間をかけて作り出した、真っ白な石灰華段々。「綿の城」と呼ばれる内陸の奇景。古代ヒエラポリス遺跡と隣り合う世界遺産。</p>
+        </div>
+      </div>
+      <div class="sea-card">
+        <img class="sea-card-img" src="img/04-cappadocia-rocks.webp" alt="カッパドキアの奇岩地帯">
+        <div class="sea-card-body">
+          <div class="sea-num">ii.</div>
+          <h4>カッパドキア</h4>
+          <div class="sea-en">Kapadokya</div>
+          <p>火山灰が固まった凝灰岩の台地が、数百万年の侵食で奇岩群に。岩を掘り抜いた住居と地下都市、そして空を埋め尽くす気球——世界で唯一の風景。</p>
+        </div>
+      </div>
+      <div class="sea-card">
+        <img class="sea-card-img" src="img/10-ephesus.webp" alt="エフェソス古代都市">
+        <div class="sea-card-body">
+          <div class="sea-num">iii.</div>
+          <h4>アナトリア高原</h4>
+          <div class="sea-en">Anadolu Yaylası</div>
+          <p>国土の大部分を占める、標高1000m前後の広大な高原。乾燥した内陸気候が、古代からの穀倉地帯と文明の舞台を育ててきた。</p>
         </div>
       </div>
     </div>
