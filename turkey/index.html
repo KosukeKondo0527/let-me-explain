@@ -1441,6 +1441,26 @@
     gap: 1.5rem;
     margin-bottom: 5rem;
   }
+
+  /* もっと食べるなら(2カラム) */
+  .more-dishes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 5rem;
+  }
+  .more-dishes .dish .dish-img {
+    aspect-ratio: 16 / 10;
+  }
+  .more-dishes .dish .dish-body {
+    padding: 2rem 2.2rem 2.2rem;
+  }
+  .more-dishes .dish h4 {
+    font-size: 1.6rem;
+  }
+  .more-dishes .dish .dish-desc {
+    font-size: 0.95rem;
+  }
   .dish {
     background: var(--bg);
     border: 1px solid var(--line);
@@ -1947,6 +1967,7 @@
     .cuisine-intro { margin-bottom: 3rem; }
     .three-reasons { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; margin: 3rem 0 4rem; }
     .dishes-grid { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 3rem; }
+    .more-dishes { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 3rem; }
     .ingredients { grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3rem 0; }
     .breakfast-feature { margin: 4rem -1.5rem 3rem; padding: 3rem 1.5rem; }
     .breakfast-feature::before { font-size: 4rem; top: 1rem; right: 1rem; }
@@ -2315,7 +2336,7 @@
 
       <div class="dish">
         <span class="dish-id">02</span>
-        <div class="dish-no-img">Köfte</div>
+        <img class="dish-img" src="img/24-kofte.webp" alt="キョフテ(トルコ風ミートボール)">
         <div class="dish-body">
           <h4>キョフテ</h4>
           <div class="dish-tr">Köfte</div>
@@ -2337,7 +2358,7 @@
 
       <div class="dish">
         <span class="dish-id">04</span>
-        <div class="dish-no-img">Pide</div>
+        <img class="dish-img" src="img/25-pide.webp" alt="ピデ(船形のトルコ風パン)">
         <div class="dish-body">
           <h4>ピデ</h4>
           <div class="dish-tr">Pide</div>
@@ -2348,7 +2369,7 @@
 
       <div class="dish">
         <span class="dish-id">05</span>
-        <div class="dish-no-img">Dolma</div>
+        <img class="dish-img" src="img/26-dolma.webp" alt="ドルマ(野菜の詰め物料理)">
         <div class="dish-body">
           <h4>ドルマ</h4>
           <div class="dish-tr">Dolma</div>
@@ -2378,15 +2399,34 @@
           <div class="dish-tag">Dessert · Pistachio · Syrup</div>
         </div>
       </div>
+    </div>
+
+    <!-- もっと食べるなら(マントゥ・ラフマジュン) -->
+    <div class="dishes-heading" style="margin-top: 4rem;">
+      <h3>まだまだ続く食卓</h3>
+      <div class="h-en">Beyond the Seven</div>
+    </div>
+
+    <div class="more-dishes">
+      <div class="dish">
+        <span class="dish-id">+ 01</span>
+        <img class="dish-img" src="img/27-manti.webp" alt="マントゥ(トルコ風水餃子)">
+        <div class="dish-body">
+          <h4>マントゥ</h4>
+          <div class="dish-tr">Mantı — Turkish dumpling</div>
+          <p class="dish-desc">小さな三角形の生地に羊挽肉を包み、茹でてヨーグルトとトマトソース・溶かしバターをかける。本場カイセリでは <em>「40個載せて一口で食べられる」</em> ほど小さく作るのが誇り。家庭の味の代名詞。</p>
+          <div class="dish-tag">Dumpling · Yogurt · Comfort</div>
+        </div>
+      </div>
 
       <div class="dish">
-        <span class="dish-id">—</span>
-        <div class="dish-no-img">+ More</div>
+        <span class="dish-id">+ 02</span>
+        <img class="dish-img" src="img/28-lahmacun.webp" alt="ラフマジュン(薄焼きパン)">
         <div class="dish-body">
-          <h4>もっと食べるなら</h4>
-          <div class="dish-tr">Beyond the seven</div>
-          <p class="dish-desc">マントゥ(水餃子)、ラフマジュン(薄焼き肉載せパン)、イチリ・キョフテ(肉詰め挽肉)、ミディエ・ドルマス(ムール貝のピラフ詰め)、ロクム(求肥菓子)、トルコアイス(ドンドゥルマ)——まだまだ続く。</p>
-          <div class="dish-tag">Mantı · Lahmacun · Lokum</div>
+          <h4>ラフマジュン</h4>
+          <div class="dish-tr">Lahmacun — Turkish flatbread</div>
+          <p class="dish-desc">極薄の丸い生地にスパイス入り挽肉を塗り、数分で焼き上げる。トマト、玉ねぎ、レモン、パセリを載せて<strong>くるっと巻いて</strong>齧り付く。南東部の名物、街のファストフード。</p>
+          <div class="dish-tag">Flatbread · Minced meat · Wrap</div>
         </div>
       </div>
     </div>
