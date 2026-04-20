@@ -764,14 +764,49 @@
     text-transform: none;
     margin-top: 0.4rem;
   }
-  .timeline-content h4 {
+  .timeline-content {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .timeline-img-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: rgba(10, 20, 30, 0.5);
+    border: 1px solid rgba(217, 181, 105, 0.2);
+  }
+  .timeline-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .timeline-entry:hover .timeline-img-wrap img { transform: scale(1.04); }
+  .timeline-no-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(40, 30, 22, 0.6) 0%, rgba(60, 40, 28, 0.4) 100%);
+    color: var(--gold-soft);
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+  }
+  .timeline-text h4 {
     font-family: 'Shippori Mincho', serif;
     font-weight: 700;
     font-size: 1.7rem;
     color: var(--paper);
     margin-bottom: 0.3rem;
   }
-  .timeline-content .ja-sub {
+  .timeline-text .ja-sub {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 1rem;
@@ -779,8 +814,19 @@
     letter-spacing: 0.05em;
     margin-bottom: 1rem;
   }
-  .timeline-content p { font-size: 1rem; line-height: 1.9; color: rgba(250, 243, 226, 0.75); }
-  .timeline-content p strong { color: var(--gold-soft); font-weight: 500; }
+  .timeline-text p { font-size: 1rem; line-height: 1.9; color: rgba(250, 243, 226, 0.75); }
+  .timeline-text p strong { color: var(--gold-soft); font-weight: 500; }
+
+  .history-intro-hint {
+    display: block;
+    margin-top: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-soft);
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
 
   /* ─────────── イスタンブール(3つの画像併置) ─────────── */
   .chapter-istanbul {
@@ -1942,6 +1988,8 @@
 
     .ephesus-showcase { grid-template-columns: 1fr; gap: 2rem; }
     .timeline-entry { grid-template-columns: 1fr; gap: 1rem; padding: 2rem 0; }
+    .timeline-content { grid-template-columns: 1fr; gap: 1.2rem; }
+    .timeline-img-wrap { aspect-ratio: 16 / 10; }
 
     .three-empires-wrap { padding: 4rem 1.5rem 5rem; }
     .three-empires { grid-template-columns: 1fr; gap: 1rem; }
@@ -2138,79 +2186,98 @@
 <section class="chapter chapter-history" id="history">
   <div class="history-inner">
     <div class="section-num">CH. 03 — 歴史</div>
-    <h2 class="section-title">積層する<br>大地</h2>
+    <h2 class="section-title">国の、<br>歴史</h2>
     <p class="section-title-en">A Land of Layered Civilizations</p>
 
     <p class="history-intro">
       アナトリアは、人類最古級の集落跡<strong>ギョベクリ・テペ</strong>(紀元前9000年頃)を有する土地。
       ここは「文明の発祥地」のひとつであり、その後<strong>18もの大文明</strong>が興っては消えた。
-      時間が、地層のように折り重なっている。
+      時間が、地層のように折り重なっている。<br>
+      <span class="history-intro-hint">以下、その主な六章——</span>
     </p>
-
-    <!-- エフェソス大判ショーケース -->
-    <div class="ephesus-showcase">
-      <img src="img/10-ephesus.webp" alt="エフェソスのセルシウス図書館のファサード">
-      <div class="ephesus-text">
-        <div class="ephesus-label">A photo from the timeline</div>
-        <h3>エフェソス<br>セルシウス図書館</h3>
-        <p class="en-sub">Celsus Library, Ephesus — 2nd c. AD</p>
-        <p>
-          エーゲ海沿岸に残る、古代ローマ属州アジアの中心都市。
-          2世紀に建てられたセルシウス図書館は、ヘレニズム世界の三大図書館のひとつに数えられ、
-          約12,000巻の蔵書を誇った。
-          ファサードに立つ四体の女神像は、<em>知恵・徳・思考・学識</em>の象徴。
-          ヘレニズムからローマへ——文明の継承が、この柱の間に刻まれている。
-        </p>
-      </div>
-    </div>
 
     <div class="timeline">
       <div class="timeline-entry">
         <div class="timeline-era">紀元前 18世紀<span class="year">Hittite</span></div>
         <div class="timeline-content">
-          <h4>ヒッタイト</h4>
-          <div class="ja-sub">— The first to forge iron</div>
-          <p>世界で<strong>最初に鉄器を本格使用した</strong>とされる、インド・ヨーロッパ語族の王国。首都ハットゥシャの遺跡は今も残る。紀元前14世紀に最盛期。紀元前1200年頃、「海の民」の到来によって滅亡。</p>
+          <div class="timeline-img-wrap">
+            <div class="timeline-no-img">HATTUŞA</div>
+          </div>
+          <div class="timeline-text">
+            <h4>ヒッタイト</h4>
+            <div class="ja-sub">— The first to forge iron</div>
+            <p>世界で<strong>最初に鉄器を本格使用した</strong>とされる、インド・ヨーロッパ語族の王国。首都ハットゥシャの遺跡は今も残る。紀元前14世紀に最盛期。紀元前1200年頃、「海の民」の到来によって滅亡。</p>
+          </div>
         </div>
       </div>
+
       <div class="timeline-entry">
         <div class="timeline-era">紀元前 4世紀<span class="year">Hellenism</span></div>
         <div class="timeline-content">
-          <h4>ヘレニズム化</h4>
-          <div class="ja-sub">— Alexander's conquest</div>
-          <p>アレクサンドロス大王の征服によって、アナトリアはギリシア化。<strong>ヘレニズム文化の東進拠点</strong>となる。古代ギリシアの哲学・芸術・建築が、この地に深く根を下ろした。エフェソスはその象徴。</p>
+          <div class="timeline-img-wrap">
+            <img src="img/10-ephesus.webp" alt="エフェソスのセルシウス図書館">
+          </div>
+          <div class="timeline-text">
+            <h4>ヘレニズム化</h4>
+            <div class="ja-sub">— Alexander's conquest</div>
+            <p>アレクサンドロス大王の征服によって、アナトリアはギリシア化。<strong>ヘレニズム文化の東進拠点</strong>となる。写真は2世紀のエフェソス・セルシウス図書館——ヘレニズム世界三大図書館の一つ、約12,000巻の蔵書を誇った。</p>
+          </div>
         </div>
       </div>
+
       <div class="timeline-entry">
-        <div class="timeline-era">紀元前 1世紀〜<span class="year">Roman & Byzantine</span></div>
+        <div class="timeline-era">紀元前 1世紀〜<span class="year">Roman &amp; Byzantine</span></div>
         <div class="timeline-content">
-          <h4>ローマ、そしてビザンツ</h4>
-          <div class="ja-sub">— Constantinople, the new Rome</div>
-          <p>古代ローマの版図に組み込まれた後、330年にコンスタンティノープル(現イスタンブール)が新首都として整備される。やがて<strong>東ローマ(ビザンツ)帝国</strong>として独自の文明圏を形成。約千年にわたり、地中海世界のキリスト教中心地となった。</p>
+          <div class="timeline-img-wrap">
+            <img src="img/08-hagia-sophia-int.webp" alt="アヤソフィア内部">
+          </div>
+          <div class="timeline-text">
+            <h4>ローマ、そしてビザンツ</h4>
+            <div class="ja-sub">— Constantinople, the new Rome</div>
+            <p>古代ローマの版図に組み込まれた後、330年にコンスタンティノープル(現イスタンブール)が新首都として整備される。やがて<strong>東ローマ(ビザンツ)帝国</strong>として独自の文明圏を形成。約千年、地中海世界のキリスト教中心地となった。537年完成のアヤソフィアは、その象徴。</p>
+          </div>
         </div>
       </div>
+
       <div class="timeline-entry">
         <div class="timeline-era">11世紀<span class="year">Seljuk</span></div>
         <div class="timeline-content">
-          <h4>セルジューク朝の到来</h4>
-          <div class="ja-sub">— Turks arrive in Anatolia</div>
-          <p>中央アジアから西進してきた<strong>テュルク系遊牧民</strong>が、セルジューク朝としてアナトリアに到来。これが「テュルク化」の始まり。1243年、モンゴル帝国の侵攻によって解体されるが、その遺産は次の帝国に引き継がれる。</p>
+          <div class="timeline-img-wrap">
+            <div class="timeline-no-img">SELÇUK</div>
+          </div>
+          <div class="timeline-text">
+            <h4>セルジューク朝の到来</h4>
+            <div class="ja-sub">— Turks arrive in Anatolia</div>
+            <p>中央アジアから西進してきた<strong>テュルク系遊牧民</strong>が、セルジューク朝としてアナトリアに到来。これが「テュルク化」の始まり。1243年、モンゴル帝国の侵攻によって解体されるが、その遺産は次の帝国に引き継がれる。</p>
+          </div>
         </div>
       </div>
+
       <div class="timeline-entry">
         <div class="timeline-era">1299 – 1922<span class="year">Ottoman Empire</span></div>
         <div class="timeline-content">
-          <h4>オスマン帝国</h4>
-          <div class="ja-sub">— Six centuries of empire</div>
-          <p>1299年に建国されたオスマン帝国は、最盛期には<strong>三大陸にまたがる超大国</strong>へと成長。北はハンガリー、西はアルジェリア、南はイエメン、東はインド洋に至る広大な版図を支配した。1453年、コンスタンティノープルを陥落させ、ビザンツ千年の都市を首都に据えた。</p>
+          <div class="timeline-img-wrap">
+            <img src="img/09-blue-mosque.webp" alt="ブルーモスクの夕景">
+          </div>
+          <div class="timeline-text">
+            <h4>オスマン帝国</h4>
+            <div class="ja-sub">— Six centuries of empire</div>
+            <p>1299年に建国。最盛期には<strong>三大陸にまたがる超大国</strong>へ。北はハンガリー、西はアルジェリア、南はイエメン、東はインド洋に至る広大な版図を支配した。1453年、コンスタンティノープルを陥落させ、ビザンツ千年の都市を首都に据える。写真は17世紀完成のブルーモスク。</p>
+          </div>
         </div>
       </div>
+
       <div class="timeline-entry">
         <div class="timeline-era">1923<span class="year">Republic</span></div>
         <div class="timeline-content">
-          <h4>共和国の誕生</h4>
-          <div class="ja-sub">— Atatürk's modern state</div>
-          <p>第一次大戦の敗北とオスマン帝国の崩壊。<strong>ムスタファ・ケマル・アタテュルク</strong>がトルコ独立戦争を率い、1923年10月29日、共和国を宣言。政教分離、ローマ字採用、女性参政権など、矢継ぎ早の近代化改革を断行。<strong>イスラム圏で最初の世俗主義国家</strong>が生まれた瞬間だった。</p>
+          <div class="timeline-img-wrap">
+            <img src="img/16-ankara.webp" alt="アタテュルク廟(アンカラ)">
+          </div>
+          <div class="timeline-text">
+            <h4>共和国の誕生</h4>
+            <div class="ja-sub">— Atatürk's modern state</div>
+            <p>第一次大戦の敗北とオスマン帝国の崩壊。<strong>ムスタファ・ケマル・アタテュルク</strong>がトルコ独立戦争を率い、1923年10月29日、共和国を宣言。政教分離、ローマ字採用、女性参政権——矢継ぎ早の近代化改革。<strong>イスラム圏で最初の世俗主義国家</strong>が生まれた瞬間。首都はイスタンブールからアンカラへ(写真は彼の廟)。</p>
+          </div>
         </div>
       </div>
     </div>
