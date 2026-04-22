@@ -2077,6 +2077,281 @@
     .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
     .footer-line { flex-direction: column; gap: 0.6rem; padding-left: 1.5rem; padding-right: 1.5rem; }
   }
+
+  /* ─────────── 街の地図(新設:イスタンブール全体 + 3エリア) ─────────── */
+  .city-map-chapter {
+    padding: 7rem 3rem 5rem;
+    background: var(--paper);
+    color: var(--bg-deeper);
+    position: relative;
+  }
+  .city-map-inner { max-width: 1400px; margin: 0 auto; }
+  .city-map-chapter .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .city-map-chapter .section-num::before { content: '— '; color: var(--ottoman-red); margin-right: 0.5rem; }
+  .city-map-chapter .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    color: var(--bg-deeper);
+    margin-bottom: 0.8rem;
+  }
+  .city-map-chapter .section-title-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--ottoman-red);
+    letter-spacing: 0.02em;
+    margin-bottom: 3rem;
+  }
+  .city-map-lead {
+    max-width: 720px;
+    font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: var(--bg-deeper);
+    margin-bottom: 4rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--ottoman-red);
+  }
+  .city-map-lead em { font-style: normal; font-family: 'Shippori Mincho', serif; color: var(--ottoman-red); font-weight: 500; }
+
+  /* 全体地図のSVG */
+  .city-map-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    aspect-ratio: 16 / 10;
+    background: #e8dfc8;
+    border: 1px solid rgba(15, 40, 64, 0.12);
+    overflow: hidden;
+  }
+  .city-map-wrap svg { width: 100%; height: 100%; display: block; }
+  .city-map-wrap .city-map-caption {
+    position: absolute;
+    top: 1rem; left: 1.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  /* 地図の水域・陸地・区境界スタイル(SVG内で指定) */
+  .city-map-water { fill: #9cc7db; }
+  .city-map-land { fill: #e8dfc8; }
+  .city-map-coastline { fill: none; stroke: #446583; stroke-width: 0.8px; stroke-linejoin: round; stroke-linecap: round; }
+  .city-map-district { fill: rgba(201, 169, 97, 0.25); stroke: #8a7340; stroke-width: 0.8px; stroke-linejoin: round; transition: fill 0.3s; }
+  .city-map-district.historic { fill: rgba(196, 30, 30, 0.35); }
+  .city-map-district.new { fill: rgba(201, 169, 97, 0.45); }
+  .city-map-district.asian { fill: rgba(37, 99, 168, 0.30); }
+  .city-map-district.dim { fill: rgba(201, 169, 97, 0.12); stroke-width: 0.4px; }
+  .city-map-label {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    fill: var(--bg-deeper);
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: rgba(232, 223, 200, 0.8);
+    stroke-width: 3.5px;
+    stroke-linejoin: round;
+  }
+  .city-map-label-en { font-size: 11px; letter-spacing: 0.12em; fill: #6b5b3e; font-style: italic; text-transform: uppercase; }
+  .city-map-label-ja { font-size: 13px; font-family: 'Shippori Mincho', serif; font-style: normal; font-weight: 700; }
+
+  /* 3エリアの凡例 */
+  .city-map-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+  }
+  .city-map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    color: var(--bg-deeper);
+  }
+  .city-map-legend-swatch {
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+  .swatch-historic { background: rgba(196, 30, 30, 0.5); }
+  .swatch-new { background: rgba(201, 169, 97, 0.65); }
+  .swatch-asian { background: rgba(37, 99, 168, 0.45); }
+
+  /* 3エリアのセクション(各エリア) */
+  .area-section {
+    padding: 6rem 3rem;
+    background: var(--paper);
+    color: var(--bg-deeper);
+    border-top: 1px solid rgba(15, 40, 64, 0.1);
+  }
+  .area-section:nth-of-type(even) { background: #f8efd6; }
+  .area-inner { max-width: 1400px; margin: 0 auto; }
+
+  .area-header {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+  .area-num {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--ottoman-red);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .area-name {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    color: var(--bg-deeper);
+  }
+  .area-name-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--ottoman-red);
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .area-intro {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--ink-soft);
+  }
+  .area-intro strong { color: var(--ottoman-red); font-weight: 500; }
+
+  /* エリア地図(全体地図と同じ構造、エリアのみハイライト) */
+  .area-map-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 480px;
+    margin-left: auto;
+    background: #e8dfc8;
+    border: 1px solid rgba(15, 40, 64, 0.12);
+    overflow: hidden;
+    position: relative;
+  }
+  .area-map-wrap svg { width: 100%; height: 100%; display: block; }
+
+  /* スポット一覧(Google Maps iframe グリッド) */
+  .spots-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .spots-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .spots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.8rem;
+  }
+  .spot-card {
+    background: var(--paper);
+    border: 1px solid rgba(15, 40, 64, 0.1);
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .spot-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(15, 40, 64, 0.25); }
+  .spot-map-embed {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 0;
+    display: block;
+    background: #d8cfb8;
+  }
+  .spot-body { padding: 1.4rem 1.6rem 1.6rem; }
+  .spot-num {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--iznik);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .spot-name {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--bg-deeper);
+    margin-bottom: 0.2rem;
+  }
+  .spot-name-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    color: var(--ottoman-red);
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.7rem;
+  }
+  .spot-desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin-bottom: 0.8rem;
+  }
+  .spot-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: gap 0.3s;
+  }
+  .spot-link:hover { gap: 0.7rem; }
+
+  /* モバイル */
+  @media (max-width: 900px) {
+    .city-map-chapter { padding: 4rem 1.5rem 3rem; }
+    .area-section { padding: 4rem 1.5rem; }
+    .area-header { grid-template-columns: 1fr; gap: 2rem; }
+    .area-map-wrap { max-width: 100%; margin: 0 auto; aspect-ratio: 4 / 3; }
+    .spots-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .city-map-legend { gap: 1rem; justify-content: flex-start; }
+    .city-map-lead { font-size: 1.1rem; padding-left: 1rem; }
+  }
 </style>
 </head>
 <body>
@@ -2169,6 +2444,253 @@
   </div>
 </section>
 
+<!-- ─────────── 街の地図(新設) ─────────── -->
+<section class="city-map-chapter" id="city-map">
+  <div class="city-map-inner">
+    <div class="section-num">CH. 02 — 街の、地図</div>
+    <h2 class="section-title">街の、<br>かたち</h2>
+    <p class="section-title-en">A Map of the City</p>
+
+    <p class="city-map-lead">
+      ボスポラス海峡を挟んだヨーロッパ側、そしてアジア側。<br>
+      ヨーロッパ側はさらに<em>金角湾</em>で南北に分かれ、<br>
+      歴史の異なる<em>三つの顔</em>がひとつの街に同居している。
+    </p>
+
+    <div class="city-map-wrap">
+      <div class="city-map-caption">ISTANBUL · OVERVIEW</div>
+      <svg id="city-map-svg" role="img" aria-label="イスタンブール全体地図"></svg>
+    </div>
+
+    <div class="city-map-legend">
+      <div class="city-map-legend-item">
+        <span class="city-map-legend-swatch swatch-historic"></span>
+        <span>旧市街(ヨーロッパ・南)— Fatih</span>
+      </div>
+      <div class="city-map-legend-item">
+        <span class="city-map-legend-swatch swatch-new"></span>
+        <span>新市街(ヨーロッパ・北)— Beyoğlu / Beşiktaş</span>
+      </div>
+      <div class="city-map-legend-item">
+        <span class="city-map-legend-swatch swatch-asian"></span>
+        <span>アジア側 — Kadıköy / Üsküdar</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── エリア1: 旧市街 ─────────── -->
+<section class="area-section" id="area-historic">
+  <div class="area-inner">
+    <div class="area-header">
+      <div class="area-header-text">
+        <div class="area-num">Area I — Sultanahmet &amp; Fatih</div>
+        <h3 class="area-name">旧市街</h3>
+        <div class="area-name-en">The Historic Peninsula</div>
+        <p class="area-intro">
+          金角湾と<strong>マルマラ海</strong>に挟まれた、三角形の半島。ローマ帝国の<strong>コンスタンティノープル</strong>、東ローマ帝国の首都、オスマン帝国の中枢。ここに三つの帝国の遺産が折り重なる。アヤソフィア、ブルーモスク、トプカプ宮殿——徒歩でめぐれる範囲に、千七百年が詰まっている。
+        </p>
+      </div>
+      <div class="area-map-wrap">
+        <svg class="area-map-svg" data-highlight="historic" role="img" aria-label="旧市街の位置"></svg>
+      </div>
+    </div>
+
+    <div class="spots-label">5 Spots — 歩いて巡れる</div>
+    <div class="spots-grid">
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Hagia%20Sophia%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">i.</div>
+          <h4 class="spot-name">アヤソフィア</h4>
+          <div class="spot-name-en">Ayasofya Camii</div>
+          <p class="spot-desc">537年、ビザンツ皇帝ユスティニアヌスが建てた大聖堂。キリスト教とイスラムの二つの信仰が同じ天井の下で重なる世界遺産。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Ayasofya+Camii+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Sultan%20Ahmet%20Camii%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">ii.</div>
+          <h4 class="spot-name">ブルーモスク</h4>
+          <div class="spot-name-en">Sultan Ahmet Camii</div>
+          <p class="spot-desc">1616年完成、6本のミナレットが特徴。内部の2万枚のイズニック・タイルが青く光る、オスマン帝国建築の到達点。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Sultan+Ahmet+Camii+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Topkapi%20Palace%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">iii.</div>
+          <h4 class="spot-name">トプカプ宮殿</h4>
+          <div class="spot-name-en">Topkapı Sarayı</div>
+          <p class="spot-desc">1465年から400年近く、オスマン帝国のスルタンが住んだ宮殿。ハーレムの部屋、宝物殿、そしてボスポラス海峡を見下ろす見晴らしの良い庭園。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Topkapi+Palace+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Grand%20Bazaar%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">iv.</div>
+          <h4 class="spot-name">グランドバザール</h4>
+          <div class="spot-name-en">Kapalıçarşı</div>
+          <p class="spot-desc">1461年創設、64通り・4000店舗の屋根付き市場。世界最古クラスのショッピングモールで、絨毯・陶器・金銀細工が並ぶ。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Grand+Bazaar+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Spice%20Bazaar%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">v.</div>
+          <h4 class="spot-name">スパイスバザール</h4>
+          <div class="spot-name-en">Mısır Çarşısı</div>
+          <p class="spot-desc">1664年完成、別名「エジプトバザール」。山積みのサフラン、トルコ菓子、ナッツ類。金角湾に面した活気ある庶民の市場。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Spice+Bazaar+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── エリア2: 新市街 ─────────── -->
+<section class="area-section" id="area-new">
+  <div class="area-inner">
+    <div class="area-header">
+      <div class="area-header-text">
+        <div class="area-num">Area II — Beyoğlu &amp; Galata</div>
+        <h3 class="area-name">新市街</h3>
+        <div class="area-name-en">The Modern European Side</div>
+        <p class="area-intro">
+          金角湾の北、かつて<strong>ガラタ</strong>と呼ばれたジェノヴァ人の商業地区。19世紀以降はヨーロッパ列強の大使館、カフェ、劇場が集まる<strong>ベイオウル</strong>として発展。石畳の<strong>イスティクラル通り</strong>は今もイスタンブールの背骨。カフェ、ギャラリー、ブティックが連なる「現代の」イスタンブール。
+        </p>
+      </div>
+      <div class="area-map-wrap">
+        <svg class="area-map-svg" data-highlight="new" role="img" aria-label="新市街の位置"></svg>
+      </div>
+    </div>
+
+    <div class="spots-label">4 Spots — 坂の街を歩く</div>
+    <div class="spots-grid">
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Galata%20Tower%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">i.</div>
+          <h4 class="spot-name">ガラタ塔</h4>
+          <div class="spot-name-en">Galata Kulesi</div>
+          <p class="spot-desc">1348年、ジェノヴァ人が建てた石造塔。高さ67m、新市街のランドマーク。展望台から旧市街・金角湾・ボスポラスの全景が見渡せる。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Galata+Tower+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Istiklal%20Caddesi%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">ii.</div>
+          <h4 class="spot-name">イスティクラル通り</h4>
+          <div class="spot-name-en">İstiklal Caddesi</div>
+          <p class="spot-desc">タクシム広場からテュネルまで約1.4km続く歩行者天国。歴史的なノスタルジック路面電車が走り、カフェ・書店・パッサージュが密集する。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Istiklal+Caddesi+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Taksim%20Square%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">iii.</div>
+          <h4 class="spot-name">タクシム広場</h4>
+          <div class="spot-name-en">Taksim Meydanı</div>
+          <p class="spot-desc">現代イスタンブールの中心広場。共和国記念碑が立ち、地下鉄・バス・トラムが集まる交通の要。市民デモや祝祭の舞台としても知られる。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Taksim+Square+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Pera%20Museum%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">iv.</div>
+          <h4 class="spot-name">ペラ博物館</h4>
+          <div class="spot-name-en">Pera Müzesi</div>
+          <p class="spot-desc">19世紀のホテル建築を改装した私立博物館。オリエンタリズム絵画の秀逸なコレクションと、アナトリアの重量と度量器の歴史展示で知られる。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Pera+Museum+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── エリア3: アジア側 ─────────── -->
+<section class="area-section" id="area-asian">
+  <div class="area-inner">
+    <div class="area-header">
+      <div class="area-header-text">
+        <div class="area-num">Area III — Kadıköy &amp; Üsküdar</div>
+        <h3 class="area-name">アジア側</h3>
+        <div class="area-name-en">The Anatolian Shore</div>
+        <p class="area-intro">
+          ボスポラス海峡の東岸、<strong>アナドル側</strong>。観光客が少なく、地元イスタンブールっ子の暮らしが息づく。<strong>カドゥキョイ</strong>の市場、<strong>ウスキュダル</strong>の古いモスク群、丘の上から市を見下ろす<strong>チャムルジャ</strong>。橋とフェリーで結ばれた、もう一つの顔。
+        </p>
+      </div>
+      <div class="area-map-wrap">
+        <svg class="area-map-svg" data-highlight="asian" role="img" aria-label="アジア側の位置"></svg>
+      </div>
+    </div>
+
+    <div class="spots-label">4 Spots — 海峡の向こう側</div>
+    <div class="spots-grid">
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Maiden%27s%20Tower%20Istanbul&z=15&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">i.</div>
+          <h4 class="spot-name">乙女の塔</h4>
+          <div class="spot-name-en">Kız Kulesi</div>
+          <p class="spot-desc">ウスキュダル沖の小島に立つ白い塔。紀元前5世紀に由来を持つ灯台で、ビザンツ・オスマン時代を経て現在はカフェ兼展望台。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Maiden%27s+Tower+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Kadikoy%20Market%20Istanbul&z=16&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">ii.</div>
+          <h4 class="spot-name">カドゥキョイ市場</h4>
+          <div class="spot-name-en">Kadıköy Çarşısı</div>
+          <p class="spot-desc">アジア側最大の庶民市場。魚屋、青果、デリカテッセン、チーズ専門店。路地が入り組み、朝早くから夜遅くまで食欲をそそる通り。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Kadikoy+Market+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Camlica%20Hill%20Istanbul&z=14&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">iii.</div>
+          <h4 class="spot-name">チャムルジャの丘</h4>
+          <div class="spot-name-en">Çamlıca Tepesi</div>
+          <p class="spot-desc">アジア側最高地点(288m)。イスタンブール全市が一望できる展望スポット。夕暮れと夜景は格別で、地元の家族連れで賑わう。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Camlica+Hill+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+      <div class="spot-card">
+        <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Kuzguncuk%20Istanbul&z=15&output=embed"></iframe>
+        <div class="spot-body">
+          <div class="spot-num">iv.</div>
+          <h4 class="spot-name">クズグンジュク</h4>
+          <div class="spot-name-en">Kuzguncuk</div>
+          <p class="spot-desc">ボスポラス沿いの小さな村のような地区。かつてユダヤ人・アルメニア人・ギリシャ人が共存した多文化の記憶。カラフルな木造家屋とシナゴーグが並ぶ。</p>
+          <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Kuzguncuk+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─────────── 食文化(CH.06) ─────────── -->
 
 <!-- ─────────── 見どころスポット(CH.06) ─────────── -->
@@ -2206,6 +2728,139 @@
   <span class="lme-back-arrow">←</span>
   <span class="lme-back-text"><em>Türkiye</em></span>
 </a>
+
+<!-- D3.js と TopoJSON/GeoJSON for Istanbul city map -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" defer></script>
+<script defer>
+  // イスタンブール地図の描画(全体+3エリア個別)
+  window.addEventListener('load', async () => {
+    if (typeof d3 === 'undefined') { console.warn('D3 not loaded'); return; }
+
+    // データ取得
+    const [districts, coastline] = await Promise.all([
+      fetch('data/districts.geojson').then(r => r.json()).catch(() => null),
+      fetch('data/coastline.geojson').then(r => r.json()).catch(() => null),
+    ]);
+    if (!districts) { console.warn('districts data missing'); return; }
+
+    // 5区のD3-selectableなデータ構造
+    const districtFeatures = districts.features;
+
+    // 各区のエリア分類:
+    //   historic = Fatih
+    //   new = Beyoğlu, Beşiktaş
+    //   asian = Kadıköy, Üsküdar
+
+    // 共通の viewBox 設定(地図範囲:約 28.90-29.10, 41.00-41.12 を想定)
+    // 実際のデータ範囲を計算して fit
+    const mercator = d3.geoMercator();
+
+    // 全体地図:5区+海岸線すべて
+    function renderFullMap(svgEl, width, height, highlightArea) {
+      const svg = d3.select(svgEl);
+      svg.selectAll('*').remove();
+      svg.attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
+
+      // 背景(陸地)
+      svg.append('rect').attr('width', width).attr('height', height).attr('class', 'city-map-land');
+
+      // 5区のFeatureCollectionとしてfit
+      const proj = d3.geoMercator().fitSize([width, height], { type: 'FeatureCollection', features: districtFeatures });
+      const pathFn = d3.geoPath(proj);
+
+      // 水域は描けないが、海岸線を描いて陸と海の境目を表現
+      // 本質的には:陸 → 区の内側は区の色。区の外側は薄いベージュ陸+海岸線で海/陸境界示す
+      // 海の表現:SVGの左右と下側を水色の矩形で覆う+coastlineでクリップ的に表現
+      // シンプルには、大きな水色矩形を背景に置き、陸地を区+外縁で表現
+      // → 実データだと区の外側=海かどうか不明なので、水色を諦めて陸のベージュ+海岸線ラインで表現
+
+      // 海岸線を描く(ただしデータ範囲に収まるもののみ)
+      if (coastline) {
+        svg.append('g').attr('class', 'coastlines')
+          .selectAll('path')
+          .data(coastline.features)
+          .enter().append('path')
+          .attr('d', pathFn)
+          .attr('class', 'city-map-coastline')
+          .attr('fill', 'none');
+      }
+
+      // 区のポリゴン
+      svg.append('g').attr('class', 'districts')
+        .selectAll('path')
+        .data(districtFeatures)
+        .enter().append('path')
+        .attr('d', pathFn)
+        .attr('class', d => {
+          let cls = `city-map-district ${d.properties.area}`;
+          if (highlightArea && d.properties.area !== highlightArea) cls += ' dim';
+          return cls;
+        });
+
+      // ラベル(英語&日本語)を区の中心に
+      const labelData = [
+        { en: 'FATIH', ja: '旧市街', area: 'historic' },
+        { en: 'BEYOĞLU', ja: '新市街', area: 'new' },
+        { en: 'ÜSKÜDAR · KADIKÖY', ja: 'アジア側', area: 'asian' },
+      ];
+      // 各エリアの中心座標を平均で計算
+      const areaCentroids = {};
+      districtFeatures.forEach(d => {
+        const [x, y] = pathFn.centroid(d);
+        if (!areaCentroids[d.properties.area]) areaCentroids[d.properties.area] = [];
+        areaCentroids[d.properties.area].push([x, y]);
+      });
+      for (const area in areaCentroids) {
+        const pts = areaCentroids[area];
+        const avgX = pts.reduce((s, p) => s + p[0], 0) / pts.length;
+        const avgY = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+        areaCentroids[area] = [avgX, avgY];
+      }
+
+      const labels = svg.append('g').attr('class', 'labels');
+      labelData.forEach(d => {
+        const [cx, cy] = areaCentroids[d.area] || [width/2, height/2];
+        labels.append('text')
+          .attr('x', cx).attr('y', cy - 8)
+          .attr('text-anchor', 'middle')
+          .attr('class', 'city-map-label city-map-label-en')
+          .text(d.en);
+        labels.append('text')
+          .attr('x', cx).attr('y', cy + 10)
+          .attr('text-anchor', 'middle')
+          .attr('class', 'city-map-label city-map-label-ja')
+          .text(d.ja);
+      });
+
+      // 余白情報:ボスポラス海峡の名前(真ん中に縦に)
+      // おおまかに Fatih と Üsküdar の中間をマーク
+      if (areaCentroids.historic && areaCentroids.asian) {
+        const bsX = (areaCentroids.historic[0] + areaCentroids.asian[0]) / 2;
+        const bsY = (areaCentroids.historic[1] + areaCentroids.asian[1]) / 2 - 50;
+        labels.append('text')
+          .attr('x', bsX).attr('y', bsY)
+          .attr('text-anchor', 'middle')
+          .attr('class', 'city-map-label city-map-label-en')
+          .style('fill', '#446583')
+          .style('letter-spacing', '0.3em')
+          .text('BOSPHORUS');
+      }
+    }
+
+    // 全体地図
+    const mainMap = document.getElementById('city-map-svg');
+    if (mainMap) {
+      const rect = mainMap.parentElement.getBoundingClientRect();
+      renderFullMap(mainMap, Math.max(800, rect.width), Math.max(500, rect.height), null);
+    }
+
+    // 各エリア地図(ハイライトあり)
+    document.querySelectorAll('.area-map-svg').forEach(svg => {
+      const highlight = svg.dataset.highlight;
+      renderFullMap(svg, 480, 480, highlight);
+    });
+  });
+</script>
 
 </body>
 </html>
