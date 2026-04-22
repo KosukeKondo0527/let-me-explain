@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>トルコ — Türkiye | Let Me Explain…</title>
-<meta name="description" content="アナトリアという、人類文明の積層地。トルコ共和国の地理・歴史・文化・現代を、東と西の交わる場所として読み直す。">
+<title>イスタンブール — İstanbul | Let Me Explain…</title>
+<meta name="description" content="三つの世界帝国の首都となった、世界で唯一の都市。ボスポラス海峡、アヤソフィア、三帝国——二つの大陸に跨がる街の物語。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=Shippori+Mincho:wght@400;500;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -946,36 +946,6 @@
     margin-bottom: 2rem;
   }
   .istanbul-quote strong { color: var(--gold-soft); font-style: normal; font-weight: 500; }
-  .istanbul-read-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2.5rem;
-    padding: 1rem 2rem;
-    background: rgba(250, 243, 226, 0.08);
-    border: 1px solid rgba(217, 181, 105, 0.4);
-    color: var(--paper);
-    text-decoration: none;
-    font-family: 'Bodoni Moda', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    letter-spacing: 0.05em;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .istanbul-read-more .irm-arrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-style: normal;
-    color: var(--gold-soft);
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .istanbul-read-more:hover {
-    background: rgba(250, 243, 226, 0.14);
-    border-color: var(--gold-soft);
-    transform: translateY(-2px);
-  }
-  .istanbul-read-more:hover .irm-arrow { transform: translateX(6px); color: var(--paper); }
 
   /* 三大帝国カード */
   .three-empires-wrap {
@@ -2111,799 +2081,99 @@
 </head>
 <body>
 
-<nav id="nav">
-  <div class="logo">Türkiye<span class="gold">.</span></div>
-  <ul>
-    <li><a href="#overview">概要</a></li>
-    <li><a href="#geography">地理</a></li>
-    <li><a href="#history">歴史</a></li>
-    <li><a href="#istanbul">イスタンブール</a></li>
-    <li><a href="#cuisine">食文化</a></li>
-    <li><a href="#spots">見どころ</a></li>
-    <li><a href="#modern">現代</a></li>
-  </ul>
-</nav>
 
 <!-- ─────────── HERO(全画面写真) ─────────── -->
-<section class="hero">
-  <img class="hero-img" src="img/01-hero-istanbul.webp" alt="イスタンブールの夕景 — ガラタ橋とスレイマニエ・モスク">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-meta-top">
-      <span class="country-flag flag-hero" aria-label="トルコ国旗">
-        <img src="https://cdn.jsdelivr.net/npm/flag-icons@7/flags/4x3/tr.svg" alt="" loading="eager">
-      </span>
-      N°&nbsp;003 — Let&nbsp;Me&nbsp;Explain…
-    </div>
-    <h1>トルコ</h1>
-    <div class="hero-subtitle-en">Türkiye</div>
-    <div class="hero-subtitle-tr">— Cumhuriyet, between two continents</div>
-    <p class="hero-tagline">
-      <strong>アジアとヨーロッパが、ひとつの国土の中で出会う。</strong>
-      ヒッタイトから始まり、ヘレニズム、ローマ、ビザンツ、セルジューク、オスマン——
-      アナトリアという半島は、人類文明の積層地として、
-      18もの大文明の興亡を抱えてきた。これは、その土地の名前。
-    </p>
-    <div class="hero-stats">
-      <div><span class="num">8500<span style="font-size:0.5em">万</span></span><span class="lbl">人口</span></div>
-      <div><span class="num">78<span style="font-size:0.5em">万 km²</span></span><span class="lbl">面積</span></div>
-      <div><span class="num">2<span style="font-size:0.5em">大陸</span></span><span class="lbl">またがる</span></div>
-      <div><span class="num">21</span><span class="lbl">世界遺産</span></div>
-    </div>
-  </div>
-  <div class="scroll-cue">Scroll / 続きへ</div>
-</section>
 
 <!-- ─────────── 概要 ─────────── -->
-<section class="chapter" id="overview">
-  <div class="overview-grid">
-    <div class="overview-text overview-text-intro">
-      <div class="section-num">CH. 01 — 概要</div>
-      <h2 class="section-title">国の<br>かたち</h2>
-      <p class="section-title-en">A Republic between Two Continents</p>
-      <p>正式名称、トルコ共和国——トルコ語で「テュルキイェ・ジュムフリイェティ」。<strong>ヨーロッパとアジアに跨がる二大陸国家</strong>で、ふたつを分けるのが、イスタンブール市内を流れるボスポラス海峡。</p>
-      <p>国土の97%は<strong>アナトリア半島</strong>(小アジア)、残る3%が<strong>東トラキア</strong>(ヨーロッパ側)。北は黒海、西はエーゲ海、南は地中海。三方を海に囲まれ、陸では8か国と接する地政学的な要所。</p>
-    </div>
-
-    <div class="overview-map">
-      <div class="overview-map-caption">N°003 · LOCATION</div>
-      <svg id="turkey-map-svg" role="img" aria-label="トルコの位置を示した地図"></svg>
-      <div class="map-loading" id="map-loading">Loading map…</div>
-    </div>
-
-    <div class="overview-seas">
-      <div class="overview-seas-label">Three Seas — 三方を縁取る海</div>
-      <div class="seas-grid">
-        <div class="sea-card">
-          <img class="sea-card-img" src="img/23-black-sea.webp" alt="黒海沿岸の港町アマスラの夕景">
-          <div class="sea-card-body">
-            <div class="sea-num">i.</div>
-            <h4>黒海</h4>
-            <div class="sea-en">Karadeniz</div>
-            <p>北岸。歴史的にロシア、コーカサス、バルカンとの交易と緊張の舞台。湿潤な気候が茶葉を育む。</p>
-          </div>
-        </div>
-        <div class="sea-card">
-          <img class="sea-card-img" src="img/06-aegean-coast.webp" alt="エーゲ海岸の港町クシャダス">
-          <div class="sea-card-body">
-            <div class="sea-num">ii.</div>
-            <h4>エーゲ海</h4>
-            <div class="sea-en">Ege Denizi</div>
-            <p>西岸。ギリシャと向かい合う、無数の島々が散らばる海。古代ギリシア文明とトロイの世界がここにある。</p>
-          </div>
-        </div>
-        <div class="sea-card">
-          <img class="sea-card-img" src="img/15-antalya.webp" alt="アンタルヤ旧市街(カレイチ)と地中海">
-          <div class="sea-card-body">
-            <div class="sea-num">iii.</div>
-            <h4>地中海</h4>
-            <div class="sea-en">Akdeniz</div>
-            <p>南岸。アンタルヤからアレクサンドレッタまで、ヨーロッパ屈指のビーチリゾート地帯が連なる。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="overview-text overview-text-rest">
-      <p>面積は日本のおよそ二倍、人口は八千五百万を超える。1923年、ムスタファ・ケマル・アタテュルクの指揮のもと、オスマン帝国の遺領から共和国として再出発。世俗主義、ローマ字導入、女性参政権——イスラム圏で最初の近代世俗国家として、その軌跡は今も国の根幹をなしている。</p>
-    </div>
-
-    <div class="overview-card data-card">
-      <h3>
-        Basic Data — 基本情報
-        <span class="country-flag flag-card" aria-label="トルコ国旗">
-          <img src="https://cdn.jsdelivr.net/npm/flag-icons@7/flags/4x3/tr.svg" alt="" loading="lazy">
-        </span>
-      </h3>
-      <div class="data-card-grid">
-        <div class="data-row"><span class="data-key">公式名</span><span class="data-val"><span class="big">Türkiye Cumhuriyeti</span><span class="small">トルコ共和国</span></span></div>
-        <div class="data-row"><span class="data-key">首都</span><span class="data-val"><span class="big">Ankara</span><span class="small">アンカラ(内陸中央部)</span></span></div>
-        <div class="data-row"><span class="data-key">最大都市</span><span class="data-val"><span class="big">İstanbul</span><span class="small">イスタンブール(海峡都市)</span></span></div>
-        <div class="data-row"><span class="data-key">公用語</span><span class="data-val">トルコ語<span class="small">Türkçe(テュルクチェ)</span></span></div>
-        <div class="data-row"><span class="data-key">通貨</span><span class="data-val">トルコリラ<span class="small">Türk Lirası / TRY</span></span></div>
-        <div class="data-row"><span class="data-key">建国</span><span class="data-val"><span class="big">1923</span><span class="small">10月29日 — 共和国宣言</span></span></div>
-        <div class="data-row"><span class="data-key">体制</span><span class="data-val">大統領制共和国<span class="small">単一国家 / NATO加盟国</span></span></div>
-        <div class="data-row"><span class="data-key">日本から</span><span class="data-val">直行便<span class="big" style="font-size:1.3rem">12<span style="font-size:0.7em">時間</span></span><span class="small">時差: 6時間遅い</span></span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- 旧 位置セクション(CH.02)は CH.01 概要に統合 -->
 
 <!-- ─────────── 地理(CH.02) ─────────── -->
-<section class="chapter chapter-geography" id="geography">
-  <div class="geo-inner">
-    <div class="section-num">CH. 02 — 地理</div>
-    <h2 class="section-title">大地の、<br>奇景</h2>
-    <p class="section-title-en">Landscapes of Anatolia</p>
-
-    <p class="geo-quote">
-      海が縁取るその内側には、もうひとつの顔がある。<br>
-      <em>高原</em>と<em>火山</em>と<em>石灰</em>が、数千万年かけて刻んだ地形。
-    </p>
-
-    <div class="seas-grid">
-      <div class="sea-card">
-        <img class="sea-card-img" src="img/05-pamukkale.webp" alt="パムッカレの石灰棚">
-        <div class="sea-card-body">
-          <div class="sea-num">i.</div>
-          <h4>パムッカレ</h4>
-          <div class="sea-en">Pamukkale — Cotton Castle</div>
-          <p>温泉水が長い時間をかけて作り出した、真っ白な石灰華段々。「綿の城」と呼ばれる内陸の奇景。古代ヒエラポリス遺跡と隣り合う世界遺産。</p>
-        </div>
-      </div>
-      <div class="sea-card">
-        <img class="sea-card-img" src="img/04-cappadocia-rocks.webp" alt="カッパドキアの奇岩地帯">
-        <div class="sea-card-body">
-          <div class="sea-num">ii.</div>
-          <h4>カッパドキア</h4>
-          <div class="sea-en">Kapadokya</div>
-          <p>火山灰が固まった凝灰岩の台地が、数百万年の侵食で奇岩群に。岩を掘り抜いた住居と地下都市、そして空を埋め尽くす気球——世界で唯一の風景。</p>
-        </div>
-      </div>
-      <div class="sea-card">
-        <img class="sea-card-img" src="img/10-ephesus.webp" alt="エフェソス古代都市">
-        <div class="sea-card-body">
-          <div class="sea-num">iii.</div>
-          <h4>アナトリア高原</h4>
-          <div class="sea-en">Anadolu Yaylası</div>
-          <p>国土の大部分を占める、標高1000m前後の広大な高原。乾燥した内陸気候が、古代からの穀倉地帯と文明の舞台を育ててきた。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ─────────── 歴史 ─────────── -->
-<section class="chapter chapter-history" id="history">
-  <div class="history-inner">
-    <div class="section-num">CH. 03 — 歴史</div>
-    <h2 class="section-title">国の、<br>歴史</h2>
-    <p class="section-title-en">A Land of Layered Civilizations</p>
-
-    <p class="history-intro">
-      アナトリアは、人類最古級の集落跡<strong>ギョベクリ・テペ</strong>(紀元前9000年頃)を有する土地。
-      ここは「文明の発祥地」のひとつであり、その後<strong>18もの大文明</strong>が興っては消えた。
-      時間が、地層のように折り重なっている。<br>
-      <span class="history-intro-hint">以下、その主な六章——</span>
-    </p>
-
-    <div class="timeline">
-      <div class="timeline-entry">
-        <div class="timeline-era">紀元前 18世紀<span class="year">Hittite</span></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img src="img/24-hittite.webp" alt="ヤズルカヤのヒッタイト岩窟神殿のレリーフ">
-          </div>
-          <div class="timeline-text">
-            <h4>ヒッタイト</h4>
-            <div class="ja-sub">— The first to forge iron</div>
-            <p>世界で<strong>最初に鉄器を本格使用した</strong>とされる、インド・ヨーロッパ語族の王国。首都ハットゥシャの遺跡は今も残る。紀元前14世紀に最盛期、紀元前1200年頃「海の民」の到来によって滅亡。写真はハットゥシャ近郊のヤズルカヤ岩窟神殿に刻まれた、紀元前13世紀の十二神の行進レリーフ。</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-entry">
-        <div class="timeline-era">紀元前 4世紀<span class="year">Hellenism</span></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img src="img/10-ephesus.webp" alt="エフェソスのセルシウス図書館">
-          </div>
-          <div class="timeline-text">
-            <h4>ヘレニズム化</h4>
-            <div class="ja-sub">— Alexander's conquest</div>
-            <p>アレクサンドロス大王の征服によって、アナトリアはギリシア化。<strong>ヘレニズム文化の東進拠点</strong>となる。写真は2世紀のエフェソス・セルシウス図書館——ヘレニズム世界三大図書館の一つ、約12,000巻の蔵書を誇った。</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-entry">
-        <div class="timeline-era">紀元前 1世紀〜<span class="year">Roman &amp; Byzantine</span></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img src="img/08-hagia-sophia-int.webp" alt="アヤソフィア内部">
-          </div>
-          <div class="timeline-text">
-            <h4>ローマ、そしてビザンツ</h4>
-            <div class="ja-sub">— Constantinople, the new Rome</div>
-            <p>古代ローマの版図に組み込まれた後、330年にコンスタンティノープル(現イスタンブール)が新首都として整備される。やがて<strong>東ローマ(ビザンツ)帝国</strong>として独自の文明圏を形成。約千年、地中海世界のキリスト教中心地となった。537年完成のアヤソフィアは、その象徴。</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-entry">
-        <div class="timeline-era">11世紀<span class="year">Seljuk</span></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img src="img/25-seljuk.webp" alt="ディヴリーイの大モスクと病院(世界遺産)">
-          </div>
-          <div class="timeline-text">
-            <h4>セルジューク朝の到来</h4>
-            <div class="ja-sub">— Turks arrive in Anatolia</div>
-            <p>中央アジアから西進してきた<strong>テュルク系遊牧民</strong>が、セルジューク朝としてアナトリアに到来。これが「テュルク化」の始まり。1243年、モンゴル帝国の侵攻によって解体されるが、その遺産は次の帝国に引き継がれる。写真は13世紀建造のディヴリーイ大モスクと病院——石彫の最高峰として<strong>ユネスコ世界遺産</strong>に登録された、セルジューク建築の到達点。</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-entry">
-        <div class="timeline-era">1299 – 1922<span class="year">Ottoman Empire</span></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img src="img/09-blue-mosque.webp" alt="ブルーモスクの夕景">
-          </div>
-          <div class="timeline-text">
-            <h4>オスマン帝国</h4>
-            <div class="ja-sub">— Six centuries of empire</div>
-            <p>1299年に建国。最盛期には<strong>三大陸にまたがる超大国</strong>へ。北はハンガリー、西はアルジェリア、南はイエメン、東はインド洋に至る広大な版図を支配した。1453年、コンスタンティノープルを陥落させ、ビザンツ千年の都市を首都に据える。写真は17世紀完成のブルーモスク。</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-entry">
-        <div class="timeline-era">1923<span class="year">Republic</span></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img src="img/16-ankara.webp" alt="アタテュルク廟(アンカラ)">
-          </div>
-          <div class="timeline-text">
-            <h4>共和国の誕生</h4>
-            <div class="ja-sub">— Atatürk's modern state</div>
-            <p>第一次大戦の敗北とオスマン帝国の崩壊。<strong>ムスタファ・ケマル・アタテュルク</strong>がトルコ独立戦争を率い、1923年10月29日、共和国を宣言。政教分離、ローマ字採用、女性参政権——矢継ぎ早の近代化改革。<strong>イスラム圏で最初の世俗主義国家</strong>が生まれた瞬間。首都はイスタンブールからアンカラへ(写真は彼の廟)。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ─────────── イスタンブール ─────────── -->
 <section class="chapter-istanbul" id="istanbul">
-  <!-- ダイジェスト版:詳細は /turkey/istanbul/ へ -->
+  <!-- 背景写真(アヤソフィア or ブルーモスク夕景) -->
   <div class="istanbul-hero">
-    <img class="istanbul-hero-img" src="img/09-blue-mosque.webp" alt="ブルーモスクの夕景">
+    <img class="istanbul-hero-img" src="../img/09-blue-mosque.webp" alt="ブルーモスクの夕景">
     <div class="istanbul-hero-overlay"></div>
     <div class="istanbul-hero-inner">
-      <div class="istanbul-eyebrow">CH. 04 — 一つの都市の物語</div>
+      <div class="istanbul-eyebrow">N°003 · II — A City of Layered Empires</div>
       <h2 class="istanbul-title">イスタンブール</h2>
       <p class="istanbul-title-en">The City of Three Empires</p>
       <p class="istanbul-quote">
         ローマ帝国、東ローマ帝国、オスマン帝国——<br>
         <strong>三つの世界帝国の首都</strong>となった、世界で唯一の都市。
       </p>
-      <a href="/turkey/istanbul/" class="istanbul-read-more">
-        <span class="irm-label">Read the full story</span>
-        <span class="irm-arrow">→</span>
-      </a>
+    </div>
+  </div>
+
+  <!-- ボスポラス海峡:二大陸都市の証 -->
+  <div class="bosphorus-showcase">
+    <img src="../img/02-bosphorus.webp" alt="ボスポラス大橋 — アジア側とヨーロッパ側を結ぶ">
+    <div class="bosphorus-caption">
+      <div class="cap-en">The Bosphorus Bridge — where Asia meets Europe</div>
+      <div class="cap-ja">一本の橋が、アジアとヨーロッパを縫い合わせる</div>
+    </div>
+  </div>
+
+  <div class="bosphorus-body">
+    <p>市内を南北に貫く、長さ約30km・最狭部700mの<strong>ボスポラス海峡</strong>。この細い水路が、<em>アジア側(アナドル)</em>と<em>ヨーロッパ側(アヴルパ)</em>を物理的に分けている。イスタンブールは世界で唯一、<strong>二つの大陸に跨がる都市</strong>。</p>
+    <p>写真の橋は<strong>第一ボスポラス大橋(1973年開通)</strong>。全長1,560m、二大陸を陸路で結ぶ人類初の橋として架けられた。現在は第二・第三の橋と海底鉄道トンネル(マルマライ)も加わり、毎日数百万人がこの海峡を越えて通勤する。</p>
+    <p>地形が街を分け、人が街を繋ぎ直す——<strong>「分断と接続が同時に起きている」</strong>のが、この都市の本質。そしてその上に、三つの帝国が千七百年をかけて層を重ねてきた。</p>
+  </div>
+
+  <!-- 三大帝国 -->
+  <div class="three-empires-wrap">
+    <div class="three-empires-inner">
+      <div class="three-empires-label">THREE EMPIRES, ONE CITY</div>
+      <div class="three-empires">
+        <div class="empire">
+          <div class="yr">330 – 395</div>
+          <h5>古代ローマ</h5>
+          <div class="name-en">Nova Roma</div>
+        </div>
+        <div class="empire">
+          <div class="yr">395 – 1453</div>
+          <h5>東ローマ</h5>
+          <div class="name-en">Constantinople</div>
+        </div>
+        <div class="empire">
+          <div class="yr">1453 – 1922</div>
+          <h5>オスマン帝国</h5>
+          <div class="name-en">İstanbul</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- アヤソフィア外観 -->
+  <div style="background:#fff;">
+    <img src="../img/07-hagia-sophia-ext.webp" alt="アヤソフィア外観" style="width:100%;max-height:75vh;object-fit:cover;">
+  </div>
+
+  <!-- アヤソフィア内部フル幅 -->
+  <div class="hagia-interior-showcase">
+    <img src="../img/08-hagia-sophia-int.webp" alt="アヤソフィア内部 — 聖母子像とAllahのカリグラフィー">
+    <div class="hagia-interior-caption">
+      <div class="small-cap">HAGIA SOPHIA · INSIDE</div>
+      <h4>聖母子像と、Allah の書——<br>ひとつの天井の下で、二つの信仰が並ぶ</h4>
+      <p>
+        537年、ビザンツ皇帝ユスティニアヌスが建てた大聖堂。
+        1453年、オスマン征服後はモスクへ。
+        黄金のモザイクとアラビア書道の円盤が、
+        同じドームの下で千五百年の物語を語り続ける。
+      </p>
     </div>
   </div>
 </section>
 
 <!-- ─────────── 食文化(CH.06) ─────────── -->
-<section class="chapter-cuisine" id="cuisine">
-  <div class="cuisine-inner">
-    <div class="section-num">CH. 05 — 食文化</div>
-    <h2 class="section-title">The<br>Turkish Table</h2>
-    <p class="section-title-en">The World's Third Great Cuisine</p>
-
-    <div class="cuisine-intro">
-      <p>トルコ料理は<strong>フランス、中華と並ぶ世界三大料理</strong>のひとつ。そう言われても、ケバブとトルコアイスしか思い浮かばない人が多い。</p>
-      <p>実際のトルコ料理は、小皿の前菜(メゼ)から始まり、焼き物、煮込み、米料理、魚料理、パン、デザートまで、千を越えるレシピを持つ体系的な宮廷料理。羊、ヨーグルト、オリーブオイル、ナッツ、スパイス——それらが気候の異なる七つの地方で、それぞれの顔を持っている。</p>
-      <p>食卓は「食べる」だけの場所ではなく、家族と客を迎える社交の中心。長い食事、何杯ものチャイ、締めのラク。そのすべてが「食文化」を成している。</p>
-    </div>
-
-    <!-- 世界三大料理の根拠 -->
-    <div class="three-reasons">
-      <div class="reason">
-        <div class="num">i.</div>
-        <h5>オスマン宮廷の遺産</h5>
-        <p>トプカプ宮殿の厨房では、10部門に分かれた数百人の料理人が毎日数千人分を作った。その技術と品目が民衆に降りていった。</p>
-      </div>
-      <div class="reason">
-        <div class="num">ii.</div>
-        <h5>三大陸の交差点</h5>
-        <p>帝国の版図は北アフリカからハンガリー、イエメンまで。各地の食材、調理法、香辛料が首都に集まった。</p>
-      </div>
-      <div class="reason">
-        <div class="num">iii.</div>
-        <h5>多様な食材の国</h5>
-        <p>三つの海、肥沃な大地、遊牧の羊。気候の幅が広く、農産・畜産・水産のすべてが自給できる稀有な条件。</p>
-      </div>
-    </div>
-
-    <!-- 主役7品 -->
-    <div class="dishes-heading">
-      <h3>主役となる7皿</h3>
-      <div class="h-en">Seven Essential Dishes</div>
-    </div>
-
-    <div class="dishes-grid">
-      <div class="dish">
-        <span class="dish-id">01</span>
-        <img class="dish-img" src="img/17-kebab.webp" alt="ドネルケバブ">
-        <div class="dish-body">
-          <h4>ケバブ</h4>
-          <div class="dish-tr">Kebap</div>
-          <p class="dish-desc">「焼き肉」の総称。垂直の串で焼き削ぐ<em>ドネル</em>、串焼きの<em>シシ</em>、トマトとヨーグルトを纏った<em>イスケンデル</em>など、200以上の種類がある。基本は羊、現代は鶏と牛も。</p>
-          <div class="dish-tag">Grill · Lamb · Street food</div>
-        </div>
-      </div>
-
-      <div class="dish">
-        <span class="dish-id">02</span>
-        <img class="dish-img" src="img/24-kofte.webp" alt="キョフテ(トルコ風ミートボール)">
-        <div class="dish-body">
-          <h4>キョフテ</h4>
-          <div class="dish-tr">Köfte</div>
-          <p class="dish-desc">挽肉にスパイスと玉ねぎを混ぜて成形する、トルコ風ミートボール。煮込み、焼き、揚げ——200を超えるバリエーション。家庭料理の代表格。</p>
-          <div class="dish-tag">Meatball · Homestyle</div>
-        </div>
-      </div>
-
-      <div class="dish">
-        <span class="dish-id">03</span>
-        <img class="dish-img" src="img/18-meze.webp" alt="メゼ盛り合わせ">
-        <div class="dish-body">
-          <h4>メゼ</h4>
-          <div class="dish-tr">Meze</div>
-          <p class="dish-desc">食事の幕開けを飾る冷前菜の集合。フムス(ひよこ豆)、ジャジュク(きゅうりのヨーグルト和え)、焼きナス、パトゥルジャンサラタス——20種以上を小皿で。ラクの最良の相手。</p>
-          <div class="dish-tag">Mezze · Cold starter · Shared</div>
-        </div>
-      </div>
-
-      <div class="dish">
-        <span class="dish-id">04</span>
-        <img class="dish-img" src="img/25-pide.webp" alt="ピデ(船形のトルコ風パン)">
-        <div class="dish-body">
-          <h4>ピデ</h4>
-          <div class="dish-tr">Pide</div>
-          <p class="dish-desc">「トルコ風ピザ」と呼ばれるが、形は船形。石窯で焼いた生地の上に、ひき肉、チーズ、卵、野菜を載せる。地方ごとに生地の厚みと具が異なる。</p>
-          <div class="dish-tag">Flatbread · Stone oven</div>
-        </div>
-      </div>
-
-      <div class="dish">
-        <span class="dish-id">05</span>
-        <img class="dish-img" src="img/26-dolma.webp" alt="ドルマ(野菜の詰め物料理)">
-        <div class="dish-body">
-          <h4>ドルマ</h4>
-          <div class="dish-tr">Dolma</div>
-          <p class="dish-desc">野菜に米や肉を詰めた料理の総称。ブドウの葉、ピーマン、ナス、ズッキーニ——何でも器になる。肉なしはメゼに、肉入りはメイン料理に。宮廷料理の系譜。</p>
-          <div class="dish-tag">Stuffed · Vegetables · Rice</div>
-        </div>
-      </div>
-
-      <div class="dish">
-        <span class="dish-id">06</span>
-        <img class="dish-img" src="img/22-balik-ekmek.webp" alt="サバサンドの炭火焼き">
-        <div class="dish-body">
-          <h4>サバサンド</h4>
-          <div class="dish-tr">Balık Ekmek</div>
-          <p class="dish-desc">イスタンブールのガラタ橋下で焼きたての鯖をパンに挟む、庶民の味。レモンを絞り、塩を振る。海峡を渡る風のなかで食べる。観光客にも愛される名物。</p>
-          <div class="dish-tag">Street food · Istanbul · Fish</div>
-        </div>
-      </div>
-
-      <div class="dish">
-        <span class="dish-id">07</span>
-        <img class="dish-img" src="img/20-baklava.webp" alt="バクラヴァ(ピスタチオ)">
-        <div class="dish-body">
-          <h4>バクラヴァ</h4>
-          <div class="dish-tr">Baklava</div>
-          <p class="dish-desc">フィロ生地を40層重ね、ピスタチオかクルミを挟んで焼き、シロップをかける。オスマン宮廷菓子の極致。南東部ガズィアンテプが本場で、地理的表示保護の対象。</p>
-          <div class="dish-tag">Dessert · Pistachio · Syrup</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- もっと食べるなら(マントゥ・ラフマジュン) -->
-    <div class="dishes-heading" style="margin-top: 4rem;">
-      <h3>まだまだ続く食卓</h3>
-      <div class="h-en">Beyond the Seven</div>
-    </div>
-
-    <div class="more-dishes">
-      <div class="dish">
-        <span class="dish-id">+ 01</span>
-        <img class="dish-img" src="img/27-manti.webp" alt="マントゥ(トルコ風水餃子)">
-        <div class="dish-body">
-          <h4>マントゥ</h4>
-          <div class="dish-tr">Mantı — Turkish dumpling</div>
-          <p class="dish-desc">小さな三角形の生地に羊挽肉を包み、茹でてヨーグルトとトマトソース・溶かしバターをかける。本場カイセリでは <em>「40個載せて一口で食べられる」</em> ほど小さく作るのが誇り。家庭の味の代名詞。</p>
-          <div class="dish-tag">Dumpling · Yogurt · Comfort</div>
-        </div>
-      </div>
-
-      <div class="dish">
-        <span class="dish-id">+ 02</span>
-        <img class="dish-img" src="img/28-lahmacun.webp" alt="ラフマジュン(薄焼きパン)">
-        <div class="dish-body">
-          <h4>ラフマジュン</h4>
-          <div class="dish-tr">Lahmacun — Turkish flatbread</div>
-          <p class="dish-desc">極薄の丸い生地にスパイス入り挽肉を塗り、数分で焼き上げる。トマト、玉ねぎ、レモン、パセリを載せて<strong>くるっと巻いて</strong>齧り付く。南東部の名物、街のファストフード。</p>
-          <div class="dish-tag">Flatbread · Minced meat · Wrap</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 素材の国 -->
-    <div class="dishes-heading">
-      <h3>4つの根幹素材</h3>
-      <div class="h-en">Four Pillars of the Turkish Kitchen</div>
-    </div>
-
-    <div class="ingredients">
-      <div class="ingredient">
-        <span class="ing-icon">乳</span>
-        <h6>ヨーグルト</h6>
-        <p>発祥はトルコ説が有力。消費量世界一。料理の<strong style="color:var(--ottoman-red)">調味料</strong>として肉にもスープにもかかる。</p>
-      </div>
-      <div class="ingredient">
-        <span class="ing-icon">油</span>
-        <h6>オリーブオイル</h6>
-        <p>エーゲ海沿岸が産地。<em>zeytinyağlı</em>(オリーブ油料理)は野菜を冷たく仕上げる一ジャンル。</p>
-      </div>
-      <div class="ingredient">
-        <span class="ing-icon">実</span>
-        <h6>ナッツ</h6>
-        <p>ピスタチオ、クルミ、ヘーゼルナッツ(生産量世界一)、アーモンド。バクラヴァからピラフまで。</p>
-      </div>
-      <div class="ingredient">
-        <span class="ing-icon">羊</span>
-        <h6>羊肉</h6>
-        <p>豚肉はほぼ使わない。代わりに羊が主役。現代は牛・鶏も増加。ケバブもキョフテも起源は羊。</p>
-      </div>
-    </div>
-
-    <!-- 朝食特集 -->
-    <div class="breakfast-feature">
-      <div class="breakfast-inner">
-        <div class="breakfast-image">
-          <img src="img/19-kahvalti.webp" alt="トルコの朝食 — 卵料理、パン、オリーブ、チャイ">
-        </div>
-        <div class="breakfast-text">
-          <div class="breakfast-label">Special Feature — 朝食という小宇宙</div>
-          <h3>トルコの朝食</h3>
-          <div class="tr-sub">Türk Kahvaltısı</div>
-          <p>トルコの朝食は、世界一豪華だと言われる。<strong>小皿が20枚以上</strong>並ぶのは珍しくない。チーズ数種、オリーブ数種、トマト、きゅうり、はちみつ、カイマク(濃厚クリーム)、ジャム、卵料理、焼きたてのパン、そしてチャイ——。</p>
-          <p>トルコはパン消費量が世界一(一人あたり年間104kg、二位の倍近い)。朝食は <em>kahvaltı</em>(カフヴァルトゥ)と呼ばれ、語源は「コーヒーの前」。コーヒーを飲む前の小さな食事、という意味だったものが、現在では一日の主役級の食事になった。</p>
-          <p>週末はさらに長い <strong>serpme kahvaltı</strong>(敷き詰め朝食)を数時間かけてとる。家族、友人、隣人が集まり、話し、食べ、チャイを重ね、昼へ地続きで移行する。これは食事というより、<strong>儀式</strong>に近い。</p>
-          <div class="breakfast-items">
-            <span>Peynir(チーズ)</span>
-            <span>Zeytin(オリーブ)</span>
-            <span>Bal &amp; Kaymak(蜂蜜&クリーム)</span>
-            <span>Domates &amp; Salatalık(野菜)</span>
-            <span>Menemen(卵のトマト煮)</span>
-            <span>Sucuk(ソーセージ)</span>
-            <span>Simit(ゴマパン)</span>
-            <span>Börek(パイ)</span>
-            <span>Reçel(ジャム)</span>
-            <span>Çay(紅茶)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 食卓のリズム(ドリンク) -->
-    <div class="dishes-heading">
-      <h3>食卓を支える三つの飲み物</h3>
-      <div class="h-en">Three Drinks that Shape the Day</div>
-    </div>
-
-    <div class="drinks-grid">
-      <div class="drink-card">
-        <div class="drink-img-box">
-          <img src="img/13-turkish-tea.webp" alt="トルコのチャイ">
-        </div>
-        <div class="drink-card-body">
-          <h5>チャイ</h5>
-          <div class="dr-tr">Çay — from morning to midnight</div>
-          <p>一日の節目に必ずチャイがある。黒海沿岸産の紅茶をチューリップ型グラスに、角砂糖を二つ。商談、休憩、再会——すべてチャイと共にある。断ってはいけない。</p>
-          <div class="local-tip" style="margin-top:1rem;">
-            <span class="tip-label">Local Tip</span>
-            観光客向けカフェより、<em>çay bahçesi</em>(チャイ庭園)のほうが安くて美味しい。
-          </div>
-        </div>
-      </div>
-
-      <div class="drink-card">
-        <div class="drink-img-box">
-          <img src="img/14-turkish-coffee.webp" alt="ジェズベで淹れるトルココーヒー">
-        </div>
-        <div class="drink-card-body">
-          <h5>トルココーヒー</h5>
-          <div class="dr-tr">Türk Kahvesi — UNESCO Heritage</div>
-          <p>細かく挽いた粉と水と砂糖を銅製のジェズベで三度沸かす。500年の淹れ方は、ユネスコ無形文化遺産。飲み終えたカップの底の粉で、占いをする。</p>
-          <div class="local-tip" style="margin-top:1rem;">
-            <span class="tip-label">Local Tip</span>
-            砂糖は3段階:<strong>sade</strong>(無糖)/ <strong>orta</strong>(中)/ <strong>şekerli</strong>(甘め)。初めては <em>orta</em> で。
-          </div>
-        </div>
-      </div>
-
-      <div class="drink-card">
-        <div class="drink-img-box">
-          <img src="img/21-raki.webp" alt="ラク(Yeni Rakı)— 白濁した蒸留酒">
-        </div>
-        <div class="drink-card-body">
-          <h5>ラク</h5>
-          <div class="dr-tr">Rakı — the lion's milk</div>
-          <p>ブドウの蒸留酒にアニスを加えた、度数40度超の国民酒。水で割ると白濁することから <em>「ライオンのミルク」</em> と呼ばれる。メゼとケバブの最良のパートナー。夕食は長く、ラクと共に流れていく。</p>
-          <div class="local-tip" style="margin-top:1rem;">
-            <span class="tip-label">Local Tip</span>
-            氷、水、ラクの順で注ぐのが正しい。魚料理、白チーズ、メロンが定番の合わせ。
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ─────────── 見どころスポット(CH.06) ─────────── -->
-<section class="chapter-spots" id="spots">
-  <div class="spots-inner">
-    <div class="section-num">CH. 06 — 見どころスポット</div>
-    <h2 class="section-title">どこへ<br>行くか</h2>
-    <p class="section-title-en">Six Places You Cannot Miss</p>
-
-    <p class="spots-intro">
-      トルコは「都市」と「自然」と「遺跡」が、それぞれ別の旅を提供する国。
-      初めての訪問者には、この六か所の組み合わせが王道。
-      移動はトルコ国内線を使えば、二週間で全部回れる。
-    </p>
-
-    <div class="spots-grid">
-
-      <!-- 01 イスタンブール -->
-      <div class="spot-card">
-        <div class="spot-img-wrap">
-          <img class="spot-img" src="img/01-hero-istanbul.webp" alt="イスタンブールの夕景">
-          <span class="spot-rank">N°&nbsp;01</span>
-        </div>
-        <div class="spot-body">
-          <div class="spot-region">イスタンブール / İstanbul</div>
-          <div class="spot-name">イスタンブール 歴史地区</div>
-          <div class="spot-name-en">Historic Areas of Istanbul</div>
-          <p class="spot-desc">アヤソフィア、ブルーモスク、トプカプ宮殿、グランドバザール——主要な見どころが旧市街(スルタンアフメット)に集中。徒歩で全部回れる。</p>
-          <div class="spot-meta">
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Best</span>
-              <span class="spot-meta-val"><strong>4〜5月、9〜10月</strong>(夏は暑く混雑、冬は雨)</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Access</span>
-              <span class="spot-meta-val">日本から直行便で約12時間。空港から市街はメトロM11で約45分</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Don't Miss</span>
-              <span class="spot-meta-val">ボスポラス・クルーズ(2時間・夕方便がおすすめ)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 02 カッパドキア -->
-      <div class="spot-card">
-        <div class="spot-img-wrap">
-          <img class="spot-img" src="img/03-cappadocia.webp" alt="カッパドキアの気球">
-          <span class="spot-rank">N°&nbsp;02</span>
-        </div>
-        <div class="spot-body">
-          <div class="spot-region">中央アナトリア / Cappadocia</div>
-          <div class="spot-name">カッパドキア</div>
-          <div class="spot-name-en">Göreme National Park</div>
-          <p class="spot-desc">気球と奇岩、洞窟ホテル。火山岩を削った地下都市と岩窟教会群がユネスコ世界遺産。トルコでもっとも幻想的な場所。</p>
-          <div class="spot-meta">
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Best</span>
-              <span class="spot-meta-val"><strong>4〜6月、9〜10月</strong>(気球の運航率が高い時期)</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Access</span>
-              <span class="spot-meta-val">イスタンブールから国内線で約1.5時間 → ネヴシェヒル空港</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Don't Miss</span>
-              <span class="spot-meta-val">気球ツアー(<strong>朝5時集合</strong>・夜明けの30分間)/ 洞窟ホテル泊</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 03 パムッカレ -->
-      <div class="spot-card">
-        <div class="spot-img-wrap">
-          <img class="spot-img" src="img/05-pamukkale.webp" alt="パムッカレの石灰棚">
-          <span class="spot-rank">N°&nbsp;03</span>
-        </div>
-        <div class="spot-body">
-          <div class="spot-region">南西部 / Denizli</div>
-          <div class="spot-name">パムッカレ &amp; ヒエラポリス</div>
-          <div class="spot-name-en">Pamukkale &amp; Hierapolis</div>
-          <p class="spot-desc">「綿の城」と呼ばれる白い石灰華段々と、隣接する古代ヒエラポリス遺跡。クレオパトラも入ったとされる温泉プールに浸かれる。</p>
-          <div class="spot-meta">
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Best</span>
-              <span class="spot-meta-val"><strong>4〜6月、9〜10月</strong>(夏は石灰岩が反射して暑い)</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Access</span>
-              <span class="spot-meta-val">イスタンブールから国内線でデニズリ空港 → バス約1時間</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Don't Miss</span>
-              <span class="spot-meta-val">夕日に染まる石灰棚 / アンティーク・プールでの遊泳</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 04 エフェソス -->
-      <div class="spot-card">
-        <div class="spot-img-wrap">
-          <img class="spot-img" src="img/10-ephesus.webp" alt="エフェソスのセルシウス図書館">
-          <span class="spot-rank">N°&nbsp;04</span>
-        </div>
-        <div class="spot-body">
-          <div class="spot-region">西部エーゲ / Selçuk</div>
-          <div class="spot-name">エフェソス古代都市</div>
-          <div class="spot-name-en">Ancient City of Ephesus</div>
-          <p class="spot-desc">古代ローマ時代の地中海世界第二の都市。セルシウス図書館、大劇場、アゴラ——保存状態は世界屈指。半日でじっくり歩ける。</p>
-          <div class="spot-meta">
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Best</span>
-              <span class="spot-meta-val"><strong>4〜5月、10月</strong>(日陰が少ないので夏は厳しい)</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Access</span>
-              <span class="spot-meta-val">クシャダス港から車で約30分 / イズミル空港から約1時間</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Don't Miss</span>
-              <span class="spot-meta-val">朝一番の入場(8時)で人混みを避ける / テラスハウスの内装は別料金で必見</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 05 アンタルヤ -->
-      <div class="spot-card">
-        <div class="spot-img-wrap">
-          <img class="spot-img" src="img/15-antalya.webp" alt="アンタルヤ旧市街(カレイチ)とヤット港">
-          <span class="spot-rank">N°&nbsp;05</span>
-        </div>
-        <div class="spot-body">
-          <div class="spot-region">地中海岸 / Antalya</div>
-          <div class="spot-name">アンタルヤ &amp; トルコ・リヴィエラ</div>
-          <div class="spot-name-en">Antalya &amp; the Turkish Riviera</div>
-          <p class="spot-desc">トルコのビーチリゾート首都。古代遺跡(アスペンドス円形劇場)と海、ヤット港、旧市街(カレイチ)が一度に楽しめる、ヨーロッパ屈指の保養地。</p>
-          <div class="spot-meta">
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Best</span>
-              <span class="spot-meta-val"><strong>5〜6月、9〜10月</strong>(夏は40°C超え、冬も温暖)</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Access</span>
-              <span class="spot-meta-val">イスタンブールから国内線で約1時間。直行便もあり</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Don't Miss</span>
-              <span class="spot-meta-val">アスペンドス円形劇場(夏は野外オペラ開催) / デュデン滝</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 06 アンカラ -->
-      <div class="spot-card">
-        <div class="spot-img-wrap">
-          <img class="spot-img" src="img/16-ankara.webp" alt="アタテュルク廟">
-          <span class="spot-rank">N°&nbsp;06</span>
-        </div>
-        <div class="spot-body">
-          <div class="spot-region">首都 / Ankara</div>
-          <div class="spot-name">アンカラ &amp; アナトリア文明博物館</div>
-          <div class="spot-name-en">Ankara &amp; Museum of Anatolian Civilizations</div>
-          <p class="spot-desc">首都ながら観光客は少なめ。アタテュルク廟と<strong>アナトリア文明博物館</strong>で、ヒッタイトから現代までの文明史を一日で総覧できる。学びの旅向き。</p>
-          <div class="spot-meta">
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Best</span>
-              <span class="spot-meta-val"><strong>春・秋</strong>(内陸高地で冬は雪、夏は乾燥)</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Access</span>
-              <span class="spot-meta-val">イスタンブールから高速鉄道(YHT)で約4.5時間 / 国内線約1時間</span>
-            </div>
-            <div class="spot-meta-row">
-              <span class="spot-meta-key">Don't Miss</span>
-              <span class="spot-meta-val">アナトリア文明博物館(年間の最優秀欧州博物館受賞歴あり)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- ─────────── 現代(CH.07) ─────────── -->
-<section class="chapter-modern" id="modern">
-  <div class="modern-inner">
-    <div class="section-num">CH. 07 — 現代</div>
-    <h2 class="section-title">いまの<br>トルコ</h2>
-    <p class="section-title-en">A Rising Power, A Tourist Magnet</p>
-
-    <!-- カッパドキア大判ショーケース -->
-    <div class="modern-showcase">
-      <img src="img/03-cappadocia.webp" alt="カッパドキアの気球と奇岩地帯">
-      <div class="modern-showcase-caption">
-        <div class="en">Cappadocia — the dreamscape of Anatolia</div>
-        <div class="ja">奇岩と気球、夢のような大地</div>
-      </div>
-    </div>
-
-    <div class="modern-stats">
-      <div class="modern-stat">
-        <div class="number">17<span class="unit">位</span></div>
-        <div class="label">GDP World Rank</div>
-        <p class="desc">名目GDP世界17位<br>新興国の主要メンバー</p>
-      </div>
-      <div class="modern-stat">
-        <div class="number">12<span class="unit">位</span></div>
-        <div class="label">PPP-Adjusted GDP</div>
-        <p class="desc">購買力平価ベースで<br>世界12位の経済規模</p>
-      </div>
-      <div class="modern-stat">
-        <div class="number">21</div>
-        <div class="label">UNESCO Heritage</div>
-        <p class="desc">世界遺産21件<br>無形文化遺産30件</p>
-      </div>
-      <div class="modern-stat">
-        <div class="number">5<span class="unit">位</span></div>
-        <div class="label">Global Tourism</div>
-        <p class="desc">世界第5位の観光大国<br>年間5000万人超が訪問</p>
-      </div>
-    </div>
-
-    <!-- カッパドキア奇岩 -->
-    <div style="margin-top:5rem;">
-      <img src="img/04-cappadocia-rocks.webp" alt="カッパドキアの奇岩地帯" style="width:100%;aspect-ratio:16/9;object-fit:cover;">
-    </div>
-
-    <div class="modern-text">
-      <p>
-        現在のトルコは、地政学的位置と歴史の重みを背負いながら、新興経済国として独自の軌道を描いている。
-      </p>
-      <p>
-        NATOの初期メンバーでありながら、近年は中東・中央アジアへの影響力拡大を志向する独自外交を展開。テレビドラマの輸出、ターキッシュ・エアラインズの世界網、観光、製造業——複数の柱で、地域大国としての立ち位置を固めつつある。
-      </p>
-      <p>
-        2022年、国際表記が「Turkey」から「Türkiye」に改められた。それは、外から呼ばれてきた名前ではなく、<strong style="color:var(--ottoman-red)">自分たちの言葉で自分たちを呼ぶ</strong>という、ささやかで決定的な宣言だった。
-      </p>
-    </div>
-  </div>
-</section>
 
 <!-- ─────────── FOOTER ─────────── -->
 <footer>
@@ -2931,214 +2201,11 @@
   </div>
 </footer>
 
-<!-- ─── HUB BADGE ─── -->
-<a href="/" class="lme-back-badge" aria-label="Back to index">
+<!-- ─── BACK TO TÜRKIYE BADGE ─── -->
+<a href="/turkey/" class="lme-back-badge" aria-label="Back to Türkiye">
   <span class="lme-back-arrow">←</span>
-  <span class="lme-back-text"><em>let me explain</em>… index</span>
+  <span class="lme-back-text"><em>Türkiye</em></span>
 </a>
-
-<script>
-  // NAV: スクロール時にスタイル変更
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > window.innerHeight * 0.5) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-  });
-</script>
-
-<!-- D3 + TopoJSON for location map -->
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js" defer></script>
-<script defer>
-  // 位置セクションの地図を D3 で描画
-  window.addEventListener('load', () => {
-    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
-      console.warn('D3 or topojson not loaded');
-      return;
-    }
-
-    const svgEl = document.getElementById('turkey-map-svg');
-    const loadingEl = document.getElementById('map-loading');
-    if (!svgEl) return;
-
-    const width = 800;
-    const height = 600;
-    svgEl.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-
-    const svg = d3.select(svgEl);
-
-    // ISO 3166-1 numeric codes
-    const TURKEY_ID = '792';
-    const NEIGHBORS = {
-      '300': 'ギリシャ',
-      '100': 'ブルガリア',
-      '196': 'キプロス',
-      '268': 'ジョージア',
-      '051': 'アルメニア',
-      '31':  'アゼルバイジャン',
-      '364': 'イラン',
-      '368': 'イラク',
-      '760': 'シリア',
-      '422': 'レバノン',
-      '642': 'ルーマニア',
-      '498': 'モルドバ',
-      '688': 'セルビア',
-      '807': '北マケドニア',
-      '008': 'アルバニア',
-    };
-
-    // トルコ周辺の経度緯度範囲
-    // 経度: 20°E - 50°E, 緯度: 33°N - 45°N
-    const projection = d3.geoMercator()
-      .center([36, 39.2])
-      .scale(1350)
-      .translate([width / 2, height / 2]);
-
-    const path = d3.geoPath(projection);
-
-    // 背景(海) 
-    svg.append('rect')
-       .attr('width', width).attr('height', height)
-       .attr('class', 'map-sea');
-
-    // 経緯線グリッド
-    const graticule = d3.geoGraticule().step([5, 5]);
-    svg.append('path')
-       .datum(graticule())
-       .attr('class', 'map-graticule')
-       .attr('d', path);
-
-    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
-      .then(world => {
-        const countries = topojson.feature(world, world.objects.countries).features;
-
-        // 周辺国(トルコ以外)
-        const neighborLayer = svg.append('g').attr('class', 'layer-neighbors');
-        countries.forEach(country => {
-          if (country.id === TURKEY_ID) return;
-          neighborLayer.append('path')
-            .datum(country)
-            .attr('class', NEIGHBORS[country.id] ? 'map-country-neighbor' : 'map-country')
-            .attr('d', path);
-        });
-
-        // トルコ本体(ハイライト)
-        const turkey = countries.find(c => c.id === TURKEY_ID);
-        if (turkey) {
-          svg.append('path')
-             .datum(turkey)
-             .attr('class', 'map-country-turkey')
-             .attr('d', path);
-        }
-
-        // 大陸ラベル
-        svg.append('text')
-          .attr('class', 'map-label-continent')
-          .attr('x', 80).attr('y', 60).text('EUROPE');
-        svg.append('text')
-          .attr('class', 'map-label-continent')
-          .attr('x', width - 160).attr('y', 60).text('ASIA');
-
-        // 海ラベル
-        const seaLabels = [
-          { en: 'BLACK  SEA', ja: '黒海', lng: 34.5, lat: 43.5, size: 14 },
-          { en: 'MEDITERRANEAN  SEA', ja: '地中海', lng: 32.5, lat: 34.5, size: 12 },
-          { en: 'AEGEAN  SEA', ja: 'エーゲ海', lng: 25, lat: 38.5, size: 11 },
-          { en: 'CASPIAN  SEA', ja: 'カスピ海', lng: 50.5, lat: 41.5, size: 10 },
-        ];
-        seaLabels.forEach(s => {
-          const [x, y] = projection([s.lng, s.lat]);
-          if (x < 0 || x > width || y < 0 || y > height) return;
-          svg.append('text')
-            .attr('class', 'map-label-sea')
-            .attr('x', x).attr('y', y)
-            .attr('font-size', s.size)
-            .text(s.en);
-          svg.append('text')
-            .attr('class', 'map-label-sea-ja')
-            .attr('x', x).attr('y', y + s.size + 2)
-            .attr('font-size', s.size * 0.75)
-            .text(s.ja);
-        });
-
-        // 周辺国ラベル(主要のみ)
-        const neighborLabels = [
-          { name: 'ギリシャ', lng: 22, lat: 39 },
-          { name: 'ブルガリア', lng: 25, lat: 42.5 },
-          { name: 'ジョージア', lng: 43, lat: 42.3 },
-          { name: 'アルメニア', lng: 45.2, lat: 40.3 },
-          { name: 'イラン', lng: 47.5, lat: 36.5 },
-          { name: 'イラク', lng: 44, lat: 34.5 },
-          { name: 'シリア', lng: 38.5, lat: 35 },
-          { name: 'キプロス', lng: 33.5, lat: 34.9 },
-        ];
-        neighborLabels.forEach(n => {
-          const [x, y] = projection([n.lng, n.lat]);
-          svg.append('text')
-            .attr('class', 'map-label-country')
-            .attr('x', x).attr('y', y)
-            .text(n.name);
-        });
-
-        // トルコの国名ラベル(中央に大きく)
-        const [tx, ty] = projection([35.5, 39.3]);
-        svg.append('text')
-          .attr('class', 'map-label-turkey')
-          .attr('x', tx).attr('y', ty)
-          .text('トルコ');
-        svg.append('text')
-          .attr('class', 'map-label-turkey-en')
-          .attr('x', tx).attr('y', ty + 18)
-          .text('TÜRKİYE');
-
-        // 都市マーカー
-        const cities = [
-          { name: 'ISTANBUL', lng: 28.98, lat: 41.01, star: true },
-          { name: 'ANKARA ★', lng: 32.87, lat: 39.93, ankara: true },
-        ];
-        cities.forEach(c => {
-          const [x, y] = projection([c.lng, c.lat]);
-          const g = svg.append('g');
-          if (c.star) {
-            g.append('circle')
-              .attr('class', 'map-city-dot')
-              .attr('cx', x).attr('cy', y).attr('r', 3.5);
-            g.append('circle')
-              .attr('fill', 'none').attr('stroke', '#faf3e2').attr('stroke-width', 1)
-              .attr('cx', x).attr('cy', y).attr('r', 6).attr('opacity', 0.6);
-          } else {
-            g.append('circle')
-              .attr('class', 'map-city-dot map-city-ankara')
-              .attr('cx', x).attr('cy', y).attr('r', 3);
-          }
-          g.append('text')
-            .attr('class', c.ankara ? 'map-label-city map-label-city-ankara' : 'map-label-city')
-            .attr('x', x + 8).attr('y', y + 3)
-            .text(c.name);
-        });
-
-        // Legend
-        svg.append('text')
-          .attr('class', 'map-legend')
-          .attr('x', 24).attr('y', 30)
-          .text('N°003 · LOCATION MAP');
-        svg.append('line')
-          .attr('x1', 24).attr('y1', 36).attr('x2', 200).attr('y2', 36)
-          .attr('stroke', '#c89e3c').attr('stroke-width', 0.4).attr('opacity', 0.5);
-
-        // ローディング非表示
-        if (loadingEl) loadingEl.classList.add('hidden');
-      })
-      .catch(err => {
-        console.error('Map load failed:', err);
-        if (loadingEl) loadingEl.textContent = 'Map failed to load';
-      });
-  });
-</script>
 
 </body>
 </html>
