@@ -2133,7 +2133,7 @@
     max-width: 1200px;
     margin: 0 auto 2rem;
     aspect-ratio: 16 / 10;
-    background: #e8dfc8;
+    background: #c0d4e0;
     border: 1px solid rgba(15, 40, 64, 0.12);
     overflow: hidden;
   }
@@ -2150,14 +2150,15 @@
   }
 
   /* 地図の水域・陸地・区境界スタイル(SVG内で指定) */
+  .city-map-sea { fill: #c0d4e0; }
   .city-map-water { fill: #9cc7db; }
   .city-map-land { fill: #e8dfc8; }
-  .city-map-coastline { fill: none; stroke: #446583; stroke-width: 0.8px; stroke-linejoin: round; stroke-linecap: round; }
-  .city-map-district { fill: rgba(201, 169, 97, 0.25); stroke: #8a7340; stroke-width: 0.8px; stroke-linejoin: round; transition: fill 0.3s; }
-  .city-map-district.historic { fill: rgba(196, 30, 30, 0.35); }
-  .city-map-district.new { fill: rgba(201, 169, 97, 0.45); }
-  .city-map-district.asian { fill: rgba(37, 99, 168, 0.30); }
-  .city-map-district.dim { fill: rgba(201, 169, 97, 0.12); stroke-width: 0.4px; }
+  .city-map-coastline { fill: none; stroke: #556e86; stroke-width: 0.7px; stroke-linejoin: round; stroke-linecap: round; opacity: 0.5; }
+  .city-map-district { fill: rgba(232, 223, 200, 0.85); stroke: #8a7340; stroke-width: 0.7px; stroke-linejoin: round; transition: fill 0.3s; }
+  .city-map-district.historic { fill: rgba(196, 30, 30, 0.55); }
+  .city-map-district.new { fill: rgba(201, 169, 97, 0.70); }
+  .city-map-district.asian { fill: rgba(37, 99, 168, 0.50); }
+  .city-map-district.dim { fill: rgba(232, 223, 200, 0.65); stroke-width: 0.4px; }
   .city-map-label {
     font-family: 'Bodoni Moda', serif;
     font-style: italic;
@@ -2171,6 +2172,16 @@
   }
   .city-map-label-en { font-size: 11px; letter-spacing: 0.12em; fill: #6b5b3e; font-style: italic; text-transform: uppercase; }
   .city-map-label-ja { font-size: 13px; font-family: 'Shippori Mincho', serif; font-style: normal; font-weight: 700; }
+  .city-map-label-sea {
+    fill: #405a72;
+    font-style: italic;
+    text-transform: uppercase;
+    paint-order: stroke;
+    stroke: rgba(192, 212, 224, 0.9);
+    stroke-width: 2.5px;
+    stroke-linejoin: round;
+  }
+  .city-map-label-sea.city-map-label-ja { fill: #3a4e60; font-weight: 500; }
 
   /* 3エリアの凡例 */
   .city-map-legend {
@@ -2251,7 +2262,7 @@
     aspect-ratio: 1 / 1;
     max-width: 480px;
     margin-left: auto;
-    background: #e8dfc8;
+    background: #c0d4e0;
     border: 1px solid rgba(15, 40, 64, 0.12);
     overflow: hidden;
     position: relative;
@@ -2352,6 +2363,168 @@
     .city-map-legend { gap: 1rem; justify-content: flex-start; }
     .city-map-lead { font-size: 1.1rem; padding-left: 1rem; }
   }
+
+  /* ─────────── ボスポラス章(コンパクト版・新設) ─────────── */
+  .bosphorus-chapter {
+    padding: 6rem 3rem;
+    background: var(--ottoman-deep);
+    color: var(--paper);
+  }
+  .bosphorus-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .bosphorus-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.4);
+  }
+  .bosphorus-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05);
+  }
+  .bosphorus-media-caption {
+    position: absolute;
+    bottom: 1.3rem;
+    left: 1.3rem;
+    right: 1.3rem;
+    color: var(--paper);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  }
+  .bosphorus-media-caption .cap-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    color: var(--gold-soft);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .bosphorus-media-caption .cap-ja {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--paper);
+  }
+  .bosphorus-text .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .bosphorus-text .section-num::before { content: '— '; color: var(--ottoman-red); margin-right: 0.4rem; }
+  .bosphorus-title {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    line-height: 1.05;
+    margin-bottom: 0.3rem;
+    color: var(--paper);
+  }
+  .bosphorus-title-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--gold-soft);
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+  }
+  .bosphorus-text p {
+    font-size: 1rem;
+    line-height: 2;
+    color: rgba(250, 243, 226, 0.82);
+    margin-bottom: 1.2rem;
+  }
+  .bosphorus-text p strong { color: var(--gold-soft); font-weight: 500; }
+  .bosphorus-text p em { font-style: normal; color: var(--gold); font-family: 'Shippori Mincho', serif; font-weight: 500; }
+
+  .bosphorus-chapter .three-empires-wrap { margin-top: 5rem; }
+
+  /* ─────────── アヤソフィア章(コンパクト) ─────────── */
+  .hagia-chapter {
+    padding: 6rem 3rem;
+    background: var(--paper);
+    color: var(--bg-deeper);
+  }
+  .hagia-inner { max-width: 1300px; margin: 0 auto; }
+  .hagia-header { margin-bottom: 2.5rem; text-align: center; }
+  .hagia-header .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--ottoman-red);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .hagia-header .section-num::before { content: '— '; margin-right: 0.4rem; }
+  .hagia-header .section-num::after { content: ' —'; margin-left: 0.4rem; }
+  .hagia-title {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    color: var(--bg-deeper);
+    margin-bottom: 0.4rem;
+  }
+  .hagia-title-en {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--ottoman-red);
+    letter-spacing: 0.03em;
+  }
+  .hagia-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .hagia-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .hagia-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .hagia-text {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  .hagia-text p {
+    font-family: 'Cormorant Garamond', 'Shippori Mincho', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.9;
+    color: var(--bg-deeper);
+  }
+  .hagia-text p strong { color: var(--ottoman-red); font-style: normal; font-family: 'Shippori Mincho', serif; font-weight: 500; }
+
+  /* モバイル:新セクションの対応 */
+  @media (max-width: 900px) {
+    .bosphorus-chapter { padding: 4rem 1.5rem; }
+    .bosphorus-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .bosphorus-chapter .three-empires-wrap { margin-top: 3rem; }
+    .hagia-chapter { padding: 4rem 1.5rem; }
+    .hagia-photos { grid-template-columns: 1fr; gap: 0.8rem; }
+    .hagia-photo { aspect-ratio: 16 / 10; }
+    .hagia-text p { font-size: 1.1rem; }
+  }
 </style>
 </head>
 <body>
@@ -2383,20 +2556,59 @@
       </p>
     </div>
   </div>
+</section>
 
-  <!-- ボスポラス海峡:二大陸都市の証 -->
-  <div class="bosphorus-showcase">
-    <img src="../img/02-bosphorus.webp" alt="ボスポラス大橋 — アジア側とヨーロッパ側を結ぶ">
-    <div class="bosphorus-caption">
-      <div class="cap-en">The Bosphorus Bridge — where Asia meets Europe</div>
-      <div class="cap-ja">一本の橋が、アジアとヨーロッパを縫い合わせる</div>
+<!-- ─────────── 街の地図(ヒーロー直後に配置) ─────────── -->
+<section class="city-map-chapter" id="city-map">
+  <div class="city-map-inner">
+    <div class="section-num">CH. 01 — 街の、地図</div>
+    <h2 class="section-title">街の、<br>かたち</h2>
+    <p class="section-title-en">A Map of the City</p>
+
+    <p class="city-map-lead">
+      北に<em>黒海</em>、南に<em>マルマラ海</em>。二つの海を細く繋ぐ<em>ボスポラス海峡</em>の、ちょうど真ん中に広がる街。<br>
+      ヨーロッパ側は<em>金角湾</em>でさらに南北に分かれ、<em>三つの顔</em>がひとつの都市に同居している。
+    </p>
+
+    <div class="city-map-wrap">
+      <div class="city-map-caption">ISTANBUL · OVERVIEW</div>
+      <svg id="city-map-svg" role="img" aria-label="イスタンブール全体地図"></svg>
+    </div>
+
+    <div class="city-map-legend">
+      <div class="city-map-legend-item">
+        <span class="city-map-legend-swatch swatch-historic"></span>
+        <span>旧市街 — Fatih</span>
+      </div>
+      <div class="city-map-legend-item">
+        <span class="city-map-legend-swatch swatch-new"></span>
+        <span>新市街 — Beyoğlu / Beşiktaş</span>
+      </div>
+      <div class="city-map-legend-item">
+        <span class="city-map-legend-swatch swatch-asian"></span>
+        <span>アジア側 — Kadıköy / Üsküdar</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="bosphorus-body">
-    <p>市内を南北に貫く、長さ約30km・最狭部700mの<strong>ボスポラス海峡</strong>。この細い水路が、<em>アジア側(アナドル)</em>と<em>ヨーロッパ側(アヴルパ)</em>を物理的に分けている。イスタンブールは世界で唯一、<strong>二つの大陸に跨がる都市</strong>。</p>
-    <p>写真の橋は<strong>第一ボスポラス大橋(1973年開通)</strong>。全長1,560m、二大陸を陸路で結ぶ人類初の橋として架けられた。現在は第二・第三の橋と海底鉄道トンネル(マルマライ)も加わり、毎日数百万人がこの海峡を越えて通勤する。</p>
-    <p>地形が街を分け、人が街を繋ぎ直す——<strong>「分断と接続が同時に起きている」</strong>のが、この都市の本質。そしてその上に、三つの帝国が千七百年をかけて層を重ねてきた。</p>
+<!-- ─────────── ボスポラス海峡(コンパクト) ─────────── -->
+<section class="bosphorus-chapter">
+  <div class="bosphorus-inner">
+    <div class="bosphorus-media">
+      <img src="../img/02-bosphorus.webp" alt="ボスポラス大橋 — アジア側とヨーロッパ側を結ぶ">
+      <div class="bosphorus-media-caption">
+        <div class="cap-en">The Bosphorus Bridge</div>
+        <div class="cap-ja">一本の橋が、アジアとヨーロッパを縫い合わせる</div>
+      </div>
+    </div>
+    <div class="bosphorus-text">
+      <div class="section-num">CH. 02 — 海峡</div>
+      <h3 class="bosphorus-title">ボスポラス<br>海峡</h3>
+      <p class="bosphorus-title-en">The Bosphorus</p>
+      <p>長さ約30km・最狭部700mの細い水路が、<em>アジア側(アナドル)</em>と<em>ヨーロッパ側(アヴルパ)</em>を物理的に分けている。イスタンブールは世界で唯一、<strong>二つの大陸に跨がる都市</strong>。</p>
+      <p>地形が街を分け、人が街を繋ぎ直す——<strong>分断と接続が同時に起きている</strong>のが、この都市の本質。その上に、三つの帝国が千七百年をかけて層を重ねてきた。</p>
+    </div>
   </div>
 
   <!-- 三大帝国 -->
@@ -2422,58 +2634,23 @@
       </div>
     </div>
   </div>
-
-  <!-- アヤソフィア外観 -->
-  <div style="background:#fff;">
-    <img src="../img/07-hagia-sophia-ext.webp" alt="アヤソフィア外観" style="width:100%;max-height:75vh;object-fit:cover;">
-  </div>
-
-  <!-- アヤソフィア内部フル幅 -->
-  <div class="hagia-interior-showcase">
-    <img src="../img/08-hagia-sophia-int.webp" alt="アヤソフィア内部 — 聖母子像とAllahのカリグラフィー">
-    <div class="hagia-interior-caption">
-      <div class="small-cap">HAGIA SOPHIA · INSIDE</div>
-      <h4>聖母子像と、Allah の書——<br>ひとつの天井の下で、二つの信仰が並ぶ</h4>
-      <p>
-        537年、ビザンツ皇帝ユスティニアヌスが建てた大聖堂。
-        1453年、オスマン征服後はモスクへ。
-        黄金のモザイクとアラビア書道の円盤が、
-        同じドームの下で千五百年の物語を語り続ける。
-      </p>
-    </div>
-  </div>
 </section>
 
-<!-- ─────────── 街の地図(新設) ─────────── -->
-<section class="city-map-chapter" id="city-map">
-  <div class="city-map-inner">
-    <div class="section-num">CH. 02 — 街の、地図</div>
-    <h2 class="section-title">街の、<br>かたち</h2>
-    <p class="section-title-en">A Map of the City</p>
-
-    <p class="city-map-lead">
-      ボスポラス海峡を挟んだヨーロッパ側、そしてアジア側。<br>
-      ヨーロッパ側はさらに<em>金角湾</em>で南北に分かれ、<br>
-      歴史の異なる<em>三つの顔</em>がひとつの街に同居している。
-    </p>
-
-    <div class="city-map-wrap">
-      <div class="city-map-caption">ISTANBUL · OVERVIEW</div>
-      <svg id="city-map-svg" role="img" aria-label="イスタンブール全体地図"></svg>
+<!-- ─────────── アヤソフィア(外観+内部を統合してコンパクト) ─────────── -->
+<section class="hagia-chapter">
+  <div class="hagia-inner">
+    <div class="hagia-header">
+      <div class="section-num">CH. 03 — 二つの信仰</div>
+      <h3 class="hagia-title">アヤソフィア</h3>
+      <p class="hagia-title-en">Hagia Sophia — 537 AD</p>
     </div>
-
-    <div class="city-map-legend">
-      <div class="city-map-legend-item">
-        <span class="city-map-legend-swatch swatch-historic"></span>
-        <span>旧市街(ヨーロッパ・南)— Fatih</span>
+    <div class="hagia-body">
+      <div class="hagia-photos">
+        <img src="../img/07-hagia-sophia-ext.webp" alt="アヤソフィア外観" class="hagia-photo hagia-photo-ext">
+        <img src="../img/08-hagia-sophia-int.webp" alt="アヤソフィア内部 — 聖母子像とAllahのカリグラフィー" class="hagia-photo hagia-photo-int">
       </div>
-      <div class="city-map-legend-item">
-        <span class="city-map-legend-swatch swatch-new"></span>
-        <span>新市街(ヨーロッパ・北)— Beyoğlu / Beşiktaş</span>
-      </div>
-      <div class="city-map-legend-item">
-        <span class="city-map-legend-swatch swatch-asian"></span>
-        <span>アジア側 — Kadıköy / Üsküdar</span>
+      <div class="hagia-text">
+        <p>537年、ビザンツ皇帝ユスティニアヌスが建てた大聖堂。1453年、オスマン征服後はモスクへ。黄金のモザイクとアラビア書道の円盤が、<strong>ひとつのドームの下で二つの信仰</strong>を並べる——千五百年の物語。</p>
       </div>
     </div>
   </div>
@@ -2761,11 +2938,26 @@
       svg.selectAll('*').remove();
       svg.attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
 
-      // 背景(陸地)
-      svg.append('rect').attr('width', width).attr('height', height).attr('class', 'city-map-land');
+      // 背景(海/周辺) — 青ではなく静かなグレーブルー
+      svg.append('rect').attr('width', width).attr('height', height).attr('class', 'city-map-sea');
 
-      // 5区のFeatureCollectionとしてfit
-      const proj = d3.geoMercator().fitSize([width, height], { type: 'FeatureCollection', features: districtFeatures });
+      // 「街だけ」ではなく「周辺海域もぎりぎり見える」引き範囲で fit
+      // bbox: 西 28.85° / 東 29.25° / 北 41.22°(黒海入口) / 南 40.90°(マルマラ海入口)
+      // d3-geo向けに clockwise(CW)で座標を並べる(CCW=GeoJSON仕様ではd3が地球全体と誤解釈する)
+      const bboxFeature = {
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: [[
+            [28.85, 40.90], // SW
+            [28.85, 41.22], // NW
+            [29.25, 41.22], // NE
+            [29.25, 40.90], // SE
+            [28.85, 40.90], // close
+          ]],
+        },
+      };
+      const proj = d3.geoMercator().fitSize([width, height], bboxFeature);
       const pathFn = d3.geoPath(proj);
 
       // 水域は描けないが、海岸線を描いて陸と海の境目を表現
@@ -2832,19 +3024,31 @@
           .text(d.ja);
       });
 
-      // 余白情報:ボスポラス海峡の名前(真ん中に縦に)
-      // おおまかに Fatih と Üsküdar の中間をマーク
-      if (areaCentroids.historic && areaCentroids.asian) {
-        const bsX = (areaCentroids.historic[0] + areaCentroids.asian[0]) / 2;
-        const bsY = (areaCentroids.historic[1] + areaCentroids.asian[1]) / 2 - 50;
-        labels.append('text')
-          .attr('x', bsX).attr('y', bsY)
+      // 余白情報:海域のラベル
+      // 緯度経度で位置指定 → projection で投影
+      const seaLabels = [
+        { lng: 29.10, lat: 41.20, en: 'BLACK SEA',      ja: '黒海',      size: 13 },
+        { lng: 28.95, lat: 40.93, en: 'SEA OF MARMARA', ja: 'マルマラ海', size: 12 },
+        { lng: 29.09, lat: 41.11, en: 'BOSPHORUS',      ja: '',          size: 10, rotate: -80, letterSpacing: '0.3em' },
+      ];
+      seaLabels.forEach(d => {
+        const [cx, cy] = proj([d.lng, d.lat]);
+        if (isNaN(cx) || isNaN(cy)) return;
+        const g = labels.append('g').attr('transform', `translate(${cx},${cy})`);
+        if (d.rotate) g.attr('transform', `translate(${cx},${cy}) rotate(${d.rotate})`);
+        g.append('text')
           .attr('text-anchor', 'middle')
-          .attr('class', 'city-map-label city-map-label-en')
-          .style('fill', '#446583')
-          .style('letter-spacing', '0.3em')
-          .text('BOSPHORUS');
-      }
+          .attr('class', 'city-map-label city-map-label-en city-map-label-sea')
+          .style('font-size', d.size + 'px')
+          .style('letter-spacing', d.letterSpacing || '0.25em')
+          .text(d.en);
+        if (d.ja) {
+          g.append('text')
+            .attr('text-anchor', 'middle').attr('y', 14)
+            .attr('class', 'city-map-label city-map-label-ja city-map-label-sea')
+            .text(d.ja);
+        }
+      });
     }
 
     // 全体地図
