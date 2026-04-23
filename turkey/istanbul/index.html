@@ -2302,12 +2302,81 @@
     flex-direction: column;
   }
   .spot-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(15, 40, 64, 0.25); }
+
+  /* スポット写真(上半分) */
+  .spot-photo-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: linear-gradient(135deg, #d8cfb8 0%, #c5b89a 100%);
+    position: relative;
+  }
+  .spot-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .spot-card:hover .spot-photo { transform: scale(1.04); }
+  /* 写真がない時のプレースホルダ */
+  .spot-photo-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    color: rgba(15, 40, 64, 0.35);
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(15, 40, 64, 0.04) 12px, rgba(15, 40, 64, 0.04) 13px);
+  }
+  .spot-photo-placeholder .ph-icon {
+    width: 48px; height: 48px;
+    border: 1px solid rgba(15, 40, 64, 0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    font-style: normal;
+  }
+
+  /* 地図(写真の下に配置) */
   .spot-map-embed {
     width: 100%;
     aspect-ratio: 16 / 10;
     border: 0;
     display: block;
     background: #d8cfb8;
+    border-top: 1px solid rgba(15, 40, 64, 0.08);
+  }
+
+  /* フィーチャーカード(写真2枚並べる代表スポット、フル幅) */
+  .spot-card-feature {
+    grid-column: 1 / -1;
+  }
+  .spot-feature-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--paper);
+  }
+  .spot-feature-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .spot-card-feature:hover .spot-feature-photo { transform: scale(1.03); }
+  .spot-card-feature .spot-map-embed { aspect-ratio: 21 / 9; }
+  @media (max-width: 700px) {
+    .spot-feature-photos { grid-template-columns: 1fr; }
+    .spot-feature-photo { aspect-ratio: 16 / 10; }
+    .spot-card-feature .spot-map-embed { aspect-ratio: 16 / 10; }
   }
   .spot-body { padding: 1.4rem 1.6rem 1.6rem; }
   .spot-num {
@@ -2637,27 +2706,8 @@
 </section>
 
 <!-- ─────────── アヤソフィア(外観+内部を統合してコンパクト) ─────────── -->
-<section class="hagia-chapter">
-  <div class="hagia-inner">
-    <div class="hagia-header">
-      <div class="section-num">CH. 03 — 二つの信仰</div>
-      <h3 class="hagia-title">アヤソフィア</h3>
-      <p class="hagia-title-en">Hagia Sophia — 537 AD</p>
-    </div>
-    <div class="hagia-body">
-      <div class="hagia-photos">
-        <img src="../img/07-hagia-sophia-ext.webp" alt="アヤソフィア外観" class="hagia-photo hagia-photo-ext">
-        <img src="../img/08-hagia-sophia-int.webp" alt="アヤソフィア内部 — 聖母子像とAllahのカリグラフィー" class="hagia-photo hagia-photo-int">
-      </div>
-      <div class="hagia-text">
-        <p>537年、ビザンツ皇帝ユスティニアヌスが建てた大聖堂。1453年、オスマン征服後はモスクへ。黄金のモザイクとアラビア書道の円盤が、<strong>ひとつのドームの下で二つの信仰</strong>を並べる——千五百年の物語。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────── エリア1: 旧市街 ─────────── -->
-<section class="area-section" id="area-historic">
+<!-- ─────────── エリア1: 旧市街(アヤソフィアもここに統合) ─────────── -->
+<section class="area-section area-section-historic" id="area-historic">
   <div class="area-inner">
     <div class="area-header">
       <div class="area-header-text">
@@ -2665,7 +2715,10 @@
         <h3 class="area-name">旧市街</h3>
         <div class="area-name-en">The Historic Peninsula</div>
         <p class="area-intro">
-          金角湾と<strong>マルマラ海</strong>に挟まれた、三角形の半島。ローマ帝国の<strong>コンスタンティノープル</strong>、東ローマ帝国の首都、オスマン帝国の中枢。ここに三つの帝国の遺産が折り重なる。アヤソフィア、ブルーモスク、トプカプ宮殿——徒歩でめぐれる範囲に、千七百年が詰まっている。
+          金角湾と<strong>マルマラ海</strong>に挟まれた、三角形の半島。ローマ帝国の<strong>コンスタンティノープル</strong>、東ローマ帝国の首都、オスマン帝国の中枢。ここに三つの帝国の遺産が折り重なる。
+        </p>
+        <p class="area-intro">
+          中心は<strong>スルタンアフメト広場</strong>。537年完成の<strong>アヤソフィア</strong>と1616年完成の<strong>ブルーモスク</strong>が向かい合い、その隣にトプカプ宮殿、グランドバザール——徒歩でめぐれる範囲に、千七百年が詰まっている。
         </p>
       </div>
       <div class="area-map-wrap">
@@ -2675,18 +2728,28 @@
 
     <div class="spots-label">5 Spots — 歩いて巡れる</div>
     <div class="spots-grid">
-      <div class="spot-card">
+
+      <!-- アヤソフィア(写真2枚で歴史を語る代表スポット、横長カード) -->
+      <div class="spot-card spot-card-feature">
+        <div class="spot-feature-photos">
+          <img class="spot-feature-photo" src="../img/07-hagia-sophia-ext.webp" alt="アヤソフィア外観">
+          <img class="spot-feature-photo" src="../img/08-hagia-sophia-int.webp" alt="アヤソフィア内部 — 聖母子像とAllahのカリグラフィー">
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Hagia%20Sophia%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
           <div class="spot-num">i.</div>
           <h4 class="spot-name">アヤソフィア</h4>
-          <div class="spot-name-en">Ayasofya Camii</div>
-          <p class="spot-desc">537年、ビザンツ皇帝ユスティニアヌスが建てた大聖堂。キリスト教とイスラムの二つの信仰が同じ天井の下で重なる世界遺産。</p>
+          <div class="spot-name-en">Ayasofya Camii — 537 AD</div>
+          <p class="spot-desc">ビザンツ皇帝ユスティニアヌスが建てた大聖堂。1453年、オスマン征服後はモスクへ。<strong>聖母子像とAllahのカリグラフィーが、ひとつのドームの下で並ぶ</strong>——千五百年の物語を語る世界遺産。</p>
           <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Ayasofya+Camii+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
         </div>
       </div>
+
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <img class="spot-photo" src="../img/09-blue-mosque.webp" alt="ブルーモスク">
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Sultan%20Ahmet%20Camii%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2697,7 +2760,11 @@
           <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Sultan+Ahmet+Camii+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
         </div>
       </div>
+
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">⌂</div><span>Topkapı Palace</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Topkapi%20Palace%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2708,7 +2775,11 @@
           <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Topkapi+Palace+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
         </div>
       </div>
+
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <img class="spot-photo" src="../img/11-grand-bazaar.webp" alt="グランドバザール">
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Grand%20Bazaar%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2719,7 +2790,11 @@
           <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Grand+Bazaar+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
         </div>
       </div>
+
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">⊕</div><span>Spice Bazaar</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Spice%20Bazaar%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2730,6 +2805,7 @@
           <a class="spot-link" href="https://www.google.com/maps/search/?api=1&query=Spice+Bazaar+Istanbul" target="_blank" rel="noopener">Open in Maps →</a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -2754,6 +2830,9 @@
     <div class="spots-label">4 Spots — 坂の街を歩く</div>
     <div class="spots-grid">
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">⌖</div><span>Galata Tower</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Galata%20Tower%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2765,6 +2844,9 @@
         </div>
       </div>
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">⊟</div><span>İstiklal Caddesi</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Istiklal%20Caddesi%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2776,6 +2858,9 @@
         </div>
       </div>
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">◊</div><span>Taksim Square</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Taksim%20Square%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2787,6 +2872,9 @@
         </div>
       </div>
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">▣</div><span>Pera Museum</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Pera%20Museum%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2821,6 +2909,9 @@
     <div class="spots-label">4 Spots — 海峡の向こう側</div>
     <div class="spots-grid">
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">⌖</div><span>Maiden's Tower</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Maiden%27s%20Tower%20Istanbul&z=15&output=embed"></iframe>
         <div class="spot-body">
@@ -2832,6 +2923,9 @@
         </div>
       </div>
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">⊕</div><span>Kadıköy Market</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Kadikoy%20Market%20Istanbul&z=16&output=embed"></iframe>
         <div class="spot-body">
@@ -2843,6 +2937,9 @@
         </div>
       </div>
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">▲</div><span>Çamlıca Hill</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Camlica%20Hill%20Istanbul&z=14&output=embed"></iframe>
         <div class="spot-body">
@@ -2854,6 +2951,9 @@
         </div>
       </div>
       <div class="spot-card">
+        <div class="spot-photo-wrap">
+          <div class="spot-photo-placeholder"><div class="ph-icon">⌂</div><span>Kuzguncuk</span></div>
+        </div>
         <iframe class="spot-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Kuzguncuk%20Istanbul&z=15&output=embed"></iframe>
         <div class="spot-body">
